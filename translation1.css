@@ -1,0 +1,7 @@
+.original_art a,.first a {
+	text-decoration: none;
+	color: #808080
+}
+.original_art a:hover,.first a:hover {
+	color:black;
+}

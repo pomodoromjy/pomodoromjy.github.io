@@ -1,0 +1,89 @@
+body {
+	background-image: url(./images/TB20YbkppXXXXXAXFXXXXXXXXXX_!!827938657.jpg);
+	background-repeat: repeat-x;
+}
+#container_hide {
+	width: 500px;
+	height: 30px;
+	background: #FEFEFE;
+	margin: 0 auto;
+    border-radius: 2em;
+    opacity: 0.6;
+    display: none;
+}
+#zhankai {
+	width: 30px;
+	height: 30px;
+	display: block;
+	float: right;
+}
+#container_normal {
+	width: 500px;
+	height: 250px;
+	background: #FEFEFE;
+	margin: 180px auto;
+    border-radius: 1em;
+    opacity: 0.6;
+}
+#header {
+	text-align: center;
+	color: #FEFEFE;
+	line-height: 40px;
+}
+#shouqi {
+	width: 30px;
+	height: 30px;
+	display: block;
+	float: right;
+}
+#logo a { 
+	color: #8A8F8A;
+	font-size: 25px;
+	text-decoration: none;
+	font-weight: bold;
+}
+#logo a:hover {
+	color: black;
+}
+#info {
+	color: #8A8F8A;
+	font-size: 18px;
+	letter-spacing: 0.2em;
+	text-indent: -2em;
+}
+#main {
+	width: 400px;
+	height: 30px;
+	border-radius: 2em;
+	line-height: 30px;
+	background: #eee;
+	margin: 0 auto;
+}
+#main ul li {
+	list-style: none;
+	float: left;
+	display: inline-block;
+	padding-right: 10px;
+	color: #8A8F8A;
+}
+#main ul li a {
+	text-decoration: none;
+	color: #8A8F8A;
+	font-size: 18px;
+}
+#main ul li a:hover {
+	color: white;
+}
+#footer li {
+	list-style: none;
+	float: right;
+	font-size: 18px;
+	color: #8A8F8A;
+}
+#footer li a {
+	text-decoration: none;
+	color: #8A8F8A;
+}
+#footer li a:hover {
+	color: black;
+}

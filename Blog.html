@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>	
+<link rel="stylesheet" type="text/css" href="Blog.css">
+<script type="text/javascript" src="Blog.js"></script>
+	<meta charset="UTF-8">
+	<title>Blog</title>
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><a href="./index.html">Pomodoro</a></div>
+		<div id="menu">
+			<img onclick="show_menu()" src="./images/menu.png" alt="菜单" id="menu_img">&nbsp;&nbsp;Blog
+		</div>
+	</div>
+	<div id="side_bar">
+			<div id="jishu"><a href="./jishu.html">技术</a></div><hr/>
+			<div id="dushu"><a href="#">读书</a></div><hr/>
+			<div id="suosui"><a href="#">琐碎</a></div><hr/>
+			<div id="translation"><a href="./translation1.html">翻译</a></div>
+	</div>
+	<div id="main" onclick="hide_menu()">
+		<div id="item">
+				<div id="title">js 基础之选项卡切换</div>
+				<div id="art">
+					<p class="p1">昨天在慕课网接触到了一个 javascript 基础教程，教程的最后要求完成选项卡切换的效果。效果图如下：</p>
+					<div class="img_center"><img src="http://upload-images.jianshu.io/upload_images/3771306-0127d2cc349976be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></div>
+
+<p  class="p2">选项卡切换效果图</p>
+<div class="img_center"><img src="http://upload-images.jianshu.io/upload_images/3771306-263931a090028234.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></div>
+<p  class="p2">选项卡切换效果图</p>
+<div class="img_center"><img src="http://upload-images.jianshu.io/upload_images/3771306-668e0804470cdcb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  class="p2"></div>
+<p  class="p2">选项卡切换效果图</p>
+<p class="p1">为了加强自己的记忆，同时也鼓励自己继续学习，所以试着写文章记录一下。</p>
+<p class="p1">首先，考虑整个选项卡的布局。整个选项卡从大的方向看只有两部分，一部分是选项卡标题；另一部分则是选项卡的内容。选项卡标题可以用无序列表标签 ul 实现，选项卡内容则可以放在一个 div 标签里。嗯，布局决定好了，现在就可以往 html 文件里写内容啦~</p>
+<div class="img_center"><img src="http://upload-images.jianshu.io/upload_images/3771306-91c1c6584aefae61.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  class="p2"></div>
+<p  class="p2">html 代码</p>
+<p class="p1">现在的效果图是这样的，很丑</p>
+<div class="img_center"><img src="http://upload-images.jianshu.io/upload_images/3771306-74c57a21612de214.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  class="p2"></div>
+<p  class="p2">初始效果图</p>
+<p class="p1">所以下一步就是利用 css 美化页面啦~</p>
+<p class="p1">先将 css 文件链接到 html 文件中。现在开始真正地编辑 css 代码了。首先，需要去掉列表前面的原点，list-style: none；把 display 属性设置为 inline-block，这样不仅可以将内联元素转换为块状元素从而设置宽高，而且还可以避免因设置 padding 属性导致元素宽高发生变化的问题；为了让三个标题水平排列，需要将 float 属性设置为 left,即向左浮动；然后再加上一个边框；但现在字体还没有居中显示，显得不好看，于是用 text-align: center  让字体水平居中，line-height: 30px 让字体垂直居中。</p>
+<div class="img_center"><img src="http://upload-images.jianshu.io/upload_images/3771306-f0645447b0daf2ad.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  class="p2"></div>
+<p  class="p2">当前效果图</p>
+<p class="p1">选项卡标题栏样式设置就基本完成了，但选项卡内容部分看起来还是有点奇怪，所以下面开始选项卡内容部分的样式设置。首先，我们希望内容部分位于标题的正下方，而现在的情况是有一部分内容在标题的右边，看起来很奇怪，这是由标题卡的 float 属性引起的，在内容部分清除浮动就可以了。然后再完成字体的美化，设置边框……</p>
+<div class="img_center"><img src="http://upload-images.jianshu.io/upload_images/3771306-1d1db863d88ea048.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  class="p2"></div>
+<p  class="p2">当前效果图</p>
+<p class="p1">现在的效果图与最终的效果图很像了，但我们希望最开始只显示一段内容，所以剩下的两段需要隐藏起来。于是使用 display:none 来实现隐藏效果。</p>
+<div class="img_center"><img src="http://upload-images.jianshu.io/upload_images/3771306-a0730c09e9804ca5.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  class="p2"></div>
+<p  class="p2">css 代码</p>
+<p class="p1">现在静态布局已经全部完成，剩下的切换效果需要用 javascript 来完成。首先，我们希望当鼠标放在某个标题上时，显示出与标题相关的内容，<同时标题的样式还可以发生一些变化，让标题更加显眼，而当鼠标移开的时候，标题的样式又会恢复为原来的样子。所以我们需要写两个函数，分别绑在 onmouseover 和 onmouseout 上。</p>
+<div class="img_center"><img src="http://upload-images.jianshu.io/upload_images/3771306-dbb9e1cd70370503.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  class="p2"></div>
+<p  class="p2">js 代码</p>
+<p class="p1">最后将 js 文件链接到 html 代码里。（js 代码写得有些繁琐，应该可以用更少的代码来实现，但现在我还不会……）</p>
+<p class="p1">整个选项卡切换效果就完成了，继续加油！！！</p>
+				</div>
+			</div>
+		</div>
+</body>
+</html>
