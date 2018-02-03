@@ -19,7 +19,7 @@ body {
 	color: white;
 }
 #logo a:hover {
-	color:#0CBAE7;
+	color:#6495ED;
 }
 #menu {
 	float: right;
@@ -50,22 +50,36 @@ body {
 #side_bar a:hover {
 	color: #454545;
 }
-#main {
+.main {
 	width: 800px;
-	margin: auto;
+	height: 500px;
+	margin: 0 auto;
 }
-#title {
-	text-align: center;
-	font-size: 20px;
+#footer {
+	width: 100px;
+	height: 30px;
+	position: absolute;
+	right: 680px;
+	bottom: 30px;
 	font-weight: bold;
+	font-size: 15px;
 }
-.p1 {
-	text-indent: 2em;
+.demo {
+	font-size: 20px;
+	color:#0CBAE7;
+	line-height: 30px;
+	margin-top: 10px;
+}
+.list ul {
+	list-style: none;
+}
+.list ul li {
 	line-height: 30px;
 }
-.p2 {
-	text-align: center;
+.list ul li a {
+	text-decoration: none;
+	color: black;
 }
-.img_center {
-	text-align: center;
+.list ul li a:hover {
+	color:#808080;
 }
