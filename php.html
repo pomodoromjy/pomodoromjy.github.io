@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="./js/Blog.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/About tech.css">
+	<meta charset="UTF-8">
+	<title>About tech</title>
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><a href=".=./index.html">Pomodoro</a></div>
+		<div id="menu">
+			<img onclick="show_menu()" src="./images/menu.png" alt="菜单" id="menu_img">&nbsp;&nbsp;Blog
+		</div>
+	</div>
+	<div id="side_bar">
+			<div id="jishu"><a href="./About tech.html">About tech</a></div><hr/>
+			<div id="dushu"><a href="#">Books</a></div><hr/>
+			<div id="suosui"><a href="#">Movies</a></div><hr/>
+			<div id="translation"><a href="./translation1.html">Translation</a></div>
+	</div>
+	<div class="main">
+	<div class="content">
+	<div class="title" style="font-size: 18px;font-weight: bolder;text-align: center;">PHP 学习笔记</div>
+	<div class="passage" style="line-height: 30px;">
+		一、PHP 基础<br/>
+		1. global 用于声明全局变量,当在局部变量前使用该关键字时，该局部变量会变成全局变量<br/>
+		2. static 当函数执行后，会删除所有变量，若使用 static 关键字，则可以保留该变量上次的值<br/>
+		3. var_dump() 返回变量类型及其值<br/>
+		4. strpos() 该字符串函数用于检索字符串内指定的字符或文本，若检索成功，则会返回匹配的首个字符串的位置，否则则返回 false<br/>
+		5. "." 字符串连接  ".=" 字符串连接并赋值<br/>
+		6. 换行 echo 内容."< br >"<br>
+		7. foreach 用于遍历数组（关联数组）中的每个键值对<br>
+		8. php 中 array() 函数用于创建数组; count() 函数用于返回数组的长度<br>
+		9. $_REQUEST['name'] 用于收集 HTML 表单中名为 name 的表单值<br>
+		二、PHP 与 Mysql<br/>
+		1. mysql_connect('参数一','参数二','参数三');函数    与数据库建立连接<br/>
+		参数一：数据库地址<br/>
+		参数二：数据库用户名<br/>
+		参数三：数据库用户密码<br/>
+		返回值：1. 连接成功时，返回 MySQL 连接标志符,起定位作用，方便关闭数据库连接；2. 连接失败时，返回 false<br/>
+		2. mysql_close()函数    关闭数据库连接<br/>
+		3. mysql_select_db('参数一','参数二')    选择数据库 当选择成功时返回 true，否则返回 false<br>
+		参数一：需要连接的数据库连接标志符<br/>
+		参数二：需要连接的数据库名称<br/>
+		4. myqsl_query()  执行一条 MySQL 语句<br/>
+
+
+	</div>
+	</div>
+	</div>
+	<div id="footer" align="center">copyright@majinyan</div>
+</body>
+</html>
