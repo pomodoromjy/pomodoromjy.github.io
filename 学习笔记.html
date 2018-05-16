@@ -23,22 +23,38 @@
 	<div class="content">
 	<div class="title" style="font-size: 18px;font-weight: bolder;text-align: center;">学习笔记</div>
 	<div class="passage" style="line-height: 30px;">
+		<div class="title" style="font-weight: bold;">5.14--5.15</div>
 		1. 机器学习泛化力：不断从经历及数据中汲取教训，从而预知未来的能力。<br/>
 		2. 监督学习常用于对未知表现的预测，而无监督学习常用于对事物本身特性的预知。<br/>
 		3. python 常用数据类型：<br/>
 		(1) python 是大小写敏感的语言，布尔值为 True 和 False.<br/>
 		(2)元组 Tuple：由一系列数据类型可不同的数据组成的序列,可使用元组索引来查看。<br/>
 		&nbsp;&nbsp;eg.t = (1,'abc',0.1)<br/>
-		(3)列表 List:列表在功能上基本与元组相似，只是课表允许使用者在访问时对其进行修改，元组则不然。<br/>
+		(3)列表 List:列表在功能上基本与元组相似，只是允许使用者在访问时对其进行修改，元组则不然。<br/>
 		&nbsp;&nbsp;eg.L = [1,'abc',0.1)]<br/>
 		(4)字典 Dictionary:由多组键值对组成，只是对于键的数据类型没有要求。<br/>
 		&nbsp;&nbsp;eg.d = {1:'1','abc':0.1},d[1] 的值为'1'<br/>
 		4. python 常见运算类型<br/>
-		(1)成员运算 in：判断某个元素是否存在于元组、列表以及某个键是否存在云字典中，返回类型为 boolean.<br/>
+		(1)成员运算 in：判断某个元素是否存在于元组、列表以及某个键是否存在于字典中，返回类型为 boolean.<br/>
 		5. python 函数：由关键字 def 来定义<br/>
+		<div class="title" style="font-weight: bold;">5.16</div>
+		1. 监督学习--分类学习<br/>
+		(1) 线性分类器：假设特征与分类结果之间存在着线性关系，通过计算每个特征与其权重的乘积来帮助类别决策。逻辑斯蒂回归模型。<br/>
+		(2) 支持向量机：根据所有训练数据的分布情况，选择所有线性分类器中最佳的那个。其中，决定直线位置的并不是所有训练数据，而是训练数据中空间位置最小的两个数据决定的，这两个数据点就叫做“支持向量”。<br/>
+		(3) 朴素贝叶斯：首先，贝叶斯公式描述的是这么一个事情：新事物出现后事件 A 的概率 = A 原本的概率 X 新事物出现后带来的调整。“朴素贝叶斯”则是贝叶斯分类中最简单、最常见的分类方法，“朴素”一词代表假设各个特征之间相互独立。<br/>
+		(4) K 近邻：对于某个待分类样本，选取特征空间中距离其最近的 K 个已分类样本作为依据进行分类决策。与其他分类模型相比，该模型无参数预测阶段，因此开销大。<br/>
+		(5) 决策树。<br/>
+		2. 数据预处理函数：fit_transform() 和 transform()<br/>
+		&nbsp;&nbsp;fit_transform():fit to data,then transform it.先进行数据拟合，再转化成其标准形式<br/>
+		&nbsp;&nbsp;transform():perform standardization by centering and scaling.通过寻找其中心和缩放实现标准化。<br/>
+		&nbsp;&nbsp;<a href="https://blog.csdn.net/quiet_girl/article/details/72517053">区别用法讲解</a><br/>
+		3. 机器学习中数据归一化方法<br/>
+		(1) 0 均值化归一：即均值为 0，方差为 1。避免某一分量数值太大而将其他分量掩盖掉（要求原始数据服从高斯分布）。<br/>
+		(2) 线性函数归一化：实现原始数据的等比例缩放<br/>
+
 	</div>
 	</div>
 	</div>
-	<div id="footer" align="center">copyright@majinyan</div>
+	<!-- <div id="footer" align="center">copyright@majinyan</div> -->
 </body>
 </html>
