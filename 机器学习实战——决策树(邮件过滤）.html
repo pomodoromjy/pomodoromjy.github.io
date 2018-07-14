@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="./js/Blog.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/About tech.css">
+	<style type="text/css">
+span {
+	color: red;
+}
+li {
+	list-style: none;
+}
+code {
+	width: 800px;
+	color:blue;
+}
+code p {
+	padding-left: 2em;
+}
+	</style>
+	<meta charset="UTF-8">
+	<title>决策树之邮件过滤</title>
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><a href=".=./index.html">Pomodoro</a></div>
+		<div id="menu">
+			<img onclick="show_menu()" src="./images/menu.png" alt="菜单" id="menu_img">&nbsp;&nbsp;Blog
+		</div>
+	</div>
+	<div id="side_bar">
+			<div id="jishu"><a href="./About tech.html">About tech</a></div><hr/>
+			<div id="dushu"><a href="./Books.html">Books</a></div><hr/>
+			<div id="suosui"><a href="#">Movies</a></div><hr/>
+			<div id="translation"><a href="./translation1.html">Translation</a></div>
+	</div>
+	<div class="main">
+	<div class="content">
+	<div class="title" style="font-size: 18px;font-weight: bolder;text-align: center;">决策树之邮件过滤</div>
+	<div class="passage" style="line-height: 30px;">
+		<div>(1) 分割数据</div>
+		<div class="code">
+			
+			eg. # step1: 利用正则式切分文本,将字符串里的非单词、数字去掉，得到一系列由词组成的词表<br>
+			<code>import re <br>
+			regEx = re.compile('\\W*') <br>
+			mySent = 'This book is the best book on Python or M.L. I have ever laid eyes upon.' <br>
+			listOfTokens = regEx.split(mySent) <br>
+			#输出未做任何处理的原始数据<br>
+			print(mySent) <br>
+			<img src="./images/未做处理的原始语句.png" alt=""><br>
+			#输出作分割处理的语句<br>
+			print(listOfTokens) <br>
+			<img src="./images/语句分割成单词.png" alt=""><br>
+			# 为了去掉空字符串，对每个字符串的长度进行计算，只保留长度大于0的字符串 <br>
+			# dealedList = [tok  for tok in listOfTokens if len(tok) > 0] <br>
+			# 将所有字符串都转化为小写 <br>
+			dealedList = [tok.lower()  for tok in listOfTokens if len(tok) > 0] <br>			#输出最终处理结果，即长度大于0的所有单词的小写形式
+			print(dealedList) <br>
+			<img src="./images/最终处理结果.png" alt=""><br>
+			</code>
+			将数据分割封装成函数<br>
+			<code>
+				def textParse(bigString): <br>
+					<p>
+					import re <br>
+					listOfTokens = re.split(r'\W*',bigString) <br>
+					return [tok.lower() for tok in listOfTokens if len(tok) > 2] <br>
+					</p>
+			</code>
+		</div>
+		<div>(2)对数据进行预处理之后，将进行文件解析及完整的测试函数</div>
+		<code>
+			def spamTest(): <br>
+			<p>
+				docList = [] <br>
+				classList = [] <br>
+				fullText = [] <br>	
+				# 读取文件夹 spam 中的所有邮件，邮件的命名方式必须为 数字.txt,调用之前准备的数据处理函数，将邮件切分为单词 <br>
+				for i in range(1,5): <br>
+				wordList = textParse(open('D:/py_work/data/email/spam/%d.txt' %i).read()) <br>
+				docList.append(wordList) <br>
+				fullText.extend(wordList)<br>
+				#垃圾邮件标记为1 <br>
+				classList.append(1)<br>
+				wordList = textParse(open('D:/py_work/data/email/ham/%d.txt' %i).read())<br>
+				docList.append(wordList)<br>
+				fullText.extend(wordList)<br>
+				# 正常邮件标记为0 <br>
+				classList.append(0) <br>
+				#邮件处理之后，形成单词，创建一个单词不重复的列表 <br>
+				vocabList = bytes.createVocabList(docList) <br>
+				# 本例中共有8封邮件,每种邮件各4封,将其从0到7进行编号 <br>
+				trainingSet = list(range(8)) <br>
+				testSet = [] <br>
+				# 随机选择2封邮件作为测试集 <br>
+				for i in range(2): <br>
+				</p>
+				<p style="padding-left: 4em">
+					# 从0到8之间随机选择2个数<br>
+					randIndex = int(random.uniform(0,len(trainingSet)))<br>
+					# 将随机生成的2个编号对应的邮件插入到测试列表中<br>
+					testSet.append(trainingSet[randIndex])<br>
+					# 删除训练集中已经加入到测试集中的邮件<br>
+					del(trainingSet[randIndex])<br>
+				</p>
+				<p>
+				初始化测试集向量<br>
+				trainMat = []<br>
+				# 初始化测试集邮件类别<br>
+				trainClasses = []<br>
+				for docIndex in trainingSet:<br>
+				</p>
+				<p style="padding-left: 4em">
+					#不考虑词集中某个特征出现的次数，可以描述为词集模型<br>
+					#词表到向量的转化<br>
+					trainMat.append(bytes.setOfWords2Vec(vocabList,docList[docIndex]))<br>
+					trainClasses.append(classList[docIndex])<br>
+				</p>
+				<p>
+				#朴素贝叶斯分类器训练函数，分别计算垃圾邮件和正常邮件的概率<br>
+				p0v,p1v,pSpam = bytes.trainNBO(np.array(trainMat),np.array(trainClasses))<br>
+				errorCount = 0<br>
+				# 对测试集进行测试<br>
+				for docIndex in testSet:<br>
+				</p>
+				<p style="padding-left: 4em">
+					wordVector = bytes.setOfWords2Vec(vocabList,docList[docIndex])
+					# 将刚刚计算出的概率进行比较以分类
+					if bytes.classifiNB(np.array(wordVector),p0v,p1v,pSpam) != classList[docIndex]:
+						errorCount += 1
+				</p>
+				<p>	
+				print('the errorCount rate is',float(errorCount) / len(testSet))
+			</p>
+		</code>
+		
+
+	<!-- <div id="footer" align="center">copyright@majinyan</div> -->
+</body>
+</html>

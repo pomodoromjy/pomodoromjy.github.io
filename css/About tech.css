@@ -51,9 +51,13 @@ body {
 	color: #454545;
 }
 .main {
-	width: 800px;
+	width: 1050px;
 	height: 500px;
-	margin: 0 auto;
+	margin-left: 300px;
+	/*overflow-y:auto;*/
+}
+.title {
+	width: 800px;
 }
 #footer {
 	width: 100px;
