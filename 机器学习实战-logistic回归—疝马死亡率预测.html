@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="./js/Blog.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/About tech.css">
+	<style type="text/css">
+body {
+	line-height: 30px;
+}
+span {
+	color: red;
+	font-size: 18px;
+}
+li {
+	list-style: none;
+}
+code {
+	width: 800px;
+	color:blue;
+}
+code p {
+	padding-left: 2em;
+}
+
+	</style>
+	<meta charset="UTF-8">
+	<title>Logistic 回归应用——疝马死亡率预测</title>
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><a href=".=./index.html">Pomodoro</a></div>
+		<div id="menu">
+			<img onclick="show_menu()" src="./images/menu.png" alt="菜单" id="menu_img">&nbsp;&nbsp;Blog
+		</div>
+	</div>
+	<div id="side_bar">
+			<div id="jishu"><a href="./About tech.html">About tech</a></div><hr/>
+			<div id="dushu"><a href="./Books.html">Books</a></div><hr/>
+			<div id="suosui"><a href="#">Movies</a></div><hr/>
+			<div id="translation"><a href="./translation1.html">Translation</a></div>
+	</div>
+	<div class="main">
+	<div class="content">
+	<div class="title" style="font-size: 18px;font-weight: bolder;text-align: center;">Logistic 回归应用——疝马死亡率预测</div>
+	<div>
+		<b>一、对数据进行预处理</b><br>
+		1. 特征缺失值的处理<br>
+		因为数据集中含有缺失值，本例中我们选择用 0 来代替缺失值，原因有二：<br>
+		(1). 根据回归系数的更新公式 weight = weight + alpha * error * dataMat <br>
+		如果 dataMat 对应的某个特征值为 0 ，那么 weight = weight，即回归系数不会更新<br>
+		(2). 根据 sigmoid(0) = 0.5,它对结果没有任何倾向性，因此也不会对预测结果造成任何影响<br>
+		2. 类别缺失值的处理<br>
+		对于某个类别标签丢失的数据，我们很难采用合适的值进行代替，因此将其丢弃<br>
+	</div>
+</body>
+</html>
