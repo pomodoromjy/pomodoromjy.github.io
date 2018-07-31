@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="./js/Blog.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/About tech.css">
+	<style type="text/css">
+body {
+	line-height: 30px;
+}
+span {
+	color: red;
+	font-size: 18px;
+}
+li {
+	list-style: none;
+}
+	</style>
+	<meta charset="UTF-8">
+	<title>AdaBoost元算法之疝马死亡率预测</title>
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><a href=".=./index.html">Pomodoro</a></div>
+		<div id="menu">
+			<img onclick="show_menu()" src="./images/menu.png" alt="菜单" id="menu_img">&nbsp;&nbsp;Blog
+		</div>
+	</div>
+	<div id="side_bar">
+			<div id="jishu"><a href="./About tech.html">About tech</a></div><hr/>
+			<div id="dushu"><a href="./Books.html">Books</a></div><hr/>
+			<div id="suosui"><a href="#">Movies</a></div><hr/>
+			<div id="translation"><a href="./translation1.html">Translation</a></div>
+	</div>
+	<div class="main">
+	<div class="content">
+	<div class="title" style="font-size: 18px;font-weight: bolder;text-align: center;">AdaBoost元算法之疝马死亡率预测</div>
+	上一篇文章中我们已经学习了 AdaBoost 元算法，并写出了其分类函，在本篇文章中，<br>
+	我们将利用 AdaBoost 算法对之前的疝马存死亡问题再次进行分析。<br>
+	<img src="./images/AdaBoost疝马死亡率预测错误率代码.png" alt=""><br>
+	疝马死亡率预测错误率<br>
+	AdaBoost 算法执行结果：<br>
+	<img src="./images/AdaBoost疝马死亡率预测错误率.png" alt=""><br>
+	Logistics 回归之梯度上升算法执行结果：<br>
+	<img src="./images/logist疝马死亡率预测错误率.png" alt=""><br>
+	可以看到，通过组合多个单层决策树的 AdaBoost 算法预测结果要优于单一 Logistics 算法的预测结果。<br>
+	<a href="D:/py_work/data/grad_asc/horseColiic">疝马数据集下载</a><br>
+	<a href="D:/py_work/code/AdaBoost-horseColic.py">完整代码</a><br>
+	</body>
+</html>

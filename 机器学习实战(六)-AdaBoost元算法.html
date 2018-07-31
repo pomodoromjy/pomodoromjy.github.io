@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="./js/Blog.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/About tech.css">
+	<style type="text/css">
+body {
+	line-height: 30px;
+}
+span {
+	color: red;
+	font-size: 18px;
+}
+li {
+	list-style: none;
+}
+	</style>
+	<meta charset="UTF-8">
+	<title>AdaBoost 元算法</title>
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><a href=".=./index.html">Pomodoro</a></div>
+		<div id="menu">
+			<img onclick="show_menu()" src="./images/menu.png" alt="菜单" id="menu_img">&nbsp;&nbsp;Blog
+		</div>
+	</div>
+	<div id="side_bar">
+			<div id="jishu"><a href="./About tech.html">About tech</a></div><hr/>
+			<div id="dushu"><a href="./Books.html">Books</a></div><hr/>
+			<div id="suosui"><a href="#">Movies</a></div><hr/>
+			<div id="translation"><a href="./translation1.html">Translation</a></div>
+	</div>
+	<div class="main">
+	<div class="content">
+	<div class="title" style="font-size: 18px;font-weight: bolder;text-align: center;">AdaBoost 元算法</div>
+	<b>一、元算法</b><br>
+	当做重要决定时，我们往往会找多个人寻求意见而不是听一个人的见解。机器学习也是如此，这就是元算法背后的思路。<br>
+	前面我们已经学习了五种分类算法，我们当然可以将不同的分类器组合起来，这样的组合结果就叫做集成方法或元算法。<br>
+	集成的方式有多种，可以是不同算法的集成；也可以是同一算法在不同设置下的集成；还可以是数据集不同部分分给不<br>同分类器之后的集成。<br>
+	<b>1. bagging(自举汇聚法)</b>：基于数据随机重抽样的分类器构建法 <br>
+	主要思想：<br>
+	<ul>
+		<li style="list-style-type: inherit;">从原始数据中选择 S 次，每次选择 n 个数据(又放回的抽取)，最终形成 S 个新的数据集。新的数据集与原始数据集<br>大小相同，由于是又放回的抽取，因此有的数据多次被抽取，
+	存在于多个数据集中；而有的数据可能一次都没被抽取过</li>
+		<li style="list-style-type: inherit;">使用某个算法分别作用于随机抽取的 S 个数据集，得到 S 个分类器。这里的算法没有规定，根据具体问题选择不同的算法</li>
+		<li style="list-style-type: inherit;">对于分类问题：将上述训练得到的模型通过投票方式决定分类结果；对于回归问题，求上述模型的均值</li>
+	</ul>
+	<img src="./images/bagging.png" alt=""><br>
+	<b>2. boosting</b>：无论是 bagging 还是 boosting，所使用的分类器类型都是一样的。boosting 与 bagging 类似，<br>
+	但与 bagging 不同的是，boosting 中所有分类器的权重并不一样，而前者分类器的权重是一样的。<br>
+	主要思想：<br>
+	<ul>
+		<li style="list-style-type: inherit;">对每一轮的训练数据样本赋予权重，并且这个权重依赖于上一轮的分类结果</li>
+		<li style="list-style-type: inherit;">基分类器之间采用序列式的加权方式进行组合</li>
+	</ul>
+	<img src="./images/boosting.png" alt=""><br>
+	<b>3. bagging 与 boosting 的区别</b><br>
+	<b>样本选择上：</b><br>
+	bagging: 训练的数据集是有放回的随机选取的，每轮的数据集是独立的<br>
+	boosting: 每一轮训练的数据集不变，只是训练集中每个样本的权重在分类器中发生变化。<br>
+	而每个样本的权值依赖于上一轮的分类结果。<br>
+	<b>样本权重</b><br>
+	bagging: 均匀取样，每个样本的权重相同。<br>
+	boosting: 根据错误率不断调整样本的权重，错误率越大权重越高。<br>
+	<b>预测函数</b><br>
+	bagging: 所有预测函数的权重都相等。<br>
+	boosting: 每个弱分类器都有相应的权重，误差越小权重越大。<br>
+	<b>并行计算</b><br>
+	bagging: 各个预测函数可以并行生成。<br>
+	bossting: 各个预测函数智能顺序生成，因为后一轮样本的权重依赖于前一轮的分类结果。<br>
+	<b>4. 总结</b><br>
+	bagging 与 boosting 都是把若干个分类器组合成一个分类器，只是整合的方式不同，最终得到不一样的结果。<br>将不同的算法嵌入到此类算法框架中会提高原始单一分类器的效果，但同时也增加了计算量。<br>
+    <b>二、AdaBoost(Adaptive Boosting 自适应boosting)</b><br>
+    AdaBoost 方法拥有很多个版本，其中最出名的是 AdaBoost。<br>
+    <b>弱分类器与强分类器</b><br>
+    弱分类器的分类性能比随机猜测略好，但也不会好很多，也就是说对于二分类情况，其错误率要高于 50%；<br>
+    而强分类器的性能则会好很多。<br>
+    <b>1. AdaBoost 原理<br></b>
+    <ul>
+    	<li style="list-style-type: inherit;">对训练数据集中的每个样本，赋予其一个权值，这些权值构成向量 D。一开始，这些样本的初始权重都相等。</li>
+    	<li style="list-style-type: inherit;">首先开始在训练集上训练出第一个弱分类器，并计算出该分类器的错误率，然后在同一数据集上再次训练弱<br>分类器，再次训练弱分类器时，将会重新调整每个样本的权重，对于首次被分类正确的样本，将减小其权重；<br>而首次被分类错误的样本，将提高该样本的权重。</li>
+    	<li style="list-style-type: inherit;">为了从所有的分类器中得到最终结果，AdaBoost 为每个弱分类器分配了权值 alpha，这些 alpha 的值是根据<br>分类器的错误率计算的。</li>
+    </ul>
+    其中，错误率的定义为：<br>
+    <img src="./images/错误率.png" alt="" style="padding-left: 150px"><br>
+    而 alpha 的计算公式如下：<br>
+    <img src="./images/alpha计算公式.png" alt="" style="padding-left: 150px"><br>
+    AdaBoost 原理示意图：<br>
+    <img src="./images/AdaBoost原理示意图.png" alt="" style="padding-left: 150px"><br>
+    计算出 alpha 的值之后，便可对 D 的值进行更新。对于那些正确分类的样本将降低其权重，而提高错误分类样本的权重。<br>
+    D 的具体计算方法如下：<br>
+    <img src="./images/D的计算方式.png" alt="" style="padding-left: 150px"><br>
+    再计算出 D 的值之后，AdaBoost 将进行下一轮迭代，直至分类器的错误率为 0 或者弱分类器的数目达到用户指定的数目之后。<br>
+	<b>2. 构建单层决策树</b><br>
+	<b>基于单层决策树建立弱分类器</b><br>
+	单层决策树是一种简单的决策树，它仅仅基于单个特征来做决策，因此它实际上是个树桩。<br>
+	<b>构造训练数据</b><br>
+	<img src="./images/AdaBoost构造数据集.png" alt=""><br>
+	<b>可视化数据集</b><br>
+	<img src="./images/AdaBoost可视化数据集.png" alt=""><br>
+	数据集可视化<br>
+	<img src="./images/AdaBoost数据集可视化.png" alt=""><br>
+	上图显示了数据集的分布情况，可以看出，想要在坐标轴上选择一点(即一条与 x 轴或 y 轴平行的直线) <br>
+	将不同颜色的所有数据点分开是不可能的，这就是单层决策树难以处理的问题，通过使用多个单层决策树，<br>
+	我们就可以构建出一个能够对该数据集正确分类的分类器。<br>
+	<b>构建单层决策树</b><br>
+	<img src="./images/AdaBoost数据分类.png" alt=""><br>
+	在具体数据集上寻找最佳单层决策树<br>
+	<img src="./images/最佳单层决策树.png" alt=""><br>
+	运行结果<br>
+	<img src="./images/AdaBoost运行结果.png" alt=""><br>
+	可以看到，对于该数据集，无论我们用什么样的单层决策树对其分类，其误差最小为 0.2 ,这就是所谓的弱学习器，<br>即弱分类算法。至此，我们已经构建好了单层决策树，接下来我们将使用多个单层决策树来构建 AdaBoost 代码。<br>
+	<b>3. 完整 AdaBoost 代码</b><br>
+	<img src="./images/完整AdaBoost代码.png" alt=""><br>
+	运行结果<br>
+	<img src="./images/完整AdaBoost代码运行结果.png" alt=""><br>
+	从运行结果可以看到，默认状态下数据的权重相等，都为 0.2，第一次执行单层决策树的分类结果(classEst)，<br>考虑到第一个决策树在总分类器中占得权重，此时的总分类结果为(aggclassEst)，只有第一个不正确，<br>因此我们加大第一个数据的权重;第二次执行单层决策树时，将第一个数据的权重曾大为 0.5，根据 aggclassEst,<br>只有最后一个数据分类不正确，因此加大最后一个数据的权重；第三次执单层决策树时，最后个数据的权重为 0.5，<br>可以看到，此时其他数据的权重很小，执行结果 aggclassEst 表明数据全部分类正确，此时的错误率为 0，循环结束。<br>
+	4. AdaBoost 分类函数<br>
+	<img src="./images/AdaBoost分类函数.png" alt=""><br>
+	有了这个 AdaBoost 分类函数，就可以对数据点的类别进行预测。本例是对数据点 [0,0] 的类别进行预测，可以看到，预测结果为 -1。<br>
+	<img src="./images/AdaBoost类别预测结果.png" alt=""><br>
+	<a href="D:/py_work/code/AdaBoost.py">完整代码</a><br>
+	</body>
+</html>

@@ -1,8 +1,16 @@
+// function show_menu() {
+// 	document.getElementById("side_bar").style.display = "block";
+// }
+// function hide_menu() {
+// 	document.getElementById("side_bar").style.display = "none";
+// }
 function show_menu() {
-	document.getElementById("side_bar").style.display = "block";
-}
-function hide_menu() {
-	document.getElementById("side_bar").style.display = "none";
+	if (document.getElementById("side_bar").style.display == "block") {
+		document.getElementById("side_bar").style.display = "none"
+	}
+	else {
+		document.getElementById("side_bar").style.display = "block"
+	}
 }
 function explain() {
 	x = document.getElementById("explain");
