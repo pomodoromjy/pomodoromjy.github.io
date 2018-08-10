@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="./js/Blog.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/About tech.css">
+	<style type="text/css">
+body {
+	line-height: 30px;
+}
+span {
+	color: red;
+	font-size: 18px;
+}
+li {
+	list-style: none;
+}
+	</style>
+	<meta charset="UTF-8">
+	<title>连续型数值预测之缩减系数来‘理解’数据</title>
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><a href=".=./index.html">Pomodoro</a></div>
+		<div id="menu">
+			<img onclick="show_menu()" src="./images/menu.png" alt="菜单" id="menu_img">&nbsp;&nbsp;Blog
+		</div>
+	</div>
+	<div id="side_bar">
+			<div id="jishu"><a href="./About tech.html">About tech</a></div><hr/>
+			<div id="dushu"><a href="./Books.html">Books</a></div><hr/>
+			<div id="suosui"><a href="#">Movies</a></div><hr/>
+			<div id="translation"><a href="./translation1.html">Translation</a></div>
+	</div>
+	<div class="main">
+	<div class="content">
+	<div class="title" style="font-size: 18px;font-weight: bolder;text-align: center;">连续型数值预测之缩减系数来‘理解’数据</div>
+	<b>一、前言</b><br>
+	对于以下情况：<br>
+	1. 如果数据点的特征比数据样本还多(即 n > m)应该怎么办？<br>
+	2. 即使数据点的特征比数据样本少，但若数据的特征高度相关，XTX 的逆任然无法计算。<br>
+	遇到上述两种情况，还能用之前的线性回归方法来处理吗？<br>
+	答案是否定的，因为如果 n > m，就意味着输入矩阵 X 是非满秩矩阵，非满秩矩阵在求逆时会出现问题。<br>
+	因此，统计学家引入了岭回归的概念。<br>
+	<b>二、岭回归(ridge regression)</b><br>
+	简单来说，岭回归就是在矩阵 <img src="./images/回归/矩阵.png" alt=""> 上加上一个 <img src="./images/回归/加上的矩阵.png" alt=""> 从而使得矩阵非奇异。其中矩阵 I 是一个 n x n 的单位矩阵。<br>
+	即对角线元素为 1，其他元素为 0。而 <img src="./images/回归/数学符号.png" alt=""> 是一个用户自定义的数值。<br>
+	在这种情况下，回归系数的计算公式变为：<br>
+	<img src="./images/回归/岭回归系数.png" alt=""><br>
+	岭回归最先用于处理特征数多于样本数的情况，后来也用于在估计中加入偏差，从而得到更好的估计。<br>
+	这里通过引入 <img src="./images/回归/数学符号.png" alt=""> 来限制所有 w 的和，通过引入该惩罚项，能够缩减不重要的参数，<br>
+	这个技术在统计学中也叫‘缩减’。<br>
+	<b>领回归中的岭</b><br>
+	<img src="./images/回归/岭回归中的岭.png" alt=""><br>
+	缩减能去掉不重要的参数，因此能更好的理解数据。此外，与简单的线性回归相比，领回归具有更好的预测效果。<br>
+	<b>三、实战代码</b><br>
+	1. 计算岭回归系数<br>
+	<img src="./images/回归/计算岭回归系数.png" alt=""><br>
+	2. 数据标准化、计算不同 lambda 值所对应的不同岭回归系数<br>
+	<img src="./images/回归/数据标准化、计算不同 lambda 值所对应的不同岭回归系数.png" alt=""><br>
+	3. 数据标准化，计算标准回归参数<br>
+	<img src="./images/回归/数据标准化，计算标准回归参数.png" alt=""><br>
+	3. 对比不同 lambda 值所对应的不同岭回归系数以及标准回归系数<br>
+	<img src="./images/回归/对比岭回归系数与标准回归系数.png" alt=""><br>
+	因为训练集中所给的矩阵含有八个特征值，因此这八条不同颜色的曲线分别代表了不同特征所占的权重。<br>可以看到，当 lambda 非常小时，岭回归系数与标准回归系数一样；而当 lambda非常大时，<br>所有回归系数缩减为 0 。因此，可以在中间某处找到使得预测结果最好的 lambda 值。<br>
+	<a href="D:/py_work/code/chapter_8_regression/ridge_regression.py">完整代码</a><br>
+	</body>
+
+</html>

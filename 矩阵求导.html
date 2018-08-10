@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="./js/Blog.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/About tech.css">
+	<style type="text/css">
+body {
+	line-height: 30px;
+}
+span {
+	color: red;
+	font-size: 18px;
+}
+li {
+	list-style: none;
+}
+	</style>
+	<meta charset="UTF-8">
+	<title>矩阵求导</title>
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><a href=".=./index.html">Pomodoro</a></div>
+		<div id="menu">
+			<img onclick="show_menu()" src="./images/menu.png" alt="菜单" id="menu_img">&nbsp;&nbsp;Blog
+		</div>
+	</div>
+	<div id="side_bar">
+			<div id="jishu"><a href="./About tech.html">About tech</a></div><hr/>
+			<div id="dushu"><a href="./Books.html">Books</a></div><hr/>
+			<div id="suosui"><a href="#">Movies</a></div><hr/>
+			<div id="translation"><a href="./translation1.html">Translation</a></div>
+	</div>
+	<div class="main">
+	<div class="content">
+	<div class="title" style="font-size: 18px;font-weight: bolder;text-align: center;">矩阵求导</div>
+	<b>前言</b><br>
+	在机器学习中，我们经常会遇到矩阵求导。因此，在这里系统的学习一下矩阵求导。<br>矩阵求导一般有三种形式：矩阵对矩阵求导；标量对矩阵求导；矩阵对标量求导。<br>下面，让我们逐一学习吧。<br>
+	<b>一、矩阵对向量求导</b><br>
+	现有长度为 3  的列向量 <img src="./images/矩阵求导/y.png" alt=""> <br>
+	<img src="./images/矩阵求导/向量y.png" alt=""><br>
+	3 X 4 的矩阵 <b>w</b> <br>
+	<img src="./images/矩阵求导/向量w.png" alt=""><br>
+	长度为 4 的列向量 <img src="./images/矩阵求导/x.png" alt=""> <br>
+	<img src="./images/矩阵求导/向量x.png" alt=""><br>
+	则有 <img src="./images/矩阵求导/y.png" alt=""> = <b>w</b><img src="./images/矩阵求导/x.png" alt="">,即<br>
+	<img src="./images/矩阵求导/y=wx.png" alt=""><br>
+	现在我们对 <img src="./images/矩阵求导/求偏导.png" alt=""> 求导，我们知道 <img src="./images/矩阵求导/y3.png" alt="">，因此对 <img src="./images/矩阵求导/x2.png" alt=""> 
+	的求导结果为 <img src="./images/矩阵求导/偏导结果.png" alt=""><br>
+	根据上面求导的结果，我们可以得到<b>矩阵对向量的偏导</b>为<br>
+	 <img src="./images/矩阵求导/矩阵对矩阵求偏导.png" alt=""><br>
+	 <b>二、向量对向量求导</b><br>
+	 在讨论向量对向量求导之前，我们需要先弄明白两个概念，即分子布局与分母布局。<br>
+	现有长度为 m 的列向量 <img src="./images/矩阵求导/y.png" alt="">，长度为 n 的列向量 <img src="./images/矩阵求导/x.png" alt="">，求 <img src="./images/矩阵求导/y对x求偏导.png" alt="">会出现两种结果，即 m x n 矩阵与 n x m 矩阵。<br>
+	<b>分子布局</b>：以分子为列向量，即结果为 m x n 矩阵。<br>
+	<b>分母布局</b>：以分母为列向量，即结果为 n x m 矩阵。<br>
+	<b>eg.</b><br>
+	分子布局(2 x 3 矩阵)：<br>
+	<img src="./images/矩阵求导/分子布局.png" alt=""><br>
+	分母布局(3 x 2 矩阵)：<br>
+	<img src="./images/矩阵求导/分母布局.png" alt=""><br>
+	 <a href="https://blog.csdn.net/CSDN_Black/article/details/80242254">参考教程(这是一个很棒的教程，给博主点赞)</a>
+	</body>
+</html>

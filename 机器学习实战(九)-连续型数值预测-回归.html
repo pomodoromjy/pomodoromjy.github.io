@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="./js/Blog.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/About tech.css">
+	<style type="text/css">
+body {
+	line-height: 30px;
+}
+span {
+	color: red;
+	font-size: 18px;
+}
+li {
+	list-style: none;
+}
+	</style>
+	<meta charset="UTF-8">
+	<title>连续型数值预测-回归</title>
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><a href=".=./index.html">Pomodoro</a></div>
+		<div id="menu">
+			<img onclick="show_menu()" src="./images/menu.png" alt="菜单" id="menu_img">&nbsp;&nbsp;Blog
+		</div>
+	</div>
+	<div id="side_bar">
+			<div id="jishu"><a href="./About tech.html">About tech</a></div><hr/>
+			<div id="dushu"><a href="./Books.html">Books</a></div><hr/>
+			<div id="suosui"><a href="#">Movies</a></div><hr/>
+			<div id="translation"><a href="./translation1.html">Translation</a></div>
+	</div>
+	<div class="main">
+	<div class="content">
+	<div class="title" style="font-size: 18px;font-weight: bolder;text-align: center;">连续型数值预测-回归</div>
+	<b>一、什么叫做回归</b><br>
+	首先想象你有一辆车，然后你想预测汽车的功率大小，你可以根据公式：<br>
+	z = ax + by <br>
+	 轻松的算出任意 x,y 已知的汽车功率的大小。这个公式便是回归方程，其中 a 和 b 叫做回归系数。<br>一旦有了这些回归系数，再给定输入，作预测就变得非常容易了。<br>
+	<b>简单来说，回归（一般指线性回归）意味着将输入值乘以某些固定值，再将结果加起来得到输出值。</b><br>
+	<b>二、回归系数的计算</b><br>
+	我们已经知道，对于回归问题来说如果知道了回归方程，那么问题将变得非常简单，<br>但问题是如何求回归方程中的回归系数呢？假定输入值放在矩阵 X 中，回归系数在向量 W 中，结果放在向量 y 中。<br>
+	表示如下：<br>
+	<img src="./images/矩阵求导/xyw表示.png" alt=""><br>
+	那么对于给定的数据 X1，预测结果将会通过 Y1 = X1 * W 给出。现在问题是，手里有一大堆 X 和 Y，<br>如何才能找到 W 呢？一个常用的方法就是找出使得误差最小的 W，这里的误差指的是预测值与真实值之间的差值，<br>使用该误差的简单累加将使得正负误差相互抵消，所以我们这里采用平方误差。<br>
+	<img src="./images/平方误差.png" alt=""><br>
+	<img src="./images/平方误差的矩阵表示.png" alt=""><br>
+	现在我们的目标是找到使得平方误差和最小的 W，因此需要对 W 求导，但这个公式可谓是清新脱俗，为啥呢？<br>因为这不是一般的求导，而是标量对向量的求导。所以让我们先来看一下<a href="./矩阵求导.html"><b>如何对矩阵进行求导吧</b></a>。<br>
+	<b>方式一：通过矩阵求解 w</b><br>
+	大概了解矩阵求导之后，让我们来解决实际问题吧。根据公式 <img src="./images/矩阵求导/求导目标.png" alt=""> 不难看出，<br>
+	这是一个 u(w) · (w) 的求导问题，直接求导该问题比较复杂，因此我们可以先将其展开，再逐项求导最后求和。<br>
+	展开得到: <img src="./images/矩阵求导/展开.png" alt=""><br>
+	对第一项进行求导，可以看到，该项分子<img src="./images/矩阵求导/y乘y的转置.png" alt="">是一个与 w 无关的标量，因此第一项求导结果为：<img src="./images/矩阵求导/第一项求导结果.png" alt=""><br>
+	接下来看第二项，该项分子<img src="./images/矩阵求导/第二项分子.png" alt="">是一个长度为 1 的向量，通过分母布局得到求导结果为： <img src="./images/矩阵求导/第二项求导结果.png" alt=""><br>
+	第三项的分子为 <img src="./images/矩阵求导/第三项分子.png" alt=""> 也是一个长度为 1 的向量，同样通过分母布局求导结果为：<img src="./images/矩阵求导/第三项求导结果.png" alt=""><br>
+	最后一项，分子是一个与 w  有关的标量，通过分母布局得到求导结果为 <img src="./images/矩阵求导/最后一项求导结果.png" alt=""><br>
+	因此，整个式子的求导结果为：<img src="./images/矩阵求导/整体求导结果.png" alt="">，令其等于 0 ，得到 w 为 <img src="./images/矩阵求导/w.png" alt=""><br>
+	w 上的符号表示，这是当前可得到的最优解。这是因为从现有数据集上估计出的 w 值可能并不是数据集上真实的 w 值。<br>
+	值得注意的是，w 中需要对矩阵求逆，但并非所有的矩阵都存在逆矩阵，因此需要用代码进行判断。<br>
+	<b>方式二：通过最小二乘法求 w</b><br>
+	上述通过矩阵求解 w 的方法是统计学中常用的求解方法，除此之外还有很多方法可以对其进行求解。<br>
+	我们可以通过调用 numpy 库里的矩阵方法对其求解，该方式只需要简单的几行代码，该方法也称作 <br>
+	OLS(即最小二乘法 ordinary least squares) <br>
+	<b>三、实战代码</b><br>
+	1. 加载数据<br>
+	<img src="./images/回归/加载数据集.png" alt=""><br>
+	2. 可视化数据集<br>
+	<img src="./images/回归/可视化数据集.png" alt=""><br>
+	执行结果<br>
+	<img src="./images/回归/数据集可视化.png" alt=""><br>
+	我们已经看到数据集的分布情况如上图散点图所示，接下来我们要用刚刚学到的方法求出回归系数，并绘制出回归曲线。<br>
+	3. 求解回归系数<br>
+	<img src="./images/回归/求解回归系数.png" alt=""><br>
+	执行结果<br>
+	<img src="./images/回归/回归系数.png" alt=""><br>
+	4. 根据回归系数绘制回归曲线<br>
+	<img src="./images/回归/绘制回归曲线.png" alt=""><br>
+	绘制的回归曲线如下所示：<br>
+	<img src="./images/回归/回归曲线.png" alt=""><br>
+	目前为止，我们已经求出了回归系数，并绘制出了回归曲线。但预测值终归是预测的，不是真实值，<br>那么我们如何判定这条回归曲线的拟合度呢？有种方法是计算预测值 yHat 序列与真实值 y 序列的<br>匹配程度，那就是<b>计算这两个序列的相关系数</b>。<br>
+	<b>四、回归曲线拟合度的判定</b><br>
+	numpy 库十分强大，它提供了相关系数的计算方法，可通过命令 corrcoef(yEstimate,yActual) <br>
+	来计算预测值和真实值之间的相关性。<br>
+	<img src="./images/回归/相关系数计算.png" alt=""><br>
+	计算得到的相关系数：<br>
+	<img src="./images/回归/相关系数.png" alt=""><br>
+	根据执行结果可以看到，对角线上的值为 1，这是因为数据和自己匹配是最完美的。而 yHat 与 yMat 的相关系数是 0.98。<br>
+	最佳拟合直线方法将数据视为直线进行建模，具有十分不错的表现。但数据中似乎还存在着其他潜在模式，<br>那么如何才能利用这些模式呢？我们可以根据数据来<b>局部调整预测</b>。<br>
+	<b>五、局部加权线性回归</b><br>
+	线性回归有个问题是有可能出现欠拟合现象。这是因为它求的是具有最小均方误差的无偏估计。<br>显然，如果模型欠拟合将不能取得最好的预测结果，所以有的方法允许在估计时引入一定的偏差，<br>
+	从而降低预测的均方误差。其中的一个方法就是<b>局部加权线性回归</b>。<br>
+	<b>局部加权线性回归算法(Locally Weighted Linear Regression，LWLR)：</b>在算法中，我们给待预测点<br>附近的点赋予一定的权重，然后跟标准线性回归方法一样，在这个子集上基于最小均方差来进行普通回归。<br>与 KNN 一样，这种方法在预测前需要事先选出对应的数据子集。<br>
+	该算法计算 w 的公式如下：<br>
+	<img src="./images/回归/局部加权线性回归w.png" alt=""><br>
+	其中 w 是一个矩阵，用于记录子集中每个数据点的权重。<br>
+	LWLR 使用核（与支持向量机的核类似）来对附近的点赋予更高的权重，核的类型可以自由选择，<br>但最长用的就是高斯核。高斯核对应的权重如下：<br>
+	<img src="./images/回归/高斯核.png" alt=""><br>
+	这样就构建了一个只含对角元素的权重矩阵 w,并且点 x 与 点 x(i) 越近，w(i,i) 将越大。<br>上述公式包含一个需要用户指定的参数 k，它决定了对附近的点赋予多大的权重。<br>
+	k 的值与数据集选取的关系：<br>
+	<img src="./images/回归/k 与训练模型选择的关系.png" alt=""><br>
+	局部加权线性回归代码<br>
+	<img src="./images/回归/局部加权线性回归算法.png" alt=""><br>
+	为待测数据集中的每个数据点执行 LWLR 算法<br>
+	<img src="./images/回归/为待测数据集中的每个数据点执行 LWLR 算法.png" alt=""><br>
+	绘制多条局部加权线性回归曲线<br>
+	<img src="./images/回归/绘制多条局部加权线性回归曲线.png" alt=""><br>
+	绘制曲线如图：<br>
+	<img src="./images/回归/绘制得到的曲线.png" alt=""><br>
+	根据绘制出的曲线，我们可以看出，当 k = 1.0 时，所有的数据具有相同的权重，其曲线与标准线性回归曲线一致；<br>
+	当 k = 0.01 时，得到了非常好的效果，抓住了数据的潜在模式；当 k = 0.003 时，纳入了太多的噪声点，<br>预测值与真实值太过于贴近。图一属于欠拟合，而图三属于过拟合。<br>
+	<a href="D:/py_work/data/regression/ex0.txt">数据集下载</a><br>
+	<a href="D:/py_work/code/chapter_8_regression/regression.py">完整代码</a>
+
+	</body>
+</html>

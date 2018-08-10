@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="./js/Blog.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/About tech.css">
+	<style type="text/css">
+body {
+	line-height: 30px;
+}
+span {
+	color: red;
+	font-size: 18px;
+}
+li {
+	list-style: none;
+}
+	</style>
+	<meta charset="UTF-8">
+	<title>连续型数值预测-回归之预测鲍鱼年龄</title>
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><a href=".=./index.html">Pomodoro</a></div>
+		<div id="menu">
+			<img onclick="show_menu()" src="./images/menu.png" alt="菜单" id="menu_img">&nbsp;&nbsp;Blog
+		</div>
+	</div>
+	<div id="side_bar">
+			<div id="jishu"><a href="./About tech.html">About tech</a></div><hr/>
+			<div id="dushu"><a href="./Books.html">Books</a></div><hr/>
+			<div id="suosui"><a href="#">Movies</a></div><hr/>
+			<div id="translation"><a href="./translation1.html">Translation</a></div>
+	</div>
+	<div class="main">
+	<div class="content">
+	<div class="title" style="font-size: 18px;font-weight: bolder;text-align: center;">连续型数值预测-回归之预测鲍鱼年龄</div>
+	接下来我们将回归应用于真实数据，这里有一份来自 UCI 数据集合的数据，记录了鲍鱼<br>
+	(一种介壳类水生动物)的年龄。鲍鱼年龄可以根据鲍鱼壳的层数推算得到。<br>
+	通过设置不同的 k 值，将会得到不同的误差：<br>
+	<img src="./images/回归/预测鲍鱼年龄.png" alt=""><br>
+	执行结果<br>
+	<img src="./images/回归/不同k值下的错误率.png" alt=""><br>
+	从执行结果可以看出，使用较小的核可以得到较低的误差，那么为何不在所有的数据集上使用最小的核呢？<br>这是因为使用最小的核将造成过拟合，在测试集上误差最小的核对新数据不一定达到最好的效果，<br>
+	下面就来看看它们在新数据上分别表现如何。<br>
+	不同 k 值在新数据上的表现：<br>
+	<img src="./images/回归/不同k值在新数据上的表现.png" alt=""><br>
+	执行结果<br>
+	<img src="./images/回归/不同k值在新数据上的错误率.png" alt=""><br>
+	在标准线性回归下的错误率: <br>
+	<img src="./images/回归/标准线性回归预测鲍鱼年龄.png" alt=""><br>
+	执行结果：<br>
+	<img src="./images/回归/标准线性回归错误率.png" alt=""><br>
+	可以看出，k = 0.1 时在新数据上的表现并不好，k = 10 时在新数据上的表现最好，<br>但是在测试集上表现却最差。与标准线性回归有着类似的预测结果，这表明必须在<br>未知数据上比较预测结果才能选取到最佳的预测模型。但局部加权线性回归存在个问题，<br>那就是每次必须在整个数据集上进行运算，增加了计算量。<br>
+	<a href="D:/py_work/data/regression/abalone.txt">数据集下载</a><br>
+	<a href="D:/py_work/code/chapter_8_regression/predictAblAge.py">完整代码</a>
+	</body>
+</html>
