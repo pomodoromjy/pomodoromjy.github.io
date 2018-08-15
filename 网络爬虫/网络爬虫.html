@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="./js/Blog.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/About tech.css">
+	<style type="text/css">
+body {
+	line-height: 30px;
+}
+span {
+	color: red;
+	font-size: 18px;
+}
+li {
+	list-style: none;
+}
+	</style>
+	<meta charset="UTF-8">
+	<title>网络爬虫</title>
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><a href=".=./index.html">Pomodoro</a></div>
+		<div id="menu">
+			<img onclick="show_menu()" src="./images/menu.png" alt="菜单" id="menu_img">&nbsp;&nbsp;Blog
+		</div>
+	</div>
+	<div id="side_bar">
+			<div id="jishu"><a href="./About tech.html">About tech</a></div><hr/>
+			<div id="dushu"><a href="./Books.html">Books</a></div><hr/>
+			<div id="suosui"><a href="#">Movies</a></div><hr/>
+			<div id="translation"><a href="./translation1.html">Translation</a></div>
+	</div>
+	<div class="main">
+	<div class="content">
+	<div class="title" style="font-size: 18px;font-weight: bolder;text-align: center;">网络爬虫</div>
+	<div class="article" style="width: 700px;">
+	<b>一、简介</b><br>
+	网络爬虫，也叫网络蜘蛛(web spider)。它可以根据网址 (URL) 获取网页内容。<br>
+	<b>二、基础知识</b><br>
+	在开始学习爬虫之前，我们需要了解什么是审查元素。<br>
+	<b>1. 审查元素</b><br>
+	在浏览器网址栏输入一个 URL，回车进入该网址，我们就能看到丰富多彩的网页，那么如何审查元素呢？不同的浏览器有所差异。对于谷歌浏览器，你只需按 F12 就可以看到 HTML 文件了，也就是网页的源码。对于右边的源码模块，你把鼠标移动到哪个元素，左边的对应部分就会被选中。这就是元素审查。<br>
+	<b>2. 简单实战</b><br>
+	<b>爬虫的第一步就是根据 URL ，获取网页的 HTML 信息。</b>在 Python3 中，可以利用 urllib.request 和 requests 进行网页爬取。前者是 Python 自带的，因此无需另外下载，而后者需要自己下载安装。由于 requests 库强大好用，因此本文将采取 requests 方法获取网页的 HTML 信息。<br>
+	<b>(1) requests 的安装</b><br>
+	在 cmd 中输入 pip install requests <br>
+	<b>(2) requests 库基础方法</b><br>
+	<img src="./images/网络爬虫/requests库基础方法.png" alt=""><br>
+	request.get(url)：表示从服务器获取数据，参数为我们要抓取的信息的 URL。<br>
+	<img src="./images/网络爬虫/get方法.png" alt=""><br>
+	执行结果<br>
+	<img src="./images/网络爬虫/get方法执行结果.png" alt=""><br>
+	根据执行结果可以看到，我们已经获取了该网页的 HTML 源码。<br>
+	<b>三、爬虫实战之小说下载</b><br>
+	《位面电梯》第一章：url:<a href="http://www.biqukan.com/16_16516/6047320.html">http://book.zongheng.com/chapter/635570/35301909.html</a><br>
+	<img src="./images/网络爬虫/小说第一章.png" alt=""><br>
+	<b>(1) 获取目标网页的 HTML 信息<br></b>
+	我们用之前所学的 requests.get() 方法试一下<br>
+	<img src="./images/网络爬虫/获取HTML信息.png" alt=""><br>
+	得到结果如下：<br>
+	<img src="./images/网络爬虫/小说第一章源码.png" alt=""><br>
+	我们很容易的得到了 HTML 信息。但是，我们也发现了很多我们并不需要的信息，例如 div、br 以及 npsp 等等。因此，我们接下来的目标就是去掉我们不需要的信息。<br>
+	<b>(2) 解析 HTML 信息，提取我们感兴趣的内容</b><br>
+	很显然，我们想要提取的内容是 HTML 信息中文章的正文。有很多方法可以达到目的，但最容易理解的就是利用 Beautiful Soup 提取感兴趣的内容。
+	首先，还是 beautiful soup 的安装。与 requests 一样，在 cmd 中输入命令 pip install beautifulsoup4 等待自动安装就可以了。<br>
+	通过审查元素，我们发现 id 标签为 readerFs 的那个 div 里的内容就是我们想要的正文部分。<br>
+	<img src="./images/网络爬虫/确定抓取元素.png" alt=""><br>
+	知道这个信息，我们就可以根据 beautiful soup 来获取我们想要的内容了。<br>
+	<img src="./images/网络爬虫/提取内容.png" alt=""><br>
+	执行结果<br>
+	<img src="./images/网络爬虫/执行结果.png" alt=""><br>
+	我们已经得到了我们想要的正文内容，但是我们发现任然有一些我们不想要的内容，比如 p 标签。find_all 匹配的返回结果是一个列表，提取匹配结果后，使用 text 属性，提取文本内容，就得到我们想要的正文啦！<br>
+	<img src="./images/网络爬虫/提取正文内容.png" alt=""><br>
+	执行结果<br>
+	<img src="./images/网络爬虫/正为内容.png" alt=""><br>
+	可以看到，我们已经顺利的获取了小说的正文内容，有点不足就是没能根据 p 标签分段。接下来我想尝试着获取整本小说的正文内容。<br>
+	<b>下载整本小说</b><br>
+	<b>1. 获取章节目录及其对应网址</b><br>
+	<img src="./images/网络爬虫/获取章节目录及其网址.png" alt=""><br>
+	执行结果<br>
+	</div>
+	<b>2. 整合代码</b><br>
+	现在已经得到了章节名、章节网址以及章节内容，接下来就需要把代码整合到一起，并将所有内容写入文本文件就可以了。<br>
+	<a href=""></a>
+	</body>
+
+</html>

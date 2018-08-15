@@ -1,0 +1,835 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>机器学习实战(一)-k-近邻算法</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- favicon
+		============================================ -->		
+        <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+		
+		<!-- Google Fonts
+		============================================ -->		
+       <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+	   
+		<!-- Bootstrap CSS
+		============================================ -->		
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- font-awesome CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+		<!-- owl.carousel CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/owl.carousel.css">
+		<!-- nivo slider CSS
+		============================================ -->
+		<link rel="stylesheet" href="lib/css/nivo-slider.css" type="text/css" />
+		<link rel="stylesheet" href="lib/css/preview.css" type="text/css" media="screen" />
+		<!-- animate CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/animate.css">
+        <!-- meanmenu CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/meanmenu.min.css">
+        <!-- ui CSS
+		============================================ -->
+		<link href="css/jquery-ui.css" rel="stylesheet">
+        <!-- Image Zoom CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/img-zoom/jquery.simpleLens.css">
+		<!-- style CSS
+		============================================ -->
+        <link rel="stylesheet" href="style.css">
+		<!-- responsive CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/responsive.css">
+		<!-- modernizr JS
+		============================================ -->		
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+<style>
+    p {
+        text-indent: 2em
+    }
+    .code {
+        width: 700px;
+        margin-left:30px;
+    }
+</style>
+    </head>
+    <body class="cendo-three-back">
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        
+        <header class="all-header">
+            <!-- <div class="top-three">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="top_header_info">
+                                <ul>
+                                    <li class="info_mail h-three">
+                                        <span> Mail:</span>
+                                        demo@towerthemes.com
+                                    </li>
+                                    <li class="info_phone h-three">
+                                        <span> Call support free:</span>
+                                        (800) 0123 456 789
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-language lock">
+                                <ul class="drop-lang">
+                                    <li>
+                                        <a class="rn rnf" href="#">USD</a>
+                                        <ul class="top-usd">
+                                            <li>
+                                                <a class="h3-color" href="#">GBP</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">EUR</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">USD</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a class="rnf" href="#">
+                                            <img alt="" src="img/flag/gb.png">
+                                            Language
+                                        </a>
+                                        <ul class="sub-lang">
+                                            <li>
+                                                <a class="h3-color" href="#">
+                                                    <img alt="" src="img/flag/gb.png">
+                                                    En
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">
+                                                    <img alt="" src="img/flag/fr.png">
+                                                    Es
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a class="rn lnf" href="#"> My Account </a>
+                                        <ul class="rn2">
+                                            <li>
+                                                <a class="h3-color" href="#">My Account</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">Order Historyt</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">Transactions</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">Downloads</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">Login</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="bottom-header">
+                <div class="header-inner three-in">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="logo l-three">
+                                    <div class="logo-img">
+                                        <h3>机器学习实战(一)-k-近邻算法</h3>
+                                    </div>
+                                    <div class="top-cart-wrapper wrap three">
+                                        <div class="top-shop-contain">
+                                            <div class="block-shop">
+                                                <!-- <div class="top-shop-title">
+                                                    <a href="#">
+                                                        <img alt="" src="img/shopping-cart/topcart.png">
+                                                        <span class="count three">2</span>
+                                                    </a>
+                                                </div> -->
+                                                <div class="home">
+                                                    <div class="wish-cart margin three">
+                                                        <div class="wish-item">
+                                                            <div class="cat">
+                                                                <a href="#">
+                                                                    <img src="img/product/4-539x761.jpg" alt="">
+                                                                </a>
+                                                                <div class="cat_two">
+                                                                    <p>
+                                                                        <a href="#">adipiscing elit</a>
+                                                                    </p>
+                                                                    <p>1 x $50.00</p>
+                                                                </div>
+                                                                <div class="cat_icon">
+                                                                    <a href="#">
+                                                                        <i class="fa fa-times"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="cat">
+                                                                <a href="#">
+                                                                    <img src="img/product/3-539x761.jpg" alt="">
+                                                                </a>
+                                                                <div class="cat_two">
+                                                                    <p>
+                                                                        <a href="#">sed diam </a>
+                                                                    </p>
+                                                                    <p>1 x $50.00</p>
+                                                                </div>
+                                                                <div class="cat_icon">
+                                                                    <a href="#">
+                                                                        <i class="fa fa-times"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="wish-item">
+                                                            <div class="cat_bottom">
+                                                                <div class="cat_s">
+                                                                    <p>Subtotal:<span>$100.00</span></p>
+                                                                </div>
+                                                                <div class="cat_d cart-three">
+                                                                    <a href="#"><strong>Checkout</strong></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="all-menu clearfix">
+                                <div class="col-md-9">
+                                <div class="muti_menu three-menu">
+                                    <nav>
+                                            <ul>
+                                                <li><a class="fast active" href="./blog.html">主页 <!-- <i class="fa fa-angle-down"></i> --></a>
+                                                    <!-- <div class="rayed">
+                                                        <div class="tas menu-last2">
+                                                            <a href="index-2.html">Home Version 2</a>
+                                                            <a href="index-3.html">Home Version 3</a>
+                                                        </div>
+                                                    </div> -->
+                                                </li>
+                                                <li><a href="#">技术学习 <i class="fa fa-angle-down"></i></a>
+                                                    <div class="rayed">
+                                                        <div class="tas menu-last2">
+                                                            <a href="./qianduan_art_list.html">前端学习</a>
+                                                            <a href="./pre_ML_art_list.html">机器学习先导知识</a>
+                                                            <a href="./ML_art_list.html">机器学习</a>
+                                                            <a href="./webspider_art_list.html">网络爬虫</a>
+                                                            <a href="./php_art_list">PHP</a>
+                                                            <!-- <a href="shop.html">shop</a>
+                                                            <a href="shop-list.html">shop List</a>
+                                                            <a href="single-product.html">single-product</a>
+                                                            <a href="shopping-cart.html">shopping-cart</a>
+                                                            <a href="wishlist.html">wishlist</a> -->
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li><a href="shop.html">研究生生活 <i class="fa fa-angle-down"></i></a>
+                                                    <div class="rayed">
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">暂未开通</a>
+                                                            </h3>
+                                                            <!-- <a href="#">Gold Necklaces</a>
+                                                            <a href="#">Platinum Necklaces</a>
+                                                            <a href="#">Silver Necklaces</a>
+                                                            <a href="#">Sunglasses</a> -->
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li><a href="shop.html">生活琐碎 <i class="fa fa-angle-down"></i></a>
+                                                    <div class="tasnim menu-minus">
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="./books_art_list.html">读书</a>
+                                                            </h3>
+                                                            <a href="./books_art_list.html">Books</a>
+                                                            <!-- <a href="#">Cold Weather</a>
+                                                            <a href="#">Fashion Scarves</a>
+                                                            <a href="#">Socks</a>
+                                                            <a href="#">Wedges and Heels</a> -->
+                                                        </div>
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">电影</a>
+                                                            </h3>
+                                                            <a href="#">Movies</a>
+                                                            <!-- <a href="#">Casuals</a>
+                                                            <a href="#">Casuals</a>
+                                                            <a href="#">Gifts and Tech</a>
+                                                            <a href="#">Sneakers</a> -->
+                                                        </div>
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">音乐</a>
+                                                            </h3>
+                                                            <a href="#">Music</a>
+                                                           <!--  <a href="#">Jewelry</a>
+                                                            <a href="#">Ties and Hats</a>
+                                                            <a href="#">Wedges and Heels</a>
+                                                            <a href="#">Belts</a> -->
+                                                        </div>
+                                                        <!-- <div class="tas menu-img">
+                                                            <a  href="#"><img alt="" src="img/product/img_pt_menu_idcat_right.jpg"></a>
+                                                        </div> -->
+                                                    </div>
+                                                </li>
+                                                <!-- <li><a href="shop.html">Lighting <i class="fa fa-angle-down"></i></a>
+                                                    <div class="tasnim menu-minus2">
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">Dresser</a>
+                                                            </h3>
+                                                            <a href="#">Belts</a>
+                                                            <a href="#">Day</a>
+                                                            <a href="#">Evening</a>
+                                                            <a href="#">Shoulder</a>
+                                                            <a href="#">Sundresses</a>
+                                                            <a href="#">Sweater</a>
+                                                        </div>
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">Lamp</a>
+                                                            </h3>
+                                                            <a href="#">Ankle Boots</a>
+                                                            <a href="#">Clutches</a>
+                                                            <a href="#">Cross Body</a>
+                                                            <a href="#">Satchels</a>
+                                                            <a href="#">Shoulder</a>
+                                                            <a href="#">Toter</a>
+                                                        </div>
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">Dresses</a>
+                                                            </h3>
+                                                            <a href="#">Bras</a>
+                                                            <a href="#">Hair Accessories</a>
+                                                            <a href="#">Hats and Gloves</a>
+                                                            <a href="#">Lifestyle</a>
+                                                            <a href="#">Scarves</a>
+                                                            <a href="#">Tops</a>
+                                                        </div>
+                                                    </div>
+                                                </li> -->
+                                                <li><a href="./trans_art_list.html">翻译</a></li>
+                                                <li><a href="#">关于我</a></li>
+                                            </ul>
+                                        </nav>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <div class="menu-search-top h-three">
+                                    <div class="menu-search-mid three-mid">
+                                        <input class="menu-srch-all" type="text" placeholder="Search" name="search">
+                                        <span class="input-bun-top three">
+                                            <button class="menu-search three" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="main_content" style="width: 1000px;margin:auto;font-size: 16px;line-height: 30px">
+            <p><b>一、前言</b></p>
+            <p>当我们想看电影而又不知道看啥电影的时候，通常会选择一些分类标签，例如想看哪个国家的，想看什么类型的等等。因此，我们可以发现，电影是可以按照题材分类的。但具体又是怎么分类的呢？比如动作片的电影有哪些相似之处呢？与爱情片有什么区别呢？动作片中有打斗场景，但爱情片中也有打斗场景啊。但我们可以发现，动作片中的打斗场景明显多于爱情片的打斗场景。因此，我们可以通过电影中某一场景出现的次数来判断其类型。</p>
+            <p>本文将基于电影中的打斗次数、亲吻次数，使用 k-近邻算法构造分类器，自动划分电影的题材类型。</p>
+            <p><b>二、k-近邻算法概述</b></p>
+            <p>简单的说，k-近邻算法通过测量不同特征之间的距离并进行比较得到分类结果。</p>
+            <p>其工作原理如下：</p>
+            <p>对于一个给定的训练集，我们知道训练样本中的每组数据特征及其分类标签。然后输入没有标签的新数据，将新数据的每个特征与训练集中的每个特征进行比较，选取特征最相似（最近邻）的分类标签，一般来说，我们只选取前 k 个最相似的分类标签，这也是 k-近邻算法中 k 的由来，通常 k 不超过 20。最后，选择 k 个数据中出现次数最多的分类标签作为新数据的分类结果。</p>
+            <p>回到刚刚电影题材分类问题，使用 k-近邻算法进行题材分类的过程如下所示：</p>
+            <p>首先我们需要训练集以及题材未知的电影中出现的打斗和接吻次数，如图 2-1 所示：</p>
+            <p><img src="./img/KNN/2-1.png" alt=""></p>
+            <p>下面，我们将计算未知电影与训练样本中其他电影的距离，我们暂时不关心如何计算这些距离，之后会学习。</p>
+            <p>得到的距离如 2-2 所示：</p>
+            <p><img src="./img/KNN/2-2.png" alt=""></p>
+            <p>假定 k = 3，根据 k- 近邻算法的定义，该电影的题材将被判定为爱情片。这就是 k-近邻算法的大致过程。</p>
+            <p><b>三、实战环节--使用 k-近邻算法改进约会网站配对效果</b></p>
+            <p>海伦一直在在线约会网站寻找合适的约会对象，尽管网站会推荐不同的人，但她并没有从中找到喜欢的人。海伦的所有约会对象，大概可以分为三类：</p>
+            <ul style="list-style: circle;margin-left: 50px">
+                <li>不喜欢的人</li>
+                <li>魅力一般的人</li>
+                <li>极具魅力的人</li>
+            </ul>
+            <p>海伦希望我们的分类软件可以很好的帮助她将匹配对象划分到确切的分类中。经过一段时间的数据收集，她把数据放在了 <a href="D:/py_work/data/dating/datingTestSet.txt">datingTestSet2.txt</a> 中，每个样本数据占一行，共 1000 行，每个样本数据包含以下三种特征：</p>
+            <ul style="list-style: circle;margin-left: 50px">
+                <li>每年获得的飞行常客里程数</li>
+                <li>玩游戏所耗时间百分比</li>
+                <li>每周消耗的冰淇淋公斤数</li>
+            </ul>
+            <p><b>1. 加载数据集，把普通文本问价转化为 Python 矩阵并将分类标签数字化</b></p>
+            <div class="code">
+                <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #AA22FF; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">函数说明：加载数据集，将文本文件转换为 numpy 数组</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">参数：filename -- 文件名</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">返回值：returnMat -- 数据特征</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">        classLabelVector - 数据标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">file2matrix</span>(filename):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     fr <span style="color: #666666">=</span> <span style="color: #AA22FF">open</span>(filename)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     arrayOlines <span style="color: #666666">=</span> fr<span style="color: #666666">.</span>readlines()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     numberOfLins <span style="color: #666666">=</span> <span style="color: #AA22FF">len</span>(arrayOlines)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     <span style="color: #008800; font-style: italic"># 初始化数据特征矩阵</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     returnMat <span style="color: #666666">=</span> np<span style="color: #666666">.</span>zeros((numberOfLins,<span style="color: #666666">3</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     <span style="color: #008800; font-style: italic">#初始化数据标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     classLabelVector <span style="color: #666666">=</span> []
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     index <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>     <span style="color: #AA22FF; font-weight: bold">for</span> line <span style="color: #AA22FF; font-weight: bold">in</span> arrayOlines:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>         line <span style="color: #666666">=</span> line<span style="color: #666666">.</span>strip()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span>         listFromLine <span style="color: #666666">=</span> line<span style="color: #666666">.</span>split(<span style="color: #BB4444">&#39;</span><span style="color: #BB6622; font-weight: bold">\t</span><span style="color: #BB4444">&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span>         returnMat[index,:] <span style="color: #666666">=</span> listFromLine[<span style="color: #666666">0</span>:<span style="color: #666666">3</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span>         <span style="color: #AA22FF; font-weight: bold">if</span> listFromLine[<span style="color: #666666">-1</span>] <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;largeDoses&#39;</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span>             classLabel <span style="color: #666666">=</span> <span style="color: #666666">3</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span>         <span style="color: #AA22FF; font-weight: bold">elif</span> listFromLine[<span style="color: #666666">-1</span>] <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;smallDoses&#39;</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span>             classLabel <span style="color: #666666">=</span> <span style="color: #666666">2</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span>         <span style="color: #AA22FF; font-weight: bold">elif</span> listFromLine[<span style="color: #666666">-1</span>] <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;didntLike&#39;</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">26</span>             classLabel <span style="color: #666666">=</span> <span style="color: #666666">1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">27</span>         classLabelVector<span style="color: #666666">.</span>append(classLabel)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">28</span>         index <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">29</span>     <span style="color: #AA22FF; font-weight: bold">return</span> returnMat,classLabelVector
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">30</span> returnMat,classLabelVector <span style="color: #666666">=</span> file2matrix(<span style="color: #BB4444">&#39;D:/py_work/data/dating/datingTestSet.txt&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">31</span> <span style="color: #AA22FF; font-weight: bold">print</span>(returnMat)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">32</span> <span style="color: #AA22FF; font-weight: bold">print</span>(classLabelVector[<span style="color: #666666">0</span>:<span style="color: #666666">20</span>])
+</pre></div>
+            
+            </div>
+            <p>执行结果为：</p>
+            <p><img src="./img/KNN/加载数据集.png" alt=""></p>
+            <p>我们已经从文本文件中导入了数据，但这种方式不是特别的直观，接着让我们用图形化的方式展示数据。</p>
+            <p><b>2. 可视化数据集</b></p>
+            <div class="code">
+                <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明:可视化数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：dataMat -- 只含特征的数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">      datingLabels -- 数据集标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">返回值：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">showData</span>(dataMat,datingLabels):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span>     fig <span style="color: #666666">=</span> plt<span style="color: #666666">.</span>figure()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     ax <span style="color: #666666">=</span> fig<span style="color: #666666">.</span>add_subplot(<span style="color: #666666">111</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     <span style="color: #008800; font-style: italic">#展示第二列、第三列特征,并通过颜色区别展示不同标签的数据</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     ax<span style="color: #666666">.</span>scatter(dataMat[:,<span style="color: #666666">1</span>],dataMat[:,<span style="color: #666666">2</span>],<span style="color: #666666">15.0*</span>np<span style="color: #666666">.</span>array(datingLabels),<span style="color: #666666">15.0*</span>np<span style="color: #666666">.</span>array(datingLabels))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     plt<span style="color: #666666">.</span>title(<span style="color: #BB4444">&#39;datingDataSet&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     plt<span style="color: #666666">.</span>xlabel(<span style="color: #BB4444">&#39;play games&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     plt<span style="color: #666666">.</span>ylabel(<span style="color: #BB4444">&#39;eat icecrime&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     plt<span style="color: #666666">.</span>show()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span> showData(returnMat,classLabelVector)
+</pre></div>
+            </div>
+            <p>执行结果为：</p>
+            <p><img src="./img/KNN/可视化数据集.png" alt=""></p>
+            <p>以上展示了样本类别与每周玩游戏百分比以及每周消耗的冰淇淋公斤数之间的关系，同样的，我们还可以展示样本类别与每周玩游戏的百分比以及每年获得的飞行里程数之间的关系。由于代码类似，所以此处直接展示结果。</p>
+            <p><img src="./img/KNN/可视化数据集2.png" alt=""></p>
+            <p><b>3. 数据归一化</b></p>
+            <p><img src="./img/KNN/表2-3.png" alt=""></p>
+            <p>表 2-3 给出了四组样本数据，如果我们想计算样本 3 和样本 4 之间的距离，则有：</p>
+            <p><img src="./img/KNN/样本间的距离.png" alt=""></p>
+            <p>我们可以发现，上述式子的结果受数值大的特征的影响最大，这么一来这三个特征就会有不一样的权重，但海伦认为这三个特征是同等重要的，因此，我们需要采用数值归一化，如将数值取值范围处理为 0 到 1 或 -1 到 1。下面的公式可以将任意数值的特征值转化为 0 到 1 之间的数值。</p>
+            <p><img src="./img/KNN/数值归一化.png" alt=""></p>
+            <div class="code">
+                <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：数值归一化</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数： dataSet --  待归一化的数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">返回值：normDataSet -- 归一化的数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">        ranges -- 最大值喝最小值之间的差值</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">        minVals -- 最小值</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">autoNorm</span>(dataSet):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     <span style="color: #008800; font-style: italic"># 返回值最小的一列数值</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     minVals <span style="color: #666666">=</span> dataSet<span style="color: #666666">.</span>min(<span style="color: #666666">0</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     maxVals <span style="color: #666666">=</span> dataSet<span style="color: #666666">.</span>max(<span style="color: #666666">0</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     ranges <span style="color: #666666">=</span> maxVals <span style="color: #666666">-</span> minVals
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     <span style="color: #008800; font-style: italic"># 初始化放归一化数据的数组</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     normDataSet <span style="color: #666666">=</span> np<span style="color: #666666">.</span>zeros(np<span style="color: #666666">.</span>shape(dataSet))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     <span style="color: #008800; font-style: italic">#获取待归一化数据集的行数</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     m <span style="color: #666666">=</span> dataSet<span style="color: #666666">.</span>shape[<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>     <span style="color: #008800; font-style: italic"># 根据归一化公式将数据集中的每个数据都减去最小值</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>     normDataSet <span style="color: #666666">=</span> dataSet <span style="color: #666666">-</span> np<span style="color: #666666">.</span>tile(minVals,(m,<span style="color: #666666">1</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span>     normDataSet <span style="color: #666666">=</span> normDataSet <span style="color: #666666">/</span> np<span style="color: #666666">.</span>tile(ranges,(m,<span style="color: #666666">1</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span>     <span style="color: #AA22FF; font-weight: bold">return</span> normDataSet,ranges,minVals
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span> normDataSet,ranges,minVals <span style="color: #666666">=</span> autoNorm(returnMat)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span> <span style="color: #AA22FF; font-weight: bold">print</span>(normDataSet)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span> <span style="color: #AA22FF; font-weight: bold">print</span>(ranges)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span> <span style="color: #AA22FF; font-weight: bold">print</span>(minVals)
+</pre></div>
+            </div>
+            <p>数据归一化结果：</p>
+            <p><img src="./img/KNN/数据归一化结果.png" alt=""></p>
+            <p><b>4. k-近邻算法</b></p>
+            <div class="code">
+                <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：k-近邻算法</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：inX -- 待分类的向量</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">      dataSet -- 用于训练的数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">      labels -- 用于训练的数据集标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">      k -- 表示选择最近邻数据的数目</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">返回值：sortedClassCount[0][0] -- 出现频率最高的数据标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">classify0</span>(inX,dataSet,labels,k):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     <span style="color: #008800; font-style: italic">#数据集行数</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     dataSetSize <span style="color: #666666">=</span> dataSet<span style="color: #666666">.</span>shape[<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     <span style="color: #008800; font-style: italic">#计算样本件的距离</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     diffMat <span style="color: #666666">=</span> np<span style="color: #666666">.</span>tile(inX,(dataSetSize,<span style="color: #666666">1</span>)) <span style="color: #666666">-</span> dataSet
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     sqDiffMat <span style="color: #666666">=</span> diffMat<span style="color: #666666">**2</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     <span style="color: #008800; font-style: italic"># 将每行数据的距离求和得到样本间的距离</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     sqDistances <span style="color: #666666">=</span> sqDiffMat<span style="color: #666666">.</span>sum(axis<span style="color: #666666">=1</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>     distances <span style="color: #666666">=</span> sqDistances <span style="color: #666666">**</span> <span style="color: #666666">0.5</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>     <span style="color: #008800; font-style: italic"># 将得到的距离从小到大排序，排序的结果为索引</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span>     sortedDistIndicies <span style="color: #666666">=</span> distances<span style="color: #666666">.</span>argsort()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span>     <span style="color: #008800; font-style: italic"># print(sortedDistIndicies)</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span>     <span style="color: #008800; font-style: italic">#字典统计分类标签出现的次数,index为类别标签，vlaue为出现的次数</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span>     classCount <span style="color: #666666">=</span> {}
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span>     <span style="color: #AA22FF; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #AA22FF">range</span>(k):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span>         <span style="color: #008800; font-style: italic"># 得到距离最小的数据对应类别标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span>         voteIlabel <span style="color: #666666">=</span> labels[sortedDistIndicies[i]]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">26</span>         <span style="color: #008800; font-style: italic"># 判断 voteIlabel 这个类别是否存在，若存在，则加 1，否则为 0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">27</span>         classCount[voteIlabel] <span style="color: #666666">=</span> classCount<span style="color: #666666">.</span>get(voteIlabel,<span style="color: #666666">0</span>) <span style="color: #666666">+</span> <span style="color: #666666">1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">28</span>     <span style="color: #008800; font-style: italic"># print(classCount)</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">29</span>     <span style="color: #008800; font-style: italic"># 根据统计得到的标签出现次数按从大到小的顺序进行排列</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">30</span>     sortedClassCount <span style="color: #666666">=</span> <span style="color: #AA22FF">sorted</span>(classCount<span style="color: #666666">.</span>items(),key<span style="color: #666666">=</span>operator<span style="color: #666666">.</span>itemgetter(<span style="color: #666666">1</span>),reverse<span style="color: #666666">=</span><span style="color: #AA22FF">True</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">31</span>     <span style="color: #008800; font-style: italic"># print(sortedClassCount)</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">32</span>     <span style="color: #008800; font-style: italic"># 返回出现次数最多的分类标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">33</span>     <span style="color: #AA22FF; font-weight: bold">return</span> sortedClassCount[<span style="color: #666666">0</span>][<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">34</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">35</span> inX <span style="color: #666666">=</span> returnMat[<span style="color: #666666">0</span>:<span style="color: #666666">1</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">36</span> <span style="color: #008800; font-style: italic"># print(returnMat[1:])</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">37</span> predClass <span style="color: #666666">=</span> classify0(inX,returnMat[<span style="color: #666666">1</span>:],classLabelVector,<span style="color: #666666">3</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">38</span> <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&#39;预测分类：&#39;</span>,predClass)
+</pre></div>
+            </div>
+            <p>执行结果：</p>
+            <p><img src="./img/KNN/k-近邻算法执行结果.png" alt=""></p>
+            <p><b>5. 代码整合 -- 作为完整程序验证分类器</b></p>
+            <div class="code">
+                <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：作为完整程序验证分类器</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">返回值：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">datingClassTest</span>():
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span>     <span style="color: #008800; font-style: italic">#用于训练的数据比例</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span>     hoRatio <span style="color: #666666">=</span> <span style="color: #666666">0.10</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     returnMat,classLabelVector <span style="color: #666666">=</span> file2matrix(<span style="color: #BB4444">&#39;D:/py_work/data/dating/datingTestSet.txt&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     normDataSet,ranges,minVals <span style="color: #666666">=</span> autoNorm(returnMat)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     m <span style="color: #666666">=</span> normDataSet<span style="color: #666666">.</span>shape[<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     numTestVecs <span style="color: #666666">=</span> <span style="color: #AA22FF">int</span>(m <span style="color: #666666">*</span> hoRatio)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     <span style="color: #008800; font-style: italic">#初始化错误率</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     errorCount <span style="color: #666666">=</span> <span style="color: #666666">0.0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     <span style="color: #AA22FF; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #AA22FF">range</span>(numTestVecs):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>         calssifierResult <span style="color: #666666">=</span> classify0(normDataSet[i,:],normDataSet[numTestVecs:m,:],classLabelVector[numTestVecs:m],<span style="color: #666666">4</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>         <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&quot;the classfier came back with:&quot;</span>,calssifierResult,<span style="color: #BB4444">&quot;the real answer is:&quot;</span>,classLabelVector[i])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>         <span style="color: #008800; font-style: italic"># print(&quot;the real answer is:&quot;,classLabelVector[i])</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span>         <span style="color: #AA22FF; font-weight: bold">if</span>(classLabelVector[i] <span style="color: #666666">!=</span> calssifierResult):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span>             errorCount <span style="color: #666666">+=</span> <span style="color: #666666">1.0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span>     <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&quot;the total error rate is：&quot;</span>,(errorCount <span style="color: #666666">/</span> <span style="color: #AA22FF">float</span>(numTestVecs)))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span> datingClassTest()
+</pre></div>
+            </div>
+            <p>执行结果：</p>
+            <p><img src="./img/KNN/约会数据分类结果.png" alt=""></p>
+            <p>测试时，发现当 k = 3 时，错误率为 5%，而当 k = 4 时，错误率为 3%。因此不同的取值会有不同的结果，没有人知道 k 取什么值时预测结果最好只有不断地尝试才能找到最佳取值。</p>
+            <p><b>6. 约会网站预测函数</b></p>
+            <p>讲了这么多，我们最终的目的是帮助海伦通过自行输入样本特征信息预测出样本是哪一类？不喜欢的人？魅力值一般的人？还是极具魅力的人？</p>
+            <div class="code">
+                <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：根据用户自行输入的样本特征预测样本类别</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">返回值：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">classifyPerson</span>():
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span>     resultList <span style="color: #666666">=</span> [<span style="color: #BB4444">&#39;not at all&#39;</span>,<span style="color: #BB4444">&#39;in small doses&#39;</span>,<span style="color: #BB4444">&#39;in large doses&#39;</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span>     percnetTats <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(<span style="color: #AA22FF">input</span>(<span style="color: #BB4444">&quot;percentage of time spent playing vedio games?&quot;</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     <span style="color: #008800; font-style: italic"># 用户自行输入待分类的样本特征</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     ffMiles <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(<span style="color: #AA22FF">input</span>(<span style="color: #BB4444">&quot;frequent flier miles earned per year?&quot;</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     iceCream <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(<span style="color: #AA22FF">input</span>(<span style="color: #BB4444">&quot;liters of iceCream consumes per year?&quot;</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     datingDataMat,datingLabels <span style="color: #666666">=</span> file2matrix(<span style="color: #BB4444">&#39;D:/py_work/data/dating/datingTestSet.txt&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     normMat,ranges,minVals <span style="color: #666666">=</span> autoNorm(datingDataMat)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     inArr <span style="color: #666666">=</span> np<span style="color: #666666">.</span>array([ffMiles,percnetTats,iceCream])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     calssifierResult <span style="color: #666666">=</span> classify0((inArr <span style="color: #666666">-</span> minVals)<span style="color: #666666">/</span>ranges,normMat,datingLabels,<span style="color: #666666">3</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&quot;You will probably like this person:&quot;</span>,resultList[calssifierResult <span style="color: #666666">-</span> <span style="color: #666666">1</span>])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span> classifyPerson()
+</pre></div>
+            </div>
+           <p> 运行后，程序会提醒你输入相关数据，输入数据后得到的结果如下：</p>
+           <p><img src="./img/KNN/自输入预测类别.png" alt=""></p>
+           <p>至此，使用 k-近邻算法改进在线约会网站配对效果的任务就完成啦~</p>
+           <p><b>4. 结语</b></p>
+           <p>k-近邻算法是分类数据最简单最有效的算法。但与此同时它也有自己的缺陷：</p>
+           <p>
+               <ul style="list-style: circle;margin-left: 50px">
+               <li>因为 k-近邻算法必须保存所有数据，所以当数据集较大时，必须使用大量的存储空间。</li>
+               <li>因为 k-近邻算法需要对数据集中的每个数据计算距离值，所以在实际使用时可能非常耗时。</li>
+               <li>除了以上两个缺点外，k-近邻算法的另一个缺陷是它无法给出任何数据的基础结构信息，它只能得到待测样本与训练集样本之间的距离。因此我们无法得知平均实例样本和典型实例样本具有什么特征。</li>
+           </ul>
+           </p>
+           <p>之后我们将会学习使用概率测量方法处理分类问题，该方法可以解决 k-近邻算法的第三个缺陷。</p>
+        </div>
+
+        <!-- footer -->
+        <footer class="footer-area">
+            <div class="container" style="margin-left: 220px">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="footer-title-up">
+                            <div class="footer-title">
+                                <h3>关于本站</h3>
+                            </div>
+                            <div class="about-us">
+                                <p>生命并不是你活了多少日子，而是你记住了多少日子。你要使你过的每一天都值得记忆。记录生活，记录美好！</p>
+                            </div>
+                            <br>
+                            <div class="footer-static-content">
+                                <a class="add" href="" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook"></i>
+    </a>   
+                                <a href="" class="wishlist" data-toggle="tooltip" title="Rss"><i class="fa fa-rss"></i></a>
+                               <a href="" class="wishlist" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="" class="search2" data-toggle="tooltip" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                                <a href="" class="wishlist" data-toggle="tooltip" title="Google"><i class="fa fa-google-plus"></i></a>
+                            </div>
+                            <!-- <div class="left-powered">
+                                <a href="#">
+                                    <img src="img/icon/payment.png" alt="">
+                                </a>    
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12 res-free">
+                        <div class="footer-title-up">
+                            <div class="footer-title">
+                                <h3>技术学习</h3>
+                            </div>
+                            <div class="footer-content">
+                                <ul class="toggle-footer">
+                                    <li>
+                                        <a href="./ML_art_list.html">机器学习</a>
+                                    </li>
+                                    <li>
+                                        <a href="./webspider_art_list.html">网络爬虫</a>
+                                    </li>
+                                    <li>
+                                        <a href="./qianduan_art_list.html">前端学习</a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="#">Returns</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Contact Us</a>
+                                    </li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 hidden-sm col-xs-12 res-free">
+                        <div class="footer-title-up">
+                            <div class="footer-title">
+                                <h3>生活琐碎</h3>
+                            </div>
+                            <div class="footer-content">
+                                <ul class="toggle-footer">
+                                    <li>
+                                        <a href="./books_art_list.html">读书</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">电影</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">音乐</a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="#">Brands</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Gift Vouchers</a>
+                                    </li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12 res-free">
+                    <!-- <img src="../images/website/32659e788a693850edda5d0056dff49f.jpg" alt=""> -->
+                        <!-- <div class="footer-title-up">
+                            <div class="footer-title">
+                                <h3>Contact Us</h3>
+                            </div>
+                            <div class="toggle-footer footer-content">
+                                <span class="address icon">Address: 123 Main Street, Anytown,CA 12345 USA.</span>
+                                <span class="phone icon">(800) 0123 456 789</span>
+                                <span class="email icon">admin@Bootexperts.com</span>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="last-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="footer-address">
+                                <address>
+                                    Copyright ©
+                                    <a href="#">Pomodoromjy</a>
+                                    All Rights Reserved
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+            
+        
+        <!-- start scrollUp
+		============================================ -->
+        <div id="toTop">
+            <i class="fa fa-chevron-up"></i>
+        </div>
+        <!-- end scrollUp
+		============================================ -->
+        <!-- QUICKVIEW PRODUCT -->
+        <div id="quickview-wrapper">
+            <!-- Modal -->
+            <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-product">
+                                <div class="product-images">
+                                    <div class="main-image images">
+                                        <img class="secondary-image" alt="" src="img/product/8-539x761.jpg">
+                                    </div>
+                                </div><!-- .product-images -->
+
+                                <div class="cras">
+                                    <div class="product-name">
+                                        <h1>Ut wisi enim</h1>
+                                    </div>
+                                    <div class="pro-rating cendo-pro">
+                                        <div class="pro_one">
+                                            <img src="img/icon/stars-1.png" alt="">
+                                        </div>
+                                        <p class="rating-links quick3">
+                                            <a href="#">1 Reviews</a>
+                                        </p>
+                                    </div>
+                                    <p class="availability in-stock">
+                                        Product Code: Product 3
+                                    </p>
+                                    <p class="availability in-stock2">
+                                        Availability:In stock
+                                    </p>
+                                    <div class="short-description">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla. Donec a neque libero. Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio...</p>
+                                    </div>
+                                    <div class="pre-box quick3">
+                                        <span class="special-price">$155.00</span>
+                                    </div>
+                                    <div class="add-to-box1">
+                                        <div class="add-to-box add-to-box2">
+                                            <div class="add-to-cart">
+                                                <div class="input-content">
+                                                    <label for="qty">Quantity:</label>
+                                                    <input id="qty" class="input-text qty" type="text" name="qty" maxlength="12" value="1" title="Qty">
+                                                </div>
+                                                <div class="product-icon quick3">
+                                                    <a href="#">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                    </a>
+                                                    <a href="#">
+                                                        <i class="fa fa-heart"></i>
+                                                    </a>
+                                                    <a href="#">
+                                                        <i class="fa fa-retweet"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- .product-info -->
+                            </div><!-- .modal-product -->
+                        </div><!-- .modal-body -->
+                    </div><!-- .modal-content -->
+                </div><!-- .modal-dialog -->
+            </div>
+            <!-- END Modal -->
+        </div>
+	    <!-- END QUICKVIEW PRODUCT -->
+        
+        
+		<!-- jquery
+		============================================ -->		
+        <script src="js/vendor/jquery-1.11.3.min.js"></script>
+		<!-- bootstrap JS
+		============================================ -->		
+        <script src="js/bootstrap.min.js"></script>
+		<!-- wow JS
+		============================================ -->		
+        <script src="js/wow.min.js"></script>
+		<!-- price-slider JS
+		============================================ -->		
+        <script src="js/jquery-price-slider.js"></script>
+        <!-- Img Zoom js -->
+		<script src="js/img-zoom/jquery.simpleLens.min.js"></script>			
+		<!-- meanmenu JS
+		============================================ -->		
+        <script src="js/jquery.meanmenu.js"></script>
+		<!-- owl.carousel JS
+		============================================ -->		
+        <script src="js/owl.carousel.min.js"></script>
+        <!-- jquery.ui js -->
+        <script src="js/jquery-ui.min.js"></script>
+		<!-- scrollUp JS
+		============================================ -->		
+        <script src="js/jquery.scrollUp.min.js"></script>
+		<!-- Nivo slider js
+		============================================ --> 		
+		<script src="lib/js/jquery.nivo.slider.js" type="text/javascript"></script>
+		<script src="lib/home.js" type="text/javascript"></script>
+		<!-- plugins JS
+		============================================ -->		
+        <script src="js/plugins.js"></script>
+		<!-- main JS
+		============================================ -->		
+        <script src="js/main.js"></script>
+    </body>
+</html>
