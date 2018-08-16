@@ -14,26 +14,26 @@ function show_hide() {
 }
 
 
-// var curIndex = 0;
-// //时间间隔(单位毫秒)，每秒钟显示一张，数组共有3张图片放在img文件夹下
-// var timeInterval = 10000;
+var curIndex = 0;
+//时间间隔(单位毫秒)，每秒钟显示一张，数组共有3张图片放在img文件夹下
+var timeInterval = 10000;
 
-// //定义一个存放照片位置的数组，可以放任意个，在这里放3个
-// var arr = new Array();
-// arr[0] = "C:/Users/Administrator/Desktop/马金燕/pomo/images/website/1.jpg";
-// arr[1] = "C:/Users/Administrator/Desktop/马金燕/pomo/images/website/2.jpg";
-// arr[2] = "C:/Users/Administrator/Desktop/马金燕/pomo/images/website/3.jpg";
-// arr[3] = "C:/Users/Administrator/Desktop/马金燕/pomo/images/website/4.jpg";
-// arr[4] = "C:/Users/Administrator/Desktop/马金燕/pomo/images/website/5.jpg";
-// arr[5] = "C:/Users/Administrator/Desktop/马金燕/pomo/images/website/6.jpg";
-// arr[6] = "C:/Users/Administrator/Desktop/马金燕/pomo/images/website/7.jpg";
+//定义一个存放照片位置的数组，可以放任意个，在这里放3个
+var arr = new Array();
+arr[0] = "../images/website/1.jpg";
+arr[1] = "../images/website/2.jpg";
+arr[2] = "../images/website/3.jpg";
+arr[3] = "../images/website/4.jpg";
+arr[4] = "../images/website/5.jpg";
+arr[5] = "../images/website/6.jpg";
+arr[6] = "../images/website/7.jpg";
 
-// setInterval(changeImg, timeInterval);
-// function changeImg() {
-// if (curIndex == arr.length - 1) {
-// curIndex = 0;
-// } else {
-// curIndex += 1;
-// }
-// document.body.style.backgroundImage = "URL("+arr[curIndex]+")";  //显示对应的图片
-// }
+setInterval(changeImg, timeInterval);
+function changeImg() {
+if (curIndex == arr.length - 1) {
+curIndex = 0;
+} else {
+curIndex += 1;
+}
+document.body.style.backgroundImage = "URL("+arr[curIndex]+")";  //显示对应的图片
+}
