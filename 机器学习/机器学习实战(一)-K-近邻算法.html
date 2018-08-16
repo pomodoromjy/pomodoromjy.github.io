@@ -225,7 +225,7 @@
                                 <div class="muti_menu three-menu">
                                     <nav>
                                             <ul>
-                                                <li><a class="fast active" href="./blog.html">主页 <!-- <i class="fa fa-angle-down"></i> --></a>
+                                                <li><a class="fast active" href="../new_blog/blog.html">主页 <!-- <i class="fa fa-angle-down"></i> --></a>
                                                     <!-- <div class="rayed">
                                                         <div class="tas menu-last2">
                                                             <a href="index-2.html">Home Version 2</a>
@@ -383,7 +383,7 @@
                 <li>魅力一般的人</li>
                 <li>极具魅力的人</li>
             </ul>
-            <p>海伦希望我们的分类软件可以很好的帮助她将匹配对象划分到确切的分类中。经过一段时间的数据收集，她把数据放在了 <a href="D:/py_work/data/dating/datingTestSet.txt">datingTestSet2.txt</a> 中，每个样本数据占一行，共 1000 行，每个样本数据包含以下三种特征：</p>
+            <p>海伦希望我们的分类软件可以很好的帮助她将匹配对象划分到确切的分类中。经过一段时间的数据收集，她把数据放在了 <a href="D:/py_work/data/chapter1-knn/dating/datingTestSet.txt">datingTestSet.txt</a> 中，每个样本数据占一行，共 1000 行，每个样本数据包含以下三种特征：</p>
             <ul style="list-style: circle;margin-left: 50px">
                 <li>每年获得的飞行常客里程数</li>
                 <li>玩游戏所耗时间百分比</li>
@@ -392,37 +392,39 @@
             <p><b>1. 加载数据集，把普通文本问价转化为 Python 矩阵并将分类标签数字化</b></p>
             <div class="code">
                 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #AA22FF; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">函数说明：加载数据集，将文本文件转换为 numpy 数组</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">参数：filename -- 文件名</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">返回值：returnMat -- 数据特征</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">        classLabelVector - 数据标签</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">file2matrix</span>(filename):
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     fr <span style="color: #666666">=</span> <span style="color: #AA22FF">open</span>(filename)
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     arrayOlines <span style="color: #666666">=</span> fr<span style="color: #666666">.</span>readlines()
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     numberOfLins <span style="color: #666666">=</span> <span style="color: #AA22FF">len</span>(arrayOlines)
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     <span style="color: #008800; font-style: italic"># 初始化数据特征矩阵</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     returnMat <span style="color: #666666">=</span> np<span style="color: #666666">.</span>zeros((numberOfLins,<span style="color: #666666">3</span>))
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     <span style="color: #008800; font-style: italic">#初始化数据标签</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     classLabelVector <span style="color: #666666">=</span> []
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     index <span style="color: #666666">=</span> <span style="color: #666666">0</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>     <span style="color: #AA22FF; font-weight: bold">for</span> line <span style="color: #AA22FF; font-weight: bold">in</span> arrayOlines:
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>         line <span style="color: #666666">=</span> line<span style="color: #666666">.</span>strip()
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span>         listFromLine <span style="color: #666666">=</span> line<span style="color: #666666">.</span>split(<span style="color: #BB4444">&#39;</span><span style="color: #BB6622; font-weight: bold">\t</span><span style="color: #BB4444">&#39;</span>)
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span>         returnMat[index,:] <span style="color: #666666">=</span> listFromLine[<span style="color: #666666">0</span>:<span style="color: #666666">3</span>]
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span>         <span style="color: #AA22FF; font-weight: bold">if</span> listFromLine[<span style="color: #666666">-1</span>] <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;largeDoses&#39;</span>:
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span>             classLabel <span style="color: #666666">=</span> <span style="color: #666666">3</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span>         <span style="color: #AA22FF; font-weight: bold">elif</span> listFromLine[<span style="color: #666666">-1</span>] <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;smallDoses&#39;</span>:
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span>             classLabel <span style="color: #666666">=</span> <span style="color: #666666">2</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span>         <span style="color: #AA22FF; font-weight: bold">elif</span> listFromLine[<span style="color: #666666">-1</span>] <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;didntLike&#39;</span>:
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">26</span>             classLabel <span style="color: #666666">=</span> <span style="color: #666666">1</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">27</span>         classLabelVector<span style="color: #666666">.</span>append(classLabel)
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">28</span>         index <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">29</span>     <span style="color: #AA22FF; font-weight: bold">return</span> returnMat,classLabelVector
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">30</span> returnMat,classLabelVector <span style="color: #666666">=</span> file2matrix(<span style="color: #BB4444">&#39;D:/py_work/data/dating/datingTestSet.txt&#39;</span>)
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">31</span> <span style="color: #AA22FF; font-weight: bold">print</span>(returnMat)
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">32</span> <span style="color: #AA22FF; font-weight: bold">print</span>(classLabelVector[<span style="color: #666666">0</span>:<span style="color: #666666">20</span>])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">matplotlib.pyplot</span> <span style="color: #AA22FF; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">plt</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">operator</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">函数说明：加载数据集，将文本文件转换为 numpy 数组</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">参数：filename -- 文件名</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">返回值：returnMat -- 数据特征</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #BB4444; font-style: italic">        classLabelVector - 数据标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">file2matrix</span>(filename):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     fr <span style="color: #666666">=</span> <span style="color: #AA22FF">open</span>(filename)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     arrayOlines <span style="color: #666666">=</span> fr<span style="color: #666666">.</span>readlines()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     numberOfLins <span style="color: #666666">=</span> <span style="color: #AA22FF">len</span>(arrayOlines)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     <span style="color: #008800; font-style: italic"># 初始化数据特征矩阵</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     returnMat <span style="color: #666666">=</span> np<span style="color: #666666">.</span>zeros((numberOfLins,<span style="color: #666666">3</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     <span style="color: #008800; font-style: italic">#初始化数据标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>     classLabelVector <span style="color: #666666">=</span> []
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>     index <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span>     <span style="color: #AA22FF; font-weight: bold">for</span> line <span style="color: #AA22FF; font-weight: bold">in</span> arrayOlines:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span>         line <span style="color: #666666">=</span> line<span style="color: #666666">.</span>strip()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span>         listFromLine <span style="color: #666666">=</span> line<span style="color: #666666">.</span>split(<span style="color: #BB4444">&#39;</span><span style="color: #BB6622; font-weight: bold">\t</span><span style="color: #BB4444">&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span>         returnMat[index,:] <span style="color: #666666">=</span> listFromLine[<span style="color: #666666">0</span>:<span style="color: #666666">3</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span>         <span style="color: #AA22FF; font-weight: bold">if</span> listFromLine[<span style="color: #666666">-1</span>] <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;largeDoses&#39;</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span>             classLabel <span style="color: #666666">=</span> <span style="color: #666666">3</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span>         <span style="color: #AA22FF; font-weight: bold">elif</span> listFromLine[<span style="color: #666666">-1</span>] <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;smallDoses&#39;</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">26</span>             classLabel <span style="color: #666666">=</span> <span style="color: #666666">2</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">27</span>         <span style="color: #AA22FF; font-weight: bold">elif</span> listFromLine[<span style="color: #666666">-1</span>] <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;didntLike&#39;</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">28</span>             classLabel <span style="color: #666666">=</span> <span style="color: #666666">1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">29</span>         classLabelVector<span style="color: #666666">.</span>append(classLabel)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">30</span>         index <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">31</span>     <span style="color: #AA22FF; font-weight: bold">return</span> returnMat,classLabelVector
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">32</span> returnMat,classLabelVector <span style="color: #666666">=</span> file2matrix(<span style="color: #BB4444">&#39;D:/py_work/data/chapter2-knn/dating/datingTestSet.txt&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">33</span> <span style="color: #AA22FF; font-weight: bold">print</span>(returnMat)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">34</span> <span style="color: #AA22FF; font-weight: bold">print</span>(classLabelVector[<span style="color: #666666">0</span>:<span style="color: #666666">20</span>])
 </pre></div>
             
             </div>
@@ -544,7 +546,7 @@
 <span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">datingClassTest</span>():
 <span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span>     <span style="color: #008800; font-style: italic">#用于训练的数据比例</span>
 <span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span>     hoRatio <span style="color: #666666">=</span> <span style="color: #666666">0.10</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     returnMat,classLabelVector <span style="color: #666666">=</span> file2matrix(<span style="color: #BB4444">&#39;D:/py_work/data/dating/datingTestSet.txt&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     returnMat,classLabelVector <span style="color: #666666">=</span> file2matrix(<span style="color: #BB4444">&#39;D:/py_work/data/chapter2-knn/dating/datingTestSet.txt&#39;</span>)
 <span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     normDataSet,ranges,minVals <span style="color: #666666">=</span> autoNorm(returnMat)
 <span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     m <span style="color: #666666">=</span> normDataSet<span style="color: #666666">.</span>shape[<span style="color: #666666">0</span>]
 <span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     numTestVecs <span style="color: #666666">=</span> <span style="color: #AA22FF">int</span>(m <span style="color: #666666">*</span> hoRatio)
@@ -568,30 +570,105 @@
             <p><b>6. 约会网站预测函数</b></p>
             <p>讲了这么多，我们最终的目的是帮助海伦通过自行输入样本特征信息预测出样本是哪一类？不喜欢的人？魅力值一般的人？还是极具魅力的人？</p>
             <div class="code">
-                <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：根据用户自行输入的样本特征预测样本类别</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：无</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">返回值：无</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">classifyPerson</span>():
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span>     resultList <span style="color: #666666">=</span> [<span style="color: #BB4444">&#39;not at all&#39;</span>,<span style="color: #BB4444">&#39;in small doses&#39;</span>,<span style="color: #BB4444">&#39;in large doses&#39;</span>]
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span>     percnetTats <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(<span style="color: #AA22FF">input</span>(<span style="color: #BB4444">&quot;percentage of time spent playing vedio games?&quot;</span>))
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     <span style="color: #008800; font-style: italic"># 用户自行输入待分类的样本特征</span>
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     ffMiles <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(<span style="color: #AA22FF">input</span>(<span style="color: #BB4444">&quot;frequent flier miles earned per year?&quot;</span>))
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     iceCream <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(<span style="color: #AA22FF">input</span>(<span style="color: #BB4444">&quot;liters of iceCream consumes per year?&quot;</span>))
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     datingDataMat,datingLabels <span style="color: #666666">=</span> file2matrix(<span style="color: #BB4444">&#39;D:/py_work/data/dating/datingTestSet.txt&#39;</span>)
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     normMat,ranges,minVals <span style="color: #666666">=</span> autoNorm(datingDataMat)
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     inArr <span style="color: #666666">=</span> np<span style="color: #666666">.</span>array([ffMiles,percnetTats,iceCream])
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     calssifierResult <span style="color: #666666">=</span> classify0((inArr <span style="color: #666666">-</span> minVals)<span style="color: #666666">/</span>ranges,normMat,datingLabels,<span style="color: #666666">3</span>)
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&quot;You will probably like this person:&quot;</span>,resultList[calssifierResult <span style="color: #666666">-</span> <span style="color: #666666">1</span>])
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span> 
-<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span> classifyPerson()
+                <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> datingClassTest()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">函数说明：根据用户自行输入的样本特征预测样本类别</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">参数：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">返回值：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">classifyPerson</span>():
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     resultList <span style="color: #666666">=</span> [<span style="color: #BB4444">&#39;not at all&#39;</span>,<span style="color: #BB4444">&#39;in small doses&#39;</span>,<span style="color: #BB4444">&#39;in large doses&#39;</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     percnetTats <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(<span style="color: #AA22FF">input</span>(<span style="color: #BB4444">&quot;percentage of time spent playing vedio games?&quot;</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     <span style="color: #008800; font-style: italic"># 用户自行输入待分类的样本特征</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     ffMiles <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(<span style="color: #AA22FF">input</span>(<span style="color: #BB4444">&quot;frequent flier miles earned per year?&quot;</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     iceCream <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(<span style="color: #AA22FF">input</span>(<span style="color: #BB4444">&quot;liters of iceCream consumes per year?&quot;</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     datingDataMat,datingLabels <span style="color: #666666">=</span> file2matrix(<span style="color: #BB4444">&#39;D:/py_work/chapter2-knn/data/dating/datingTestSet.txt&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     normMat,ranges,minVals <span style="color: #666666">=</span> autoNorm(datingDataMat)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     inArr <span style="color: #666666">=</span> np<span style="color: #666666">.</span>array([ffMiles,percnetTats,iceCream])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>     calssifierResult <span style="color: #666666">=</span> classify0((inArr <span style="color: #666666">-</span> minVals)<span style="color: #666666">/</span>ranges,normMat,datingLabels,<span style="color: #666666">3</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>     <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&quot;You will probably like this person:&quot;</span>,resultList[calssifierResult <span style="color: #666666">-</span> <span style="color: #666666">1</span>])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span> classifyPerson()
 </pre></div>
             </div>
            <p> 运行后，程序会提醒你输入相关数据，输入数据后得到的结果如下：</p>
            <p><img src="./img/KNN/自输入预测类别.png" alt=""></p>
            <p>至此，使用 k-近邻算法改进在线约会网站配对效果的任务就完成啦~</p>
-           <p><b>4. 结语</b></p>
+           <p><b>四、实战环节 -- 使用 k-近邻算法实现手写识别系统</b></p>
+           <p>本小节我们将使用 k-近邻算法构造手写识别分类器。为了简单起见，这里的识别系统只能识别数字 0 到 9。需要识别的数字已经使用图形处理软件，处理成具有相同色彩和大小：即 32 x 32 px 的黑白图像。尽管采用文本形式存储图像不能有效的利用存储空间，但为了方便理解，我们还是将图像转换为文本格式。</p>
+           <p><b>1. 数据准备：将图像转换为测试向量</b></p>
+           <p>实际图像分别存储在 <a href="D:/py_work/data/chapter2-knn/digits/testDigits">testDigits</a> 和 <a href="D:/py_work/data/chapter2-knn/digits/trainingDigits">trainingDigits</a> 内，其中训练集包含了大约 2000 个例子，每个数字大概有 200 个样本；测试集中大约包含 900 个测试数据。</p>
+           <p>为了使用之前例子的分类器，我们需要将图像转换为一个向量，即将 32 x 32 的图像矩阵转换为 1 x 1024 的向量。</p>
+           <div class="code">
+               <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #AA22FF; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #666666">*</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #AA22FF; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">pandas</span> <span style="color: #AA22FF; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">pd</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">函数说明：将32x32的矩阵转换为1x1024的向量</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">参数：filename -- 待转换数据的文件名</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">返回值：returnVec -- 转换后的1x1024向量</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">image2vector</span>(filename):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     returnVec <span style="color: #666666">=</span> np<span style="color: #666666">.</span>zeros((<span style="color: #666666">1</span>,<span style="color: #666666">1024</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     fr <span style="color: #666666">=</span> <span style="color: #AA22FF">open</span>(filename)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     <span style="color: #AA22FF; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #AA22FF">range</span>(<span style="color: #666666">32</span>):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>         linestr <span style="color: #666666">=</span> fr<span style="color: #666666">.</span>readline()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>         <span style="color: #AA22FF; font-weight: bold">for</span> j <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #AA22FF">range</span>(<span style="color: #666666">32</span>):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>             returnVec[<span style="color: #666666">0</span>,<span style="color: #666666">32*</span>i<span style="color: #666666">+</span>j] <span style="color: #666666">=</span> <span style="color: #AA22FF">int</span>(linestr[j])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     <span style="color: #AA22FF; font-weight: bold">return</span> returnVec
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span> trainVec <span style="color: #666666">=</span> image2vector(<span style="color: #BB4444">&quot;D:/py_work/data/chapter2-knn/digits/trainingDigits/0_0.txt&quot;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span> <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&quot;trainVec[0,0:31]:&quot;</span>,trainVec[<span style="color: #666666">0</span>,<span style="color: #666666">0</span>:<span style="color: #666666">31</span>])
+</pre></div>
+           </div>
+        <p>矩阵到向量转换结果为：</p>
+        <p><img src="./img/KNN/矩阵到向量转化结果.png" alt=""></p>
+        <p><b>2. 使用 k-近邻算法识别手写数字</b></p>
+        <div class="code">
+            <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：使用k-近邻算法识别手写数字</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">返回值：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">handwritingClassTest</span>():
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span>     <span style="color: #008800; font-style: italic"># 用于存储数字类别</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span>     hwlabels <span style="color: #666666">=</span> []
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     <span style="color: #008800; font-style: italic">#listdir函数用于列出指定目录的文件名</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     trainingFileList <span style="color: #666666">=</span> listdir(<span style="color: #BB4444">&#39;D:/py_work/data/chapter2-knn/digits/trainingDigits&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     m <span style="color: #666666">=</span> <span style="color: #AA22FF">len</span>(trainingFileList)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     traingingMat <span style="color: #666666">=</span> zeros((m,<span style="color: #666666">1024</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     <span style="color: #AA22FF; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #AA22FF">range</span>(m):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>         <span style="color: #008800; font-style: italic"># 提取文件名</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>         fileNameStr <span style="color: #666666">=</span> trainingFileList[i]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>         fileStr <span style="color: #666666">=</span> trainingFileList[i]<span style="color: #666666">.</span>split(<span style="color: #BB4444">&quot;.&quot;</span>)[<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>         <span style="color: #008800; font-style: italic"># 提取文件所描述的数字</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>         fileClassNum <span style="color: #666666">=</span> <span style="color: #AA22FF">int</span>(fileStr<span style="color: #666666">.</span>split(<span style="color: #BB4444">&quot;_&quot;</span>)[<span style="color: #666666">0</span>])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span>         hwlabels<span style="color: #666666">.</span>append(fileClassNum)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span>         <span style="color: #008800; font-style: italic"># 成功将训练数据有32X32数组转换为1024矩阵</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span>         traingingMat[i,:] <span style="color: #666666">=</span> image2vector(<span style="color: #BB4444">&#39;D:/py_work/data/chapter2-knn/digits/trainingDigits/</span><span style="color: #BB6688; font-weight: bold">%s</span><span style="color: #BB4444">&#39;</span><span style="color: #666666">%</span>fileNameStr)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span>     testFileList <span style="color: #666666">=</span> listdir(<span style="color: #BB4444">&#39;D:/py_work/data/chapter2-knn/digits/testDigits&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span>     errorCount <span style="color: #666666">=</span> <span style="color: #666666">0.0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span>     mTset <span style="color: #666666">=</span> <span style="color: #AA22FF">len</span>(testFileList)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span>     <span style="color: #AA22FF; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #AA22FF">range</span>(mTset):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">26</span>         fileNameStr <span style="color: #666666">=</span> testFileList[i]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">27</span>         fileStr <span style="color: #666666">=</span> fileNameStr<span style="color: #666666">.</span>split(<span style="color: #BB4444">&quot;.&quot;</span>)[<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">28</span>         fileClassNum <span style="color: #666666">=</span> <span style="color: #AA22FF">int</span>(fileStr<span style="color: #666666">.</span>split(<span style="color: #BB4444">&quot;_&quot;</span>)[<span style="color: #666666">0</span>])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">29</span>         vectorUnderTest <span style="color: #666666">=</span> image2vector(<span style="color: #BB4444">&quot;D:/py_work/data/chapter2-knn/digits/testDigits/</span><span style="color: #BB6688; font-weight: bold">%s</span><span style="color: #BB4444">&quot;</span><span style="color: #666666">%</span>fileNameStr)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">30</span>         classifierResult <span style="color: #666666">=</span> dating_match<span style="color: #666666">.</span>classify0(vectorUnderTest,traingingMat,hwlabels,<span style="color: #666666">3</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">31</span>         <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&quot;the classifierResult is&quot;</span>,classifierResult,<span style="color: #BB4444">&quot;the real answer is&quot;</span>,fileClassNum)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">32</span>         <span style="color: #AA22FF; font-weight: bold">if</span>(classifierResult <span style="color: #666666">!=</span> fileClassNum):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">33</span>             errorCount <span style="color: #666666">+=</span> <span style="color: #666666">1.0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">34</span>     <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&quot;the total errorCount is:&quot;</span>,errorCount)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">35</span>     <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&quot;the total errorRate:&quot;</span>,errorCount <span style="color: #666666">/</span> <span style="color: #AA22FF">float</span>(mTset))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">36</span>     
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">37</span> handwritingClassTest()
+</pre></div>
+        </div>
+        <p>执行结果为：</p>
+        <p><img src="./img/KNN/识别手写数字结果.png" alt=""></p>
+        <p>可以看到，使用 k-近邻算法识别手写数字，错误率为 1.2%。但在实际使用这个算法时，其执行效率并不高，因为每判断一个数字，就要进行 2000 次距离计算，而且每个距离计算还包括了 1024 个维度浮点运算，总计要执行 900 次。此外，我们还要为测试向量准备 2MB 的空间。k 决策树就是 k-近邻算法的优化版，可节省大量计算开销。</p>
+
+           <p><b>五、 结语</b></p>
            <p>k-近邻算法是分类数据最简单最有效的算法。但与此同时它也有自己的缺陷：</p>
            <p>
                <ul style="list-style: circle;margin-left: 50px">
