@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>机器学习实战(二)-决策树(邮件过滤)</title>
+        <title>机器学习实战(三)-决策树实战之隐形眼镜类型预测</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,6 +14,9 @@
 		<!-- Google Fonts
 		============================================ -->		
        <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+
+       <!-- article CSS -->
+       <link rel="stylesheet" href="./css/article.css">
 	   
 		<!-- Bootstrap CSS
 		============================================ -->		
@@ -145,7 +148,7 @@
                             <div class="col-md-12 col-xs-12">
                                 <div class="logo l-three">
                                     <div class="logo-img">
-                                        <h3>机器学习实战(二)-决策树(邮件过滤)</h3>
+                                        <h3>机器学习实战(三)-决策树实战之隐形眼镜类型预测</h3>
                                     </div>
                                     <div class="top-cart-wrapper wrap three">
                                         <div class="top-shop-contain">
@@ -216,7 +219,7 @@
                                 <div class="muti_menu three-menu">
                                     <nav>
                                             <ul>
-                                                <li><a class="fast active" href="./blog.html">主页 <!-- <i class="fa fa-angle-down"></i> --></a>
+                                                <li><a class="fast active" href="../new_blog/blog.html">主页 <!-- <i class="fa fa-angle-down"></i> --></a>
                                                     <!-- <div class="rayed">
                                                         <div class="tas menu-last2">
                                                             <a href="index-2.html">Home Version 2</a>
@@ -353,104 +356,88 @@
             </div>
         </header>
         <div class="main_content" style="width: 1000px;margin:auto;font-size: 16px;line-height: 30px">
-            <p><b>一、决策树原理</b></p>
-            <p>你是否玩过二十个问题的游戏？游戏规则很简单：参与游戏的一方在脑海中想某个事物，其他参与者向其提问，只允许提二十个问题，而且问题的答案只能用对和错来回答。问问题的人通过答案进行推断，逐步缩小猜测事物的范围。决策树原理与二十个问题类似，用户给出一次列输入数据，然后分类器给出答案。</p>
-        <div>(1) 分割数据</div>
-                <div class="code">
-                    
-                    eg. # step1: 利用正则式切分文本,将字符串里的非单词、数字去掉，得到一系列由词组成的词表<br>
-                    <code>import re <br>
-                    regEx = re.compile('\\W*') <br>
-                    mySent = 'This book is the best book on Python or M.L. I have ever laid eyes upon.' <br>
-                    listOfTokens = regEx.split(mySent) <br>
-                    #输出未做任何处理的原始数据<br>
-                    print(mySent) <br>
-                    <img src="./images/未做处理的原始语句.png" alt=""><br>
-                    #输出作分割处理的语句<br>
-                    print(listOfTokens) <br>
-                    <img src="./images/语句分割成单词.png" alt=""><br>
-                    # 为了去掉空字符串，对每个字符串的长度进行计算，只保留长度大于0的字符串 <br>
-                    # dealedList = [tok  for tok in listOfTokens if len(tok) > 0] <br>
-                    # 将所有字符串都转化为小写 <br>
-                    dealedList = [tok.lower()  for tok in listOfTokens if len(tok) > 0] <br>            #输出最终处理结果，即长度大于0的所有单词的小写形式
-                    print(dealedList) <br>
-                    <img src="./images/最终处理结果.png" alt=""><br>
-                    </code>
-                    将数据分割封装成函数<br>
-                    <code>
-                        def textParse(bigString): <br>
-                            <p>
-                            import re <br>
-                            listOfTokens = re.split(r'\W*',bigString) <br>
-                            return [tok.lower() for tok in listOfTokens if len(tok) > 2] <br>
-                            </p>
-                    </code>
-                </div>
-                <div>(2)对数据进行预处理之后，将进行文件解析及完整的测试函数</div>
-                <code>
-                    def spamTest(): <br>
-                    <p>
-                        docList = [] <br>
-                        classList = [] <br>
-                        fullText = [] <br>  
-                        # 读取文件夹 spam 中的所有邮件，邮件的命名方式必须为 数字.txt,调用之前准备的数据处理函数，将邮件切分为单词 <br>
-                        for i in range(1,5): <br>
-                        wordList = textParse(open('D:/py_work/data/email/spam/%d.txt' %i).read()) <br>
-                        docList.append(wordList) <br>
-                        fullText.extend(wordList)<br>
-                        #垃圾邮件标记为1 <br>
-                        classList.append(1)<br>
-                        wordList = textParse(open('D:/py_work/data/email/ham/%d.txt' %i).read())<br>
-                        docList.append(wordList)<br>
-                        fullText.extend(wordList)<br>
-                        # 正常邮件标记为0 <br>
-                        classList.append(0) <br>
-                        #邮件处理之后，形成单词，创建一个单词不重复的列表 <br>
-                        vocabList = bytes.createVocabList(docList) <br>
-                        # 本例中共有8封邮件,每种邮件各4封,将其从0到7进行编号 <br>
-                        trainingSet = list(range(8)) <br>
-                        testSet = [] <br>
-                        # 随机选择2封邮件作为测试集 <br>
-                        for i in range(2): <br>
-                        </p>
-                        <p style="padding-left: 4em">
-                            # 从0到8之间随机选择2个数<br>
-                            randIndex = int(random.uniform(0,len(trainingSet)))<br>
-                            # 将随机生成的2个编号对应的邮件插入到测试列表中<br>
-                            testSet.append(trainingSet[randIndex])<br>
-                            # 删除训练集中已经加入到测试集中的邮件<br>
-                            del(trainingSet[randIndex])<br>
-                        </p>
-                        <p>
-                        初始化测试集向量<br>
-                        trainMat = []<br>
-                        # 初始化测试集邮件类别<br>
-                        trainClasses = []<br>
-                        for docIndex in trainingSet:<br>
-                        </p>
-                        <p style="padding-left: 4em">
-                            #不考虑词集中某个特征出现的次数，可以描述为词集模型<br>
-                            #词表到向量的转化<br>
-                            trainMat.append(bytes.setOfWords2Vec(vocabList,docList[docIndex]))<br>
-                            trainClasses.append(classList[docIndex])<br>
-                        </p>
-                        <p>
-                        #朴素贝叶斯分类器训练函数，分别计算垃圾邮件和正常邮件的概率<br>
-                        p0v,p1v,pSpam = bytes.trainNBO(np.array(trainMat),np.array(trainClasses))<br>
-                        errorCount = 0<br>
-                        # 对测试集进行测试<br>
-                        for docIndex in testSet:<br>
-                        </p>
-                        <p style="padding-left: 4em">
-                            wordVector = bytes.setOfWords2Vec(vocabList,docList[docIndex])
-                            # 将刚刚计算出的概率进行比较以分类
-                            if bytes.classifiNB(np.array(wordVector),p0v,p1v,pSpam) != classList[docIndex]:
-                                errorCount += 1
-                        </p>
-                        <p> 
-                        print('the errorCount rate is',float(errorCount) / len(testSet))
-                    </p>
-                </code>
+        <p><b>一、前言</b></p>    
+        <p>本节我们将使用决策树构建分类器，并将其应用到隐形眼镜类型预测的实际问题中，最后研究分类分类器的存储问题。</p>
+        <p><b>二、使用决策树执行分类</b></p>
+        <div class="code">
+            <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：构造使用决策树的分类函数</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：inputTree -- 输入的决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">      featLabels -- 数据集属性</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">      testVec -- 需要预测类别的节点</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">返回值：预测节点的类别</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">classify</span>(inputTree,featLabels,testVec):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     firstStr <span style="color: #666666">=</span> <span style="color: #AA22FF">list</span>(inputTree<span style="color: #666666">.</span>keys())[<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     secondDict <span style="color: #666666">=</span> inputTree[firstStr]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     featIndex <span style="color: #666666">=</span> featLabels<span style="color: #666666">.</span>index(firstStr)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     <span style="color: #AA22FF; font-weight: bold">for</span> key <span style="color: #AA22FF; font-weight: bold">in</span> secondDict<span style="color: #666666">.</span>keys():
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>         <span style="color: #AA22FF; font-weight: bold">if</span> testVec[featIndex] <span style="color: #666666">==</span> key:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>             <span style="color: #AA22FF; font-weight: bold">if</span> <span style="color: #AA22FF">type</span>(secondDict[key])<span style="color: #666666">.</span>__name__ <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;dict&#39;</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>                 classLabel <span style="color: #666666">=</span> classify(secondDict[key],featLabels,testVec)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>             <span style="color: #AA22FF; font-weight: bold">else</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>                 classLabel <span style="color: #666666">=</span> secondDict[key]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>     <span style="color: #AA22FF; font-weight: bold">return</span> classLabel
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span> dataSet,labels <span style="color: #666666">=</span> createDataSet()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span> <span style="color: #AA22FF; font-weight: bold">print</span>(classify(mytree,labels,[<span style="color: #666666">1</span>,<span style="color: #666666">1</span>]))
+</pre></div>
+        </div>
+        <p>预测结果为：</p>
+        <p><img src="./img/DecisionTree/决策树分类器预测结果.png" alt=""></p>
+        <p>现在我们已经根据决策树构造出了分类器，但每次使用分类器时，必须重新构造决策树，因此，我们考虑将决策树分类器存储起来。</p>
+        <p><b>三、决策树的存储</b></p>
+        <div class="code">
+            <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：决策树分类器的存储</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：inputTree -- 决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">      filename -- 文件名</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">返回值：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #008800; font-style: italic">#决策树的存储</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #008800; font-style: italic">#写</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">storeTree</span>(inputTree,filename):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">pickle</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     fw <span style="color: #666666">=</span> <span style="color: #AA22FF">open</span>(filename,<span style="color: #BB4444">&#39;wb&#39;</span>)   <span style="color: #008800; font-style: italic">#b代表二进制形式，因为pickl要求二进制形式</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     pickle<span style="color: #666666">.</span>dump(inputTree,fw)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     fw<span style="color: #666666">.</span>close()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span> <span style="color: #008800; font-style: italic">#读</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">grabTree</span>(filename):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>     <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">pickle</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>     fr <span style="color: #666666">=</span> <span style="color: #AA22FF">open</span>(filename,<span style="color: #BB4444">&#39;rb&#39;</span>)   <span style="color: #008800; font-style: italic">#以二进制形式存，故以二进制形式取</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span>     <span style="color: #AA22FF; font-weight: bold">return</span> pickle<span style="color: #666666">.</span>load(fr)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span> storeTree(mytree,<span style="color: #BB4444">&#39;classifierStorage.txt&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span> <span style="color: #AA22FF; font-weight: bold">print</span>(grabTree(<span style="color: #BB4444">&#39;classifierStorage.txt&#39;</span>))
+</pre></div>
+        </div>
+             <p>决策树的存储：</p>
+             <p><img src="./img/DecisionTree/写决策树.png" alt=""></p>   
+             <p>决策树的读取：</p>
+             <p><img src="./img/DecisionTree/读决策树.png" alt=""></p>
+             <p><b>四、决策树实战之隐形眼镜类型预测</b></p>
+             <p>本节我们将根据一个例子讲解决策树如何预测患者应该佩戴的隐形眼镜类型。</p>
+             <p>首先我们先加载数据集 <a href="D:/py_work/data/chapter3-tree/lenses.txt">lenses.txt</a></p>
+             <div class="code">
+                 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px">1</span> <span style="color: #008800; font-style: italic"># 加载隐形眼镜数据集，并将其序列化，最后生成决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">2</span> fr <span style="color: #666666">=</span> <span style="color: #AA22FF">open</span>(<span style="color: #BB4444">&#39;D:/py_work/data/chapter3-tree/lenses.txt&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">3</span> lenses <span style="color: #666666">=</span> [inst<span style="color: #666666">.</span>strip()<span style="color: #666666">.</span>split(<span style="color: #BB4444">&#39;</span><span style="color: #BB6622; font-weight: bold">\t</span><span style="color: #BB4444">&#39;</span>) <span style="color: #AA22FF; font-weight: bold">for</span> inst <span style="color: #AA22FF; font-weight: bold">in</span> fr<span style="color: #666666">.</span>readlines()]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">4</span> <span style="color: #008800; font-style: italic"># 年龄、症状、是否散光、眼泪数量四个属性</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">5</span> lensesLabels <span style="color: #666666">=</span> [<span style="color: #BB4444">&#39;age&#39;</span>,<span style="color: #BB4444">&#39;prescript&#39;</span>,<span style="color: #BB4444">&#39;astigmatic&#39;</span>,<span style="color: #BB4444">&#39;tearRate&#39;</span>,<span style="color: #BB4444">&#39;type&#39;</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">6</span> <span style="color: #008800; font-style: italic"># 根据隐形眼镜的数据集和属性标签构造决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">7</span> lensesTree <span style="color: #666666">=</span> createTree(lenses,lensesLabels)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">8</span> <span style="color: #AA22FF; font-weight: bold">print</span>(lensesTree)
+</pre></div>
+             </div>
+             
+<p>执行结果：</p>
+<p><img src="./img/DecisionTree/2018-08-23_143356.png" alt=""></p>
+<p><b>五、结语</b></p>
+<p>决策树分类器就像带有终止块的流程图，终止块就代表分类结果。对于待处理数据，我们首先需要测量集合中数据的不一致性，即熵；然后再根据每个属性对数据集进行划分并计算划分后的数据集的熵，得到使得数据集信息增益最大的划分属性；根据步骤二得到决策树字典；最后使用 matlibplot 的注解功能，将决策树字典转换为容易理解的树形图。</p>
+             </div>
+
         </div>
         <footer class="footer-area">
             <div class="container" style="margin-left: 220px">

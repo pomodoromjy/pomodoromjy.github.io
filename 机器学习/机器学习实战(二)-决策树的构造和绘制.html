@@ -1,0 +1,1041 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>机器学习实战(二)-决策树的构造和绘制</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- favicon
+		============================================ -->		
+        <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+		
+		<!-- Google Fonts
+		============================================ -->		
+       <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+
+       <!-- article CSS -->
+       <link rel="stylesheet" href="./css/article.css">
+	   
+		<!-- Bootstrap CSS
+		============================================ -->		
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- font-awesome CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+		<!-- owl.carousel CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/owl.carousel.css">
+		<!-- nivo slider CSS
+		============================================ -->
+		<link rel="stylesheet" href="lib/css/nivo-slider.css" type="text/css" />
+		<link rel="stylesheet" href="lib/css/preview.css" type="text/css" media="screen" />
+		<!-- animate CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/animate.css">
+        <!-- meanmenu CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/meanmenu.min.css">
+        <!-- ui CSS
+		============================================ -->
+		<link href="css/jquery-ui.css" rel="stylesheet">
+        <!-- Image Zoom CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/img-zoom/jquery.simpleLens.css">
+		<!-- style CSS
+		============================================ -->
+        <link rel="stylesheet" href="style.css">
+		<!-- responsive CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/responsive.css">
+		<!-- modernizr JS
+		============================================ -->		
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body class="cendo-three-back">
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        
+        <header class="all-header">
+            <!-- <div class="top-three">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="top_header_info">
+                                <ul>
+                                    <li class="info_mail h-three">
+                                        <span> Mail:</span>
+                                        demo@towerthemes.com
+                                    </li>
+                                    <li class="info_phone h-three">
+                                        <span> Call support free:</span>
+                                        (800) 0123 456 789
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-language lock">
+                                <ul class="drop-lang">
+                                    <li>
+                                        <a class="rn rnf" href="#">USD</a>
+                                        <ul class="top-usd">
+                                            <li>
+                                                <a class="h3-color" href="#">GBP</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">EUR</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">USD</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a class="rnf" href="#">
+                                            <img alt="" src="img/flag/gb.png">
+                                            Language
+                                        </a>
+                                        <ul class="sub-lang">
+                                            <li>
+                                                <a class="h3-color" href="#">
+                                                    <img alt="" src="img/flag/gb.png">
+                                                    En
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">
+                                                    <img alt="" src="img/flag/fr.png">
+                                                    Es
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a class="rn lnf" href="#"> My Account </a>
+                                        <ul class="rn2">
+                                            <li>
+                                                <a class="h3-color" href="#">My Account</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">Order Historyt</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">Transactions</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">Downloads</a>
+                                            </li>
+                                            <li>
+                                                <a class="h3-color" href="#">Login</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="bottom-header">
+                <div class="header-inner three-in">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="logo l-three">
+                                    <div class="logo-img">
+                                        <h3>机器学习实战(二)-决策树的构造和绘制</h3>
+                                    </div>
+                                    <div class="top-cart-wrapper wrap three">
+                                        <div class="top-shop-contain">
+                                            <div class="block-shop">
+                                                <!-- <div class="top-shop-title">
+                                                    <a href="#">
+                                                        <img alt="" src="img/shopping-cart/topcart.png">
+                                                        <span class="count three">2</span>
+                                                    </a>
+                                                </div> -->
+                                                <div class="home">
+                                                    <div class="wish-cart margin three">
+                                                        <div class="wish-item">
+                                                            <div class="cat">
+                                                                <a href="#">
+                                                                    <img src="img/product/4-539x761.jpg" alt="">
+                                                                </a>
+                                                                <div class="cat_two">
+                                                                    <p>
+                                                                        <a href="#">adipiscing elit</a>
+                                                                    </p>
+                                                                    <p>1 x $50.00</p>
+                                                                </div>
+                                                                <div class="cat_icon">
+                                                                    <a href="#">
+                                                                        <i class="fa fa-times"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="cat">
+                                                                <a href="#">
+                                                                    <img src="img/product/3-539x761.jpg" alt="">
+                                                                </a>
+                                                                <div class="cat_two">
+                                                                    <p>
+                                                                        <a href="#">sed diam </a>
+                                                                    </p>
+                                                                    <p>1 x $50.00</p>
+                                                                </div>
+                                                                <div class="cat_icon">
+                                                                    <a href="#">
+                                                                        <i class="fa fa-times"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="wish-item">
+                                                            <div class="cat_bottom">
+                                                                <div class="cat_s">
+                                                                    <p>Subtotal:<span>$100.00</span></p>
+                                                                </div>
+                                                                <div class="cat_d cart-three">
+                                                                    <a href="#"><strong>Checkout</strong></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="all-menu clearfix">
+                                <div class="col-md-9">
+                                <div class="muti_menu three-menu">
+                                    <nav>
+                                            <ul>
+                                                <li><a class="fast active" href="../new_blog/blog.html">主页 <!-- <i class="fa fa-angle-down"></i> --></a>
+                                                    <!-- <div class="rayed">
+                                                        <div class="tas menu-last2">
+                                                            <a href="index-2.html">Home Version 2</a>
+                                                            <a href="index-3.html">Home Version 3</a>
+                                                        </div>
+                                                    </div> -->
+                                                </li>
+                                                <li><a href="#">技术学习 <i class="fa fa-angle-down"></i></a>
+                                                    <div class="rayed">
+                                                        <div class="tas menu-last2">
+                                                            <a href="./qianduan_art_list.html">前端学习</a>
+                                                            <a href="./pre_ML_art_list.html">机器学习先导知识</a>
+                                                            <a href="./ML_art_list.html">机器学习</a>
+                                                            <a href="./webspider_art_list.html">网络爬虫</a>
+                                                            <a href="./php_art_list">PHP</a>
+                                                            <!-- <a href="shop.html">shop</a>
+                                                            <a href="shop-list.html">shop List</a>
+                                                            <a href="single-product.html">single-product</a>
+                                                            <a href="shopping-cart.html">shopping-cart</a>
+                                                            <a href="wishlist.html">wishlist</a> -->
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li><a href="shop.html">研究生生活 <i class="fa fa-angle-down"></i></a>
+                                                    <div class="rayed">
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">暂未开通</a>
+                                                            </h3>
+                                                            <!-- <a href="#">Gold Necklaces</a>
+                                                            <a href="#">Platinum Necklaces</a>
+                                                            <a href="#">Silver Necklaces</a>
+                                                            <a href="#">Sunglasses</a> -->
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li><a href="shop.html">生活琐碎 <i class="fa fa-angle-down"></i></a>
+                                                    <div class="tasnim menu-minus">
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="./books_art_list.html">读书</a>
+                                                            </h3>
+                                                            <a href="./books_art_list.html">Books</a>
+                                                            <!-- <a href="#">Cold Weather</a>
+                                                            <a href="#">Fashion Scarves</a>
+                                                            <a href="#">Socks</a>
+                                                            <a href="#">Wedges and Heels</a> -->
+                                                        </div>
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">电影</a>
+                                                            </h3>
+                                                            <a href="#">Movies</a>
+                                                            <!-- <a href="#">Casuals</a>
+                                                            <a href="#">Casuals</a>
+                                                            <a href="#">Gifts and Tech</a>
+                                                            <a href="#">Sneakers</a> -->
+                                                        </div>
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">音乐</a>
+                                                            </h3>
+                                                            <a href="#">Music</a>
+                                                           <!--  <a href="#">Jewelry</a>
+                                                            <a href="#">Ties and Hats</a>
+                                                            <a href="#">Wedges and Heels</a>
+                                                            <a href="#">Belts</a> -->
+                                                        </div>
+                                                        <!-- <div class="tas menu-img">
+                                                            <a  href="#"><img alt="" src="img/product/img_pt_menu_idcat_right.jpg"></a>
+                                                        </div> -->
+                                                    </div>
+                                                </li>
+                                                <!-- <li><a href="shop.html">Lighting <i class="fa fa-angle-down"></i></a>
+                                                    <div class="tasnim menu-minus2">
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">Dresser</a>
+                                                            </h3>
+                                                            <a href="#">Belts</a>
+                                                            <a href="#">Day</a>
+                                                            <a href="#">Evening</a>
+                                                            <a href="#">Shoulder</a>
+                                                            <a href="#">Sundresses</a>
+                                                            <a href="#">Sweater</a>
+                                                        </div>
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">Lamp</a>
+                                                            </h3>
+                                                            <a href="#">Ankle Boots</a>
+                                                            <a href="#">Clutches</a>
+                                                            <a href="#">Cross Body</a>
+                                                            <a href="#">Satchels</a>
+                                                            <a href="#">Shoulder</a>
+                                                            <a href="#">Toter</a>
+                                                        </div>
+                                                        <div class="tas">
+                                                            <h3 class="hedding-border">
+                                                                <a href="#">Dresses</a>
+                                                            </h3>
+                                                            <a href="#">Bras</a>
+                                                            <a href="#">Hair Accessories</a>
+                                                            <a href="#">Hats and Gloves</a>
+                                                            <a href="#">Lifestyle</a>
+                                                            <a href="#">Scarves</a>
+                                                            <a href="#">Tops</a>
+                                                        </div>
+                                                    </div>
+                                                </li> -->
+                                                <li><a href="./trans_art_list.html">翻译</a></li>
+                                                <li><a href="#">关于我</a></li>
+                                            </ul>
+                                        </nav>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <div class="menu-search-top h-three">
+                                    <div class="menu-search-mid three-mid">
+                                        <input class="menu-srch-all" type="text" placeholder="Search" name="search">
+                                        <span class="input-bun-top three">
+                                            <button class="menu-search three" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="main_content" style="width: 1000px;margin:auto;font-size: 16px;line-height: 30px">
+            <p><b>一、前言</b></p>
+            <p>你是否玩过二十个问题的游戏？游戏规则很简单：参与游戏的一方在脑海中想某个事物，其他参与者向其提问，只允许提二十个问题，而且问题的答案只能用对和错来回答。问问题的人通过答案进行推断，逐步缩小猜测事物的范围。决策树原理与二十个问题类似，用户给出一次列输入数据，然后分类器给出答案。</p>
+            <p><img src="./img/DecisionTree/决策树流程图.png" alt=""></p>
+            <p>图 3-1 的流程图就是一个决策树，其中正方形表示判断模块，椭圆形表示终止模块。</p>
+            <p><b>二、决策树构造原理</b></p>
+            <p>在构造决策树时，我们首先需要考虑的问题就是哪个特征在划分数据集时起决定性作用。为了找到决定性特征，划分出最佳结果，我们需要对每个特征进行评估。完成测试后，原始数据集就会被分成几个数据子集。这些数据子集会分布在第一个决策点的所有分支上。如果某个分支上的数据已经属于某一类别，那么该数据子集已经被正确分类，无需进一步划分，反之则需要进一步划分，直到所有相同类型的数据在同一个数据集中为止。</p>
+            <p>一些决策树采用二分法划分数据，本文并不打算采用此方法。如果依据某个属性划分数据将会产生 4 个可能的值，我们将数据划分成四块，创建四个不同的分支。本文将使用 ID3 算法划分数据集。每次划分数据集只需选择一个特征，但如果某个数据集中有 20 个特征，应该如何选取？为了解决这个问题，我们必须采用量化的方法判断如何划分数据，这需要用到信息论的知识。</p>
+            <p><b>三、决策树先导知识</b></p>
+            <p><b>1. 信息增益</b></p>
+            <p>划分数据集的大原则是：将无序的数据变得有序。组织杂乱无章的数据的一种方法就是使用信息论度量信息，我们可以在划分数据前使用信息论度量信息的内容。</p>
+            <p>在划分数据集前后，信息发生的变化叫做信息增益，知道如何计算信息增益，我们就可以计算每个特征划分数据集后的信息增益，然后选择信息增益最大的特征。因此，为了解决这个问题，我们必须学习如何计算信息增益。</p>
+            <p><b>香农熵（熵）</b></p>
+            <p>集合信息的度量方式。</p>
+            <p>熵定义为信息的期望值，在明晰这个概念之前，我们必须知道信息的定义。如果待分类的事物可能划分在多个分类中，则符号<img src="./img/DecisionTree/xi.png" alt="">的信息定义为：</p>
+            <p><img src="./img/DecisionTree/xi信息定义.png" alt=""></p>
+            <p>其中<img src="./img/DecisionTree/pxi.png" alt="">是选择该分类的概率。</p>
+            <p>为了计算熵，我们需要所有类别所有可能值包含的信息期望值，可以通过如下公式得到：</p>
+            <p><img src="./img/DecisionTree/信息熵.png" alt=""></p>
+            <p>其中 n 是分类的数目。</p>
+            <p>计算给定数据集的香农熵</p>
+            <div class="code">
+                <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #AA22FF; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">math</span> <span style="color: #AA22FF; font-weight: bold">import</span> log
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">operator</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">函数说明：构造数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">参数：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">返回值：新构造的数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">createDataSet</span>():
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     dataSet <span style="color: #666666">=</span> [[<span style="color: #666666">1</span>,<span style="color: #666666">1</span>,<span style="color: #BB4444">&#39;yes&#39;</span>],
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>                 [<span style="color: #666666">1</span>,<span style="color: #666666">1</span>,<span style="color: #BB4444">&#39;yes&#39;</span>],
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>                 [<span style="color: #666666">1</span>,<span style="color: #666666">0</span>,<span style="color: #BB4444">&#39;no&#39;</span>],
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>                 [<span style="color: #666666">0</span>,<span style="color: #666666">1</span>,<span style="color: #BB4444">&#39;no&#39;</span>],
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>                 [<span style="color: #666666">0</span>,<span style="color: #666666">1</span>,<span style="color: #BB4444">&#39;no&#39;</span>]]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     labels <span style="color: #666666">=</span> [<span style="color: #BB4444">&#39;no surfacing&#39;</span>,<span style="color: #BB4444">&#39;flippers&#39;</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     <span style="color: #AA22FF; font-weight: bold">return</span> dataSet,labels
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span> <span style="color: #008800; font-style: italic"># dataSet,labels = createDataSet()</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span> <span style="color: #BB4444; font-style: italic">函数说明：计算给定数据集的香农熵</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span> <span style="color: #BB4444; font-style: italic">参数：dataSet -- 数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span> <span style="color: #BB4444; font-style: italic">返回值：shannonEnt -- 数据集的熵</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">26</span> <span style="color: #008800; font-style: italic"># step1：计算数据集信息熵</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">27</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">calcShannonEnt</span>(dataset):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">28</span>     totalNum <span style="color: #666666">=</span> <span style="color: #AA22FF">len</span>(dataset)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">29</span>     labelCounts <span style="color: #666666">=</span> {}
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">30</span>     <span style="color: #AA22FF; font-weight: bold">for</span> featVec <span style="color: #AA22FF; font-weight: bold">in</span> dataset:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">31</span>         currentLabel <span style="color: #666666">=</span> featVec[<span style="color: #666666">-1</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">32</span>         <span style="color: #AA22FF; font-weight: bold">if</span> currentLabel <span style="color: #AA22FF; font-weight: bold">not</span> <span style="color: #AA22FF; font-weight: bold">in</span> labelCounts<span style="color: #666666">.</span>keys():         
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">33</span>             labelCounts[currentLabel] <span style="color: #666666">=</span> <span style="color: #666666">1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">34</span>         <span style="color: #AA22FF; font-weight: bold">else</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">35</span>             labelCounts[currentLabel] <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">36</span>     shannonEnt <span style="color: #666666">=</span> <span style="color: #666666">0.0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">37</span>     <span style="color: #AA22FF; font-weight: bold">for</span> key <span style="color: #AA22FF; font-weight: bold">in</span> labelCounts:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">38</span>         prob <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(labelCounts[key]) <span style="color: #666666">/</span> totalNum
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">39</span>         shannonEnt <span style="color: #666666">-=</span> prob <span style="color: #666666">*</span> log(prob,<span style="color: #666666">2</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">40</span>     <span style="color: #AA22FF; font-weight: bold">return</span> shannonEnt
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">41</span> dataSet,labels <span style="color: #666666">=</span> createDataSet()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">42</span> shannonEnt <span style="color: #666666">=</span> calcShannonEnt(dataSet)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">43</span> <span style="color: #AA22FF; font-weight: bold">print</span>(dataSet)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">44</span> <span style="color: #AA22FF; font-weight: bold">print</span>(shannonEnt)
+</pre></div>
+            </div>
+        <p>执行结果：</p>
+        <p><img src="./img/DecisionTree/计算熵.png" alt=""></p>
+        <p>熵越高，则混合的数据越多。我们可以在数据集中增加分类，观察熵的变化。</p>
+        <div class="code">
+            <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px">1</span> dataSet[<span style="color: #666666">0</span>][<span style="color: #666666">-1</span>] <span style="color: #666666">=</span> <span style="color: #BB4444">&#39;maybe&#39;</span>
+</pre></div>
+        </div>
+        <p><img src="./img/DecisionTree/分类越多熵越高.png" alt=""></p>
+        <p>得到熵之后，我们就可以根据最大信息增益来划分数据集。</p>
+        <p><b>2. 根据给定特征划分数据集</b></p>
+        <p>上一节我们学习如何度量数据的无序程度，也即是熵的计算，接下来我们将对每个特征划分得到的数据集进行信息熵计算，然后找出信息增益最大的划分方式所对应的特征。</p>
+        <p>按照给定的特征划分数据集</p>
+        <div class="code">
+            <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：按照给定特征划分数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：dataSet -- 待划分的数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">      axis -- 划分数据集的特征</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">      value -- 特征的返回值</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">返回值：retDataSet -- 划分好的数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">splitDataSet</span>(dataset,axis,value):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     retDataSet <span style="color: #666666">=</span> []
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     <span style="color: #AA22FF; font-weight: bold">for</span> featVec <span style="color: #AA22FF; font-weight: bold">in</span> dataset:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>         <span style="color: #AA22FF; font-weight: bold">if</span> featVec[axis] <span style="color: #666666">==</span> value:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>             <span style="color: #008800; font-style: italic">#把划分数据集的特征从数据集中剔除，</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>             reducedFeatVec <span style="color: #666666">=</span> featVec[:axis]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>             reducedFeatVec<span style="color: #666666">.</span>extend(featVec[axis<span style="color: #666666">+1</span>:])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>             retDataSet<span style="color: #666666">.</span>append(reducedFeatVec)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     <span style="color: #AA22FF; font-weight: bold">return</span> retDataSet
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>     
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span> <span style="color: #AA22FF; font-weight: bold">print</span>(splitDataSet(dataSet,<span style="color: #666666">0</span>,<span style="color: #666666">1</span>))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span> <span style="color: #AA22FF; font-weight: bold">print</span>(splitDataSet(dataSet,<span style="color: #666666">0</span>,<span style="color: #666666">0</span>))
+</pre></div>
+        </div>
+        <p>执行结果：</p>
+        <p><img src="./img/DecisionTree/按照给定特征划分.png" alt=""></p>
+        <p>目前我们只是根据给定的特征实现了数据集的划分，接下来我们需要遍历整个数据集，对每个特征进行划分并计算信息增益，找到最佳分类特征。</p>
+        <p><b>3. 寻找最佳划分特征</b></p>
+        <div class="code">
+            <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：选择最佳划分特征</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：dataset -- 待划分的数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">返回值：最佳划分特征</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">chooseBestFeatureToSplit</span>(dataset):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span>     <span style="color: #008800; font-style: italic"># 数据集特征数</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span>     numFeatures <span style="color: #666666">=</span> <span style="color: #AA22FF">len</span>(dataset[<span style="color: #666666">0</span>]) <span style="color: #666666">-</span> <span style="color: #666666">1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     <span style="color: #008800; font-style: italic"># 原始数据的信息熵</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     bestEntropy <span style="color: #666666">=</span> calcShannonEnt(dataSet)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     <span style="color: #008800; font-style: italic">#最大信息增益</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     bestInfoGain <span style="color: #666666">=</span> <span style="color: #666666">0.0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     <span style="color: #008800; font-style: italic"># 最佳划分特征</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     bestFeature <span style="color: #666666">=</span> <span style="color: #666666">-1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     <span style="color: #AA22FF; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #AA22FF">range</span>(numFeatures):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>         featureList <span style="color: #666666">=</span> [example[i] <span style="color: #AA22FF; font-weight: bold">for</span> example <span style="color: #AA22FF; font-weight: bold">in</span> dataset]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>         <span style="color: #008800; font-style: italic"># 特征对应的取值</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>         uniqueVals <span style="color: #666666">=</span> <span style="color: #AA22FF">set</span>(featureList)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span>         newEntropy <span style="color: #666666">=</span> <span style="color: #666666">0.0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span>         <span style="color: #AA22FF; font-weight: bold">for</span> value <span style="color: #AA22FF; font-weight: bold">in</span> uniqueVals:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span>             <span style="color: #008800; font-style: italic"># 遍历划分每个特征的每个取值</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span>             subDataSet <span style="color: #666666">=</span> splitDataSet(dataset,i,value)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span>             prob <span style="color: #666666">=</span> <span style="color: #AA22FF">len</span>(subDataSet) <span style="color: #666666">/</span> <span style="color: #AA22FF">float</span>(<span style="color: #AA22FF">len</span>(dataSet))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span>             <span style="color: #008800; font-style: italic"># 新数据集的信息熵</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span>             newEntropy <span style="color: #666666">+=</span> prob <span style="color: #666666">*</span> calcShannonEnt(subDataSet)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">26</span>         <span style="color: #008800; font-style: italic"># 信息增益</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">27</span>         infoGain <span style="color: #666666">=</span> bestEntropy <span style="color: #666666">-</span> newEntropy
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">28</span>         <span style="color: #AA22FF; font-weight: bold">if</span>(infoGain <span style="color: #666666">&gt;</span> bestInfoGain):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">29</span>             bestInfoGain <span style="color: #666666">=</span> infoGain
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">30</span>             bestFeature <span style="color: #666666">=</span> i
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">31</span>     <span style="color: #AA22FF; font-weight: bold">return</span> bestFeature
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">32</span> <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&#39;最佳划分特征：特征&#39;</span>,chooseBestFeatureToSplit(dataSet))
+</pre></div>
+        </div>
+        <p>执行结果：</p>
+        <p><img src="./img/DecisionTree/最佳划分特征.png" alt=""></p>
+        <p>代码运行结果显示，第 0 个特征是划分数据集的最佳特征。也即是第一个特征取值为 1 的是一组，取值为 0 的是一组。可以看到，取值为 1 的分组中有两个是鱼类，有一个是非鱼类；取值为 0 的分组中，两个都是非鱼类。如果按照第二个特征来分类，则取值为 1 的分组中，有两个是鱼类，两个是非鱼类；取值为 0 的分组中，只有一个非鱼类。</p>
+        <p><b>4. 递归构造决策树</b></p>
+        <p>目前我们已经得到从数据集构造决策树算法所需要的子功能模块，其工作原理为：得到原始数据集，然后基于最佳分类特征对数据集进行划分，由于特征值可能不止两个，所以可能存在大于两个分支的数据集划分。第一次划分之后，数据被向下传递到数分支的下一个节点，在这个节点上，我们可以再次划分数据。因此我们可以采用递归的原则来处理数据集。</p>
+        <p>递归结束的条件：当程序遍历完所有划分数据集的属性或所有分支下的实例都属于同一个分类。如果所有实例具有相同的分类，则得到一个叶子节点或者说终止块。任何到达叶子节点的数据必定属于叶子节点的分类。</p>
+        <p>由于特征数目并不一定每次划分都会减少，因此这些算法在实际使用时可能会出现一些问题。不过目前我们并不需要考虑这个问题，我们只需要在算法开始运行前计算出所有列的数目，查看算法是否使用了所有属性即可。如果数据集已经处理了所有属性，但分类标签并不唯一的情况下，我们通常会采用多数表决的方法决定该叶子节点的分类。</p>
+        <div class="code">
+            <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：在叶子节点类别标签不唯一的情况下，采用多数表决的方法决定该叶子节点的分类</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数:classList -- 数据集所有分类标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">返回值：叶子节点中出现次数最多的分类标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">majorityCnt</span>(classList):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span>     <span style="color: #008800; font-style: italic">#初始化字典用于记录各分类标签及其出现的次数</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span>     classCount <span style="color: #666666">=</span> {}
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     <span style="color: #008800; font-style: italic"># 遍历数据集中的所有分类标签，并统计其出现的次数</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     <span style="color: #AA22FF; font-weight: bold">for</span> vote <span style="color: #AA22FF; font-weight: bold">in</span> classList:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>         <span style="color: #AA22FF; font-weight: bold">if</span> vote <span style="color: #AA22FF; font-weight: bold">not</span> <span style="color: #AA22FF; font-weight: bold">in</span> classList<span style="color: #666666">.</span>keys():
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>             classCount[vote] <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>         <span style="color: #AA22FF; font-weight: bold">else</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>             classCount[vote] <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     <span style="color: #008800; font-style: italic"># 对分类标签出现的次数进行排序</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     sortedClassCount <span style="color: #666666">=</span> <span style="color: #AA22FF">sorted</span>(classCount<span style="color: #666666">.</span>items(),key<span style="color: #666666">=</span>operator<span style="color: #666666">.</span>itemgetter(<span style="color: #666666">1</span>),reverse<span style="color: #666666">=</span><span style="color: #AA22FF">True</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>     <span style="color: #AA22FF; font-weight: bold">return</span> sortedClassCount[<span style="color: #666666">0</span>][<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span> <span style="color: #BB4444; font-style: italic">函数说明：创建树的函数代码,构造决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span> <span style="color: #BB4444; font-style: italic">参数：dataSet -- 数据集</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span> <span style="color: #BB4444; font-style: italic">     labels -- 数据集所有分类标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span> <span style="color: #BB4444; font-style: italic">返回值：根据数据集构造得到的决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">createTree</span>(dataSet,labels):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">26</span>     <span style="color: #008800; font-style: italic"># 得到数据集的所有类别标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">27</span>     classList <span style="color: #666666">=</span> [example[<span style="color: #666666">-1</span>] <span style="color: #AA22FF; font-weight: bold">for</span> example <span style="color: #AA22FF; font-weight: bold">in</span> dataSet]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">28</span>     <span style="color: #008800; font-style: italic"># 如果数据集中的所有数据都属于同一类别，则停止划分</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">29</span>     <span style="color: #AA22FF; font-weight: bold">if</span> classList<span style="color: #666666">.</span>count(classList[<span style="color: #666666">0</span>]) <span style="color: #666666">==</span> <span style="color: #AA22FF">len</span>(classList):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">30</span>         <span style="color: #AA22FF; font-weight: bold">return</span> classList[<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">31</span>     <span style="color: #008800; font-style: italic">#当遍历完所有特征时(即数据集的列数为1时)，仍然不能将数据集划分成分类标签唯一的分组，则返回出现次数最多的分类标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">32</span>     <span style="color: #AA22FF; font-weight: bold">if</span> <span style="color: #AA22FF">len</span>(dataSet[<span style="color: #666666">0</span>]) <span style="color: #666666">==</span> <span style="color: #666666">1</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">33</span>         <span style="color: #AA22FF; font-weight: bold">return</span> majorityCnt(classList)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">34</span>     bestFeat <span style="color: #666666">=</span> chooseBestFeatureToSplit(dataSet)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">35</span>     bestFeatLabel <span style="color: #666666">=</span> labels[bestFeat]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">36</span>     <span style="color: #008800; font-style: italic"># 由当前最佳分类特征组成的决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">37</span>     myTree <span style="color: #666666">=</span> {bestFeatLabel:{}}
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">38</span>     <span style="color: #008800; font-style: italic"># 当特征被添加到决策树中后，就将其从分类标签中删除</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">39</span>     <span style="color: #AA22FF; font-weight: bold">del</span>(labels[bestFeat])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">40</span>     <span style="color: #008800; font-style: italic"># 最佳分类特征的取值</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">41</span>     featValues <span style="color: #666666">=</span> [example[bestFeat] <span style="color: #AA22FF; font-weight: bold">for</span> example <span style="color: #AA22FF; font-weight: bold">in</span> dataSet]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">42</span>     uniqueVals <span style="color: #666666">=</span> <span style="color: #AA22FF">set</span>(featValues)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">43</span>     <span style="color: #008800; font-style: italic"># 删除最佳分类特征之后的所有分类标签</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">44</span>     <span style="color: #AA22FF; font-weight: bold">for</span> value  <span style="color: #AA22FF; font-weight: bold">in</span> uniqueVals:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">45</span>         subLabels <span style="color: #666666">=</span> labels[:]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">46</span>         <span style="color: #008800; font-style: italic"># 递归得到当前数据集的最佳分类特征，并构造决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">47</span>         myTree[bestFeatLabel][value] <span style="color: #666666">=</span> createTree(splitDataSet(dataSet,bestFeat,value),subLabels)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">48</span>     <span style="color: #AA22FF; font-weight: bold">return</span> myTree
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">49</span> mytree <span style="color: #666666">=</span> createTree(dataSet,labels)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">50</span> <span style="color: #AA22FF; font-weight: bold">print</span>(mytree)
+</pre></div>
+        </div>
+        <p>执行结果为：</p>
+        <p><img src="./img/DecisionTree/决策树.png" alt=""></p>
+        <p>变量 mytree 包含了很多代表树结构信息的嵌套字典，第一个关键字 no surfacing 是第一个最佳数据集划分特征，该关键字的值又是另一个数据字典。关键字的值可能是分类标签，也有可能是另一个数据字典。如果值时分类标签，则该子节点就是叶子节点；否则该节点就是另一个判断节点，这种格式不断重复就构成了整棵树，也就是我们刚刚看到的执行结果。但是以字典的方式呈现决策树非常不便于理解，因此，我们接下来将绘制决策树，以更加直观的方式来观察决策树。</p>
+        <p><b>5. 在 Python 中使用 matplotlib 注解绘制决策树</b></p>
+        <div class="code">
+            <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：使用matplotlib绘制树节点</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：nodeText -- 节点注解</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">      centerPt -- 子节点</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">      parentPt -- 父节点</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">      nodeType -- 节点类型</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">返回值： </span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span> <span style="color: #008800; font-style: italic"># 定义判断节点、子节点以及箭头的格式</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span> decisionNode <span style="color: #666666">=</span> <span style="color: #AA22FF">dict</span>(boxstyle <span style="color: #666666">=</span> <span style="color: #BB4444">&quot;sawtooth&quot;</span>,fc <span style="color: #666666">=</span> <span style="color: #BB4444">&quot;0.8&quot;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span> leafNode <span style="color: #666666">=</span> <span style="color: #AA22FF">dict</span>(boxstyle <span style="color: #666666">=</span> <span style="color: #BB4444">&quot;round4&quot;</span>,fc <span style="color: #666666">=</span> <span style="color: #BB4444">&quot;0.8&quot;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span> arrow_args <span style="color: #666666">=</span> <span style="color: #AA22FF">dict</span>(arrowstyle <span style="color: #666666">=</span> <span style="color: #BB4444">&quot;&lt;-&quot;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">plotNode</span>(nodeText,centerPt,parentPt,nodeType):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>     <span style="color: #008800; font-style: italic"># 绘制带箭头的注解</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>     createPlot<span style="color: #666666">.</span>ax1<span style="color: #666666">.</span>annotate(nodeText,xy<span style="color: #666666">=</span>parentPt,xycoords <span style="color: #666666">=</span> <span style="color: #BB4444">&#39;axes fraction&#39;</span>,xytext <span style="color: #666666">=</span> centerPt,textcoords <span style="color: #666666">=</span> <span style="color: #BB4444">&#39;axes fraction&#39;</span>,va <span style="color: #666666">=</span> <span style="color: #BB4444">&quot;center&quot;</span>,ha <span style="color: #666666">=</span> <span style="color: #BB4444">&quot;center&quot;</span>,bbox <span style="color: #666666">=</span> nodeType,arrowprops <span style="color: #666666">=</span> arrow_args)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">createPlot</span>():
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span>     fig <span style="color: #666666">=</span> plt<span style="color: #666666">.</span>figure(<span style="color: #666666">1</span>,facecolor <span style="color: #666666">=</span> <span style="color: #BB4444">&#39;white&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span>     fig<span style="color: #666666">.</span>clf()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span>     createPlot<span style="color: #666666">.</span>ax1 <span style="color: #666666">=</span> plt<span style="color: #666666">.</span>subplot(<span style="color: #666666">111</span>,frameon <span style="color: #666666">=</span> <span style="color: #AA22FF">False</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span>     <span style="color: #008800; font-style: italic"># 绘制判断节点</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span>     plotNode(<span style="color: #BB4444">&#39;a decison node&#39;</span>,(<span style="color: #666666">0.5</span>,<span style="color: #666666">0.1</span>),(<span style="color: #666666">0.1</span>,<span style="color: #666666">0.5</span>),decisionNode)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span>     <span style="color: #008800; font-style: italic"># 绘制子节点</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">26</span>     plotNode(<span style="color: #BB4444">&#39;a leaf node&#39;</span>,(<span style="color: #666666">0.8</span>,<span style="color: #666666">0.1</span>),(<span style="color: #666666">0.3</span>,<span style="color: #666666">0.8</span>),leafNode)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">27</span>     plt<span style="color: #666666">.</span>show()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">28</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">29</span> createPlot()
+</pre></div>
+        </div>
+        <p>绘制树节点：</p>
+        <p><img src="./img/DecisionTree/绘制树节点.png" alt=""></p>
+        <p>现在我们已经学会了树节点的绘制，接下来我们将要对整棵树进行绘制。</p>
+        <p>绘制一颗完整的数需要一些技巧。虽然我们有 x , y  坐标，但如何放置所有的树节点是个问题。我们必须知道有多少个叶节点，以便我们能确定 x 轴的长度；我们还需要知道数有多少层，以便确定 y 轴的长度。因此这里我们定义了两个函数 getNumLeafs() 和 getTreeDepth 来获取叶子节点的数目以及数的高度。</p>
+        <div class="code">
+            <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：获取叶子节点的数目以及数的高度</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：myTree -- 决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">返回值: numLeafs -- 叶子节点数</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">        maxDepth -- 数的高度</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">getNumLeafs</span>(myTree):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span>     <span style="color: #008800; font-style: italic">#初始化叶子节点数</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     numLeafs <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     <span style="color: #008800; font-style: italic">#得到第一个关键字</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     firstStr <span style="color: #666666">=</span> <span style="color: #AA22FF">list</span>(myTree<span style="color: #666666">.</span>keys())[<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     <span style="color: #008800; font-style: italic"># 得到第一个关键字的值，该值又是一个字典</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span>     secondDict <span style="color: #666666">=</span> myTree[firstStr]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span>     <span style="color: #008800; font-style: italic"># 遍历第二个字典的值，判断是字典还是叶子节点</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span>     <span style="color: #AA22FF; font-weight: bold">for</span> key <span style="color: #AA22FF; font-weight: bold">in</span> secondDict<span style="color: #666666">.</span>keys():
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span>         <span style="color: #AA22FF; font-weight: bold">if</span> <span style="color: #AA22FF">type</span>(secondDict[key])<span style="color: #666666">.</span>__name__ <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;dict&#39;</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span>             <span style="color: #008800; font-style: italic"># 递归遍历</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span>             numLeafs <span style="color: #666666">+=</span> getNumLeafs(secondDict[key])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span>         <span style="color: #AA22FF; font-weight: bold">else</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span>             numLeafs <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span>     <span style="color: #AA22FF; font-weight: bold">return</span> numLeafs
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span> numLeafs <span style="color: #666666">=</span> getNumLeafs(mytree)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span> <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&#39;width of tree:&#39;</span>,numLeafs)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">26</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">getTreeDepth</span>(myTree):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">27</span>     <span style="color: #008800; font-style: italic"># 初始化数的高度</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">28</span>     maxDepth <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">29</span>     firstStr <span style="color: #666666">=</span> <span style="color: #AA22FF">list</span>(myTree<span style="color: #666666">.</span>keys())[<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">30</span>     secondDict <span style="color: #666666">=</span> myTree[firstStr]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">31</span>     <span style="color: #AA22FF; font-weight: bold">for</span> key <span style="color: #AA22FF; font-weight: bold">in</span> secondDict<span style="color: #666666">.</span>keys():
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">32</span>         <span style="color: #AA22FF; font-weight: bold">if</span> <span style="color: #AA22FF">type</span>(secondDict[key])<span style="color: #666666">.</span>__name__ <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;dict&#39;</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">33</span>             thisDepth <span style="color: #666666">=</span> <span style="color: #666666">1</span> <span style="color: #666666">+</span> getTreeDepth(secondDict[key])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">34</span>         <span style="color: #AA22FF; font-weight: bold">else</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">35</span>             thisDepth <span style="color: #666666">=</span> <span style="color: #666666">1</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">36</span>         <span style="color: #AA22FF; font-weight: bold">if</span> thisDepth <span style="color: #666666">&gt;</span> maxDepth:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">37</span>             maxDepth <span style="color: #666666">=</span> thisDepth
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">38</span>     <span style="color: #AA22FF; font-weight: bold">return</span> maxDepth
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">39</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">40</span> treeDepth <span style="color: #666666">=</span> getTreeDepth(mytree)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">41</span> <span style="color: #AA22FF; font-weight: bold">print</span>(<span style="color: #BB4444">&#39;depth of tree:&#39;</span>,treeDepth)
+</pre></div>
+        </div>
+        <p>计算得到数的宽度和高度分别为：</p>
+        <p><img src="./img/DecisionTree/计算数的宽度和高度.png" alt=""></p>
+        <div class="code">
+            <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #BB4444; font-style: italic">函数说明：在父子节点之间填充文本信息</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 3</span> <span style="color: #BB4444; font-style: italic">参数：cntrPt -- 子节点</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 4</span> <span style="color: #BB4444; font-style: italic">      parentPt -- 父节点</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 5</span> <span style="color: #BB4444; font-style: italic">      txtString -- 文本信息</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 6</span> <span style="color: #BB4444; font-style: italic">返回值：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 7</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 8</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">plotMidText</span>(cntrPt,parentPt,txtString):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 9</span>     <span style="color: #008800; font-style: italic"># 文本信息的横坐标</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">10</span>     xMid <span style="color: #666666">=</span> (parentPt[<span style="color: #666666">0</span>] <span style="color: #666666">-</span> cntrPt[<span style="color: #666666">0</span>]) <span style="color: #666666">/</span> <span style="color: #666666">2.0</span> <span style="color: #666666">+</span> cntrPt[<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">11</span>     yMid <span style="color: #666666">=</span> (parentPt[<span style="color: #666666">1</span>] <span style="color: #666666">-</span> cntrPt[<span style="color: #666666">1</span>]) <span style="color: #666666">/</span> <span style="color: #666666">2.0</span> <span style="color: #666666">+</span> cntrPt[<span style="color: #666666">1</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">12</span>     createPlot<span style="color: #666666">.</span>ax1<span style="color: #666666">.</span>text(xMid,yMid,txtString)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">13</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">14</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">15</span> <span style="color: #BB4444; font-style: italic">函数说明：绘制的具体步骤</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">16</span> <span style="color: #BB4444; font-style: italic">参数：mytree -- 决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">17</span> <span style="color: #BB4444; font-style: italic">      parentPt -- 父节点</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">18</span> <span style="color: #BB4444; font-style: italic">      nodeTxt -- 节点信息</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">19</span> <span style="color: #BB4444; font-style: italic">返回值：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">20</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">21</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">plotTree</span>(myTree,parentPt,nodeTxt):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">22</span>     numLeafs <span style="color: #666666">=</span> getNumLeafs(myTree)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">23</span>     depth <span style="color: #666666">=</span> getTreeDepth(myTree)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">24</span>     <span style="color: #008800; font-style: italic"># 决策树的第一个关键字</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">25</span>     firstStr <span style="color: #666666">=</span> <span style="color: #AA22FF">list</span>(myTree<span style="color: #666666">.</span>keys())[<span style="color: #666666">0</span>]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">26</span>     <span style="color: #008800; font-style: italic"># 计算子节点的位置</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">27</span>     cntrPt <span style="color: #666666">=</span> (plotTree<span style="color: #666666">.</span>xOff <span style="color: #666666">+</span> (<span style="color: #666666">1.0</span> <span style="color: #666666">+</span> <span style="color: #AA22FF">float</span>(numLeafs)) <span style="color: #666666">/</span> <span style="color: #666666">2.0</span> <span style="color: #666666">/</span> plotTree<span style="color: #666666">.</span>totalW,plotTree<span style="color: #666666">.</span>yOff)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">28</span>     <span style="color: #008800; font-style: italic"># 在父子节点之间填充文本信息</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">29</span>     plotMidText(cntrPt,parentPt,nodeTxt)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">30</span>     <span style="color: #008800; font-style: italic"># 绘制节点</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">31</span>     plotNode(firstStr,cntrPt,parentPt,decisionNode)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">32</span>     secondDict <span style="color: #666666">=</span> myTree[firstStr]
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">33</span>     plotTree<span style="color: #666666">.</span>yOff <span style="color: #666666">=</span> plotTree<span style="color: #666666">.</span>yOff <span style="color: #666666">-</span> <span style="color: #666666">1.0</span> <span style="color: #666666">/</span> plotTree<span style="color: #666666">.</span>totalD
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">34</span>     <span style="color: #008800; font-style: italic"># 递归绘制决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">35</span>     <span style="color: #AA22FF; font-weight: bold">for</span> key <span style="color: #AA22FF; font-weight: bold">in</span> secondDict<span style="color: #666666">.</span>keys():
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">36</span>         <span style="color: #AA22FF; font-weight: bold">if</span> <span style="color: #AA22FF">type</span>(secondDict[key])<span style="color: #666666">.</span>__name__ <span style="color: #666666">==</span> <span style="color: #BB4444">&#39;dict&#39;</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">37</span>             plotTree(secondDict[key],cntrPt,<span style="color: #AA22FF">str</span>(key))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">38</span>         <span style="color: #AA22FF; font-weight: bold">else</span>:
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">39</span>             plotTree<span style="color: #666666">.</span>xOff <span style="color: #666666">=</span>  plotTree<span style="color: #666666">.</span>xOff <span style="color: #666666">+</span> <span style="color: #666666">1</span> <span style="color: #666666">/</span> plotTree<span style="color: #666666">.</span>totalW
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">40</span>             plotNode(secondDict[key],(plotTree<span style="color: #666666">.</span>xOff,plotTree<span style="color: #666666">.</span>yOff),cntrPt,leafNode)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">41</span>             plotMidText((plotTree<span style="color: #666666">.</span>xOff,plotTree<span style="color: #666666">.</span>yOff),cntrPt,<span style="color: #AA22FF">str</span>(key))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">42</span>     plotTree<span style="color: #666666">.</span>yOff <span style="color: #666666">=</span> plotTree<span style="color: #666666">.</span>yOff <span style="color: #666666">+</span> <span style="color: #666666">1.0</span> <span style="color: #666666">/</span> plotTree<span style="color: #666666">.</span>totalD
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">43</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">44</span> 
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">45</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">46</span> <span style="color: #BB4444; font-style: italic">函数说明:将决策树以图形的形式绘制出来</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">47</span> <span style="color: #BB4444; font-style: italic">参数：inTree -- 决策树</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">48</span> <span style="color: #BB4444; font-style: italic">返回值：无</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">49</span> <span style="color: #BB4444; font-style: italic">&#39;&#39;&#39;</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">50</span> <span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">createPlot</span>(inTree):
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">51</span>     fig <span style="color: #666666">=</span> plt<span style="color: #666666">.</span>figure(<span style="color: #666666">1</span>,facecolor <span style="color: #666666">=</span> <span style="color: #BB4444">&#39;white&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">52</span>     fig<span style="color: #666666">.</span>clf()
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">53</span>     <span style="color: #008800; font-style: italic">#将xy坐标存放于一个字典内，不过此时的xy坐标值为空</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">54</span>     axprops <span style="color: #666666">=</span> <span style="color: #AA22FF">dict</span>(xticks<span style="color: #666666">=</span>[],ytick<span style="color: #666666">=</span>[])
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">55</span>     createPlot<span style="color: #666666">.</span>ax1 <span style="color: #666666">=</span> plt<span style="color: #666666">.</span>subplot(<span style="color: #666666">111</span>,frameon<span style="color: #666666">=</span><span style="color: #AA22FF">False</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">56</span>     <span style="color: #008800; font-style: italic"># 数的宽度，用于计算判断节点的位置（应该在水平方向和垂直方向的中心位置）</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">57</span>     plotTree<span style="color: #666666">.</span>totalW <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(getNumLeafs(inTree))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">58</span>     plotTree<span style="color: #666666">.</span>totalD <span style="color: #666666">=</span> <span style="color: #AA22FF">float</span>(getTreeDepth(inTree))
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">59</span>     <span style="color: #008800; font-style: italic">#例如有三个叶子节点，那么它们将x轴平分为三等分，坐标依次为1/3,2/3,3/3,但此时整个图像靠右，并不在画布的中心，因此将其向左移</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">60</span>     <span style="color: #008800; font-style: italic"># plotTree.xOff、plotTree.yOff用于追踪已绘制节点的位置，以及放置下一个节点的位置</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">61</span>     plotTree<span style="color: #666666">.</span>xOff <span style="color: #666666">=</span> <span style="color: #666666">-0.5</span> <span style="color: #666666">/</span> plotTree<span style="color: #666666">.</span>totalW
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">62</span>     plotTree<span style="color: #666666">.</span>yOff <span style="color: #666666">=</span> <span style="color: #666666">1.0</span>
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">63</span>     plotTree(inTree,(<span style="color: #666666">0.5</span>,<span style="color: #666666">1.0</span>),<span style="color: #BB4444">&#39;&#39;</span>)
+<span style="background-color: #f8f8f8; padding: 0 5px 0 5px">64</span>     plt<span style="color: #666666">.</span>show()
+</pre></div>
+        </div>
+        <p>绘制得到的决策树如下：</p>
+        <p><img src="./img/DecisionTree/绘制得到的决策树.png" alt=""></p>
+        <p>到目前为止，我们已经学习而了如何构造决策树以及绘制树形图的方法，下一节我们将实际使用这些方法，并从算法和数据中得到新知识。</p>
+        <div>(1) 分割数据</div>
+                <div class="code">
+                    
+                    eg. # step1: 利用正则式切分文本,将字符串里的非单词、数字去掉，得到一系列由词组成的词表<br>
+                    <code>import re <br>
+                    regEx = re.compile('\\W*') <br>
+                    mySent = 'This book is the best book on Python or M.L. I have ever laid eyes upon.' <br>
+                    listOfTokens = regEx.split(mySent) <br>
+                    #输出未做任何处理的原始数据<br>
+                    print(mySent) <br>
+                    <img src="./images/未做处理的原始语句.png" alt=""><br>
+                    #输出作分割处理的语句<br>
+                    print(listOfTokens) <br>
+                    <img src="./images/语句分割成单词.png" alt=""><br>
+                    # 为了去掉空字符串，对每个字符串的长度进行计算，只保留长度大于0的字符串 <br>
+                    # dealedList = [tok  for tok in listOfTokens if len(tok) > 0] <br>
+                    # 将所有字符串都转化为小写 <br>
+                    dealedList = [tok.lower()  for tok in listOfTokens if len(tok) > 0] <br>            #输出最终处理结果，即长度大于0的所有单词的小写形式
+                    print(dealedList) <br>
+                    <img src="./images/最终处理结果.png" alt=""><br>
+                    </code>
+                    将数据分割封装成函数<br>
+                    <code>
+                        def textParse(bigString): <br>
+                            <p>
+                            import re <br>
+                            listOfTokens = re.split(r'\W*',bigString) <br>
+                            return [tok.lower() for tok in listOfTokens if len(tok) > 2] <br>
+                            </p>
+                    </code>
+                </div>
+                <div>(2)对数据进行预处理之后，将进行文件解析及完整的测试函数</div>
+                <code>
+                    def spamTest(): <br>
+                    <p>
+                        docList = [] <br>
+                        classList = [] <br>
+                        fullText = [] <br>  
+                        # 读取文件夹 spam 中的所有邮件，邮件的命名方式必须为 数字.txt,调用之前准备的数据处理函数，将邮件切分为单词 <br>
+                        for i in range(1,5): <br>
+                        wordList = textParse(open('D:/py_work/data/email/spam/%d.txt' %i).read()) <br>
+                        docList.append(wordList) <br>
+                        fullText.extend(wordList)<br>
+                        #垃圾邮件标记为1 <br>
+                        classList.append(1)<br>
+                        wordList = textParse(open('D:/py_work/data/email/ham/%d.txt' %i).read())<br>
+                        docList.append(wordList)<br>
+                        fullText.extend(wordList)<br>
+                        # 正常邮件标记为0 <br>
+                        classList.append(0) <br>
+                        #邮件处理之后，形成单词，创建一个单词不重复的列表 <br>
+                        vocabList = bytes.createVocabList(docList) <br>
+                        # 本例中共有8封邮件,每种邮件各4封,将其从0到7进行编号 <br>
+                        trainingSet = list(range(8)) <br>
+                        testSet = [] <br>
+                        # 随机选择2封邮件作为测试集 <br>
+                        for i in range(2): <br>
+                        </p>
+                        <p style="padding-left: 4em">
+                            # 从0到8之间随机选择2个数<br>
+                            randIndex = int(random.uniform(0,len(trainingSet)))<br>
+                            # 将随机生成的2个编号对应的邮件插入到测试列表中<br>
+                            testSet.append(trainingSet[randIndex])<br>
+                            # 删除训练集中已经加入到测试集中的邮件<br>
+                            del(trainingSet[randIndex])<br>
+                        </p>
+                        <p>
+                        初始化测试集向量<br>
+                        trainMat = []<br>
+                        # 初始化测试集邮件类别<br>
+                        trainClasses = []<br>
+                        for docIndex in trainingSet:<br>
+                        </p>
+                        <p style="padding-left: 4em">
+                            #不考虑词集中某个特征出现的次数，可以描述为词集模型<br>
+                            #词表到向量的转化<br>
+                            trainMat.append(bytes.setOfWords2Vec(vocabList,docList[docIndex]))<br>
+                            trainClasses.append(classList[docIndex])<br>
+                        </p>
+                        <p>
+                        #朴素贝叶斯分类器训练函数，分别计算垃圾邮件和正常邮件的概率<br>
+                        p0v,p1v,pSpam = bytes.trainNBO(np.array(trainMat),np.array(trainClasses))<br>
+                        errorCount = 0<br>
+                        # 对测试集进行测试<br>
+                        for docIndex in testSet:<br>
+                        </p>
+                        <p style="padding-left: 4em">
+                            wordVector = bytes.setOfWords2Vec(vocabList,docList[docIndex])
+                            # 将刚刚计算出的概率进行比较以分类
+                            if bytes.classifiNB(np.array(wordVector),p0v,p1v,pSpam) != classList[docIndex]:
+                                errorCount += 1
+                        </p>
+                        <p> 
+                        print('the errorCount rate is',float(errorCount) / len(testSet))
+                    </p>
+                </code>
+        </div>
+        <footer class="footer-area">
+            <div class="container" style="margin-left: 220px">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="footer-title-up">
+                            <div class="footer-title">
+                                <h3>关于本站</h3>
+                            </div>
+                            <div class="about-us">
+                                <p>生命并不是你活了多少日子，而是你记住了多少日子。你要使你过的每一天都值得记忆。记录生活，记录美好！</p>
+                            </div>
+                            <br>
+                            <div class="footer-static-content">
+                                <a class="add" href="" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook"></i>
+    </a>   
+                                <a href="" class="wishlist" data-toggle="tooltip" title="Rss"><i class="fa fa-rss"></i></a>
+                               <a href="" class="wishlist" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="" class="search2" data-toggle="tooltip" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                                <a href="" class="wishlist" data-toggle="tooltip" title="Google"><i class="fa fa-google-plus"></i></a>
+                            </div>
+                            <!-- <div class="left-powered">
+                                <a href="#">
+                                    <img src="img/icon/payment.png" alt="">
+                                </a>    
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12 res-free">
+                        <div class="footer-title-up">
+                            <div class="footer-title">
+                                <h3>技术学习</h3>
+                            </div>
+                            <div class="footer-content">
+                                <ul class="toggle-footer">
+                                    <li>
+                                        <a href="./ML_art_list.html">机器学习</a>
+                                    </li>
+                                    <li>
+                                        <a href="./webspider_art_list.html">网络爬虫</a>
+                                    </li>
+                                    <li>
+                                        <a href="./qianduan_art_list.html">前端学习</a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="#">Returns</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Contact Us</a>
+                                    </li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 hidden-sm col-xs-12 res-free">
+                        <div class="footer-title-up">
+                            <div class="footer-title">
+                                <h3>生活琐碎</h3>
+                            </div>
+                            <div class="footer-content">
+                                <ul class="toggle-footer">
+                                    <li>
+                                        <a href="./books_art_list.html">读书</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">电影</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">音乐</a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="#">Brands</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Gift Vouchers</a>
+                                    </li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12 res-free">
+                    <!-- <img src="../images/website/32659e788a693850edda5d0056dff49f.jpg" alt=""> -->
+                        <!-- <div class="footer-title-up">
+                            <div class="footer-title">
+                                <h3>Contact Us</h3>
+                            </div>
+                            <div class="toggle-footer footer-content">
+                                <span class="address icon">Address: 123 Main Street, Anytown,CA 12345 USA.</span>
+                                <span class="phone icon">(800) 0123 456 789</span>
+                                <span class="email icon">admin@Bootexperts.com</span>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="last-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="footer-address">
+                                <address>
+                                    Copyright ©
+                                    <a href="#">Pomodoromjy</a>
+                                    All Rights Reserved
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+            
+        
+        <!-- start scrollUp
+		============================================ -->
+        <div id="toTop">
+            <i class="fa fa-chevron-up"></i>
+        </div>
+        <!-- end scrollUp
+		============================================ -->
+        <!-- QUICKVIEW PRODUCT -->
+        <div id="quickview-wrapper">
+            <!-- Modal -->
+            <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-product">
+                                <div class="product-images">
+                                    <div class="main-image images">
+                                        <img class="secondary-image" alt="" src="img/product/8-539x761.jpg">
+                                    </div>
+                                </div><!-- .product-images -->
+
+                                <div class="cras">
+                                    <div class="product-name">
+                                        <h1>Ut wisi enim</h1>
+                                    </div>
+                                    <div class="pro-rating cendo-pro">
+                                        <div class="pro_one">
+                                            <img src="img/icon/stars-1.png" alt="">
+                                        </div>
+                                        <p class="rating-links quick3">
+                                            <a href="#">1 Reviews</a>
+                                        </p>
+                                    </div>
+                                    <p class="availability in-stock">
+                                        Product Code: Product 3
+                                    </p>
+                                    <p class="availability in-stock2">
+                                        Availability:In stock
+                                    </p>
+                                    <div class="short-description">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla. Donec a neque libero. Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio...</p>
+                                    </div>
+                                    <div class="pre-box quick3">
+                                        <span class="special-price">$155.00</span>
+                                    </div>
+                                    <div class="add-to-box1">
+                                        <div class="add-to-box add-to-box2">
+                                            <div class="add-to-cart">
+                                                <div class="input-content">
+                                                    <label for="qty">Quantity:</label>
+                                                    <input id="qty" class="input-text qty" type="text" name="qty" maxlength="12" value="1" title="Qty">
+                                                </div>
+                                                <div class="product-icon quick3">
+                                                    <a href="#">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                    </a>
+                                                    <a href="#">
+                                                        <i class="fa fa-heart"></i>
+                                                    </a>
+                                                    <a href="#">
+                                                        <i class="fa fa-retweet"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- .product-info -->
+                            </div><!-- .modal-product -->
+                        </div><!-- .modal-body -->
+                    </div><!-- .modal-content -->
+                </div><!-- .modal-dialog -->
+            </div>
+            <!-- END Modal -->
+        </div>
+	    <!-- END QUICKVIEW PRODUCT -->
+        
+        
+		<!-- jquery
+		============================================ -->		
+        <script src="js/vendor/jquery-1.11.3.min.js"></script>
+		<!-- bootstrap JS
+		============================================ -->		
+        <script src="js/bootstrap.min.js"></script>
+		<!-- wow JS
+		============================================ -->		
+        <script src="js/wow.min.js"></script>
+		<!-- price-slider JS
+		============================================ -->		
+        <script src="js/jquery-price-slider.js"></script>
+        <!-- Img Zoom js -->
+		<script src="js/img-zoom/jquery.simpleLens.min.js"></script>			
+		<!-- meanmenu JS
+		============================================ -->		
+        <script src="js/jquery.meanmenu.js"></script>
+		<!-- owl.carousel JS
+		============================================ -->		
+        <script src="js/owl.carousel.min.js"></script>
+        <!-- jquery.ui js -->
+        <script src="js/jquery-ui.min.js"></script>
+		<!-- scrollUp JS
+		============================================ -->		
+        <script src="js/jquery.scrollUp.min.js"></script>
+		<!-- Nivo slider js
+		============================================ --> 		
+		<script src="lib/js/jquery.nivo.slider.js" type="text/javascript"></script>
+		<script src="lib/home.js" type="text/javascript"></script>
+		<!-- plugins JS
+		============================================ -->		
+        <script src="js/plugins.js"></script>
+		<!-- main JS
+		============================================ -->		
+        <script src="js/main.js"></script>
+    </body>
+</html>
