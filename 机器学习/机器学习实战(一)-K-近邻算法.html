@@ -377,13 +377,13 @@
                 <li>魅力一般的人</li>
                 <li>极具魅力的人</li>
             </ul>
-            <p>海伦希望我们的分类软件可以很好的帮助她将匹配对象划分到确切的分类中。经过一段时间的数据收集，她把数据放在了 <a href="D:/py_work/data/chapter1-knn/dating/datingTestSet.txt">datingTestSet.txt</a> 中，每个样本数据占一行，共 1000 行，每个样本数据包含以下三种特征：</p>
+            <p>海伦希望我们的分类软件可以很好的帮助她将匹配对象划分到确切的分类中。经过一段时间的数据收集，她把数据放在了 <a href="./data/chapter2-knn\dating/datingTestSet.txt">datingTestSet.txt</a> 中，每个样本数据占一行，共 1000 行，每个样本数据包含以下三种特征：</p>
             <ul style="list-style: circle;margin-left: 50px">
                 <li>每年获得的飞行常客里程数</li>
                 <li>玩游戏所耗时间百分比</li>
                 <li>每周消耗的冰淇淋公斤数</li>
             </ul>
-            <p><b>1. 加载数据集，把普通文本问价转化为 Python 矩阵并将分类标签数字化</b></p>
+            <p><b>1. 加载数据集，把普通文本文件转化为 Python 矩阵并将分类标签数字化</b></p>
             <div class="code">
                 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #AA22FF; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
 <span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 2</span> <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">matplotlib.pyplot</span> <span style="color: #AA22FF; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">plt</span>
@@ -592,7 +592,7 @@
            <p><b>四、实战环节 -- 使用 k-近邻算法实现手写识别系统</b></p>
            <p>本小节我们将使用 k-近邻算法构造手写识别分类器。为了简单起见，这里的识别系统只能识别数字 0 到 9。需要识别的数字已经使用图形处理软件，处理成具有相同色彩和大小：即 32 x 32 px 的黑白图像。尽管采用文本形式存储图像不能有效的利用存储空间，但为了方便理解，我们还是将图像转换为文本格式。</p>
            <p><b>1. 数据准备：将图像转换为测试向量</b></p>
-           <p>实际图像分别存储在 <a href="D:/py_work/data/chapter2-knn/digits/testDigits">testDigits</a> 和 <a href="D:/py_work/data/chapter2-knn/digits/trainingDigits">trainingDigits</a> 内，其中训练集包含了大约 2000 个例子，每个数字大概有 200 个样本；测试集中大约包含 900 个测试数据。</p>
+           <p>实际图像分别存储在 <a href="./data/chapter2-knn/digits/testDigits">testDigits</a> 和 <a href="./data/chapter2-knn/digits/trainingDigits">trainingDigits</a> 内，其中训练集包含了大约 2000 个例子，每个数字大概有 200 个样本；测试集中大约包含 900 个测试数据。</p>
            <p>为了使用之前例子的分类器，我们需要将图像转换为一个向量，即将 32 x 32 的图像矩阵转换为 1 x 1024 的向量。</p>
            <div class="code">
                <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f8f8f8; padding: 0 5px 0 5px"> 1</span> <span style="color: #AA22FF; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #666666">*</span>
