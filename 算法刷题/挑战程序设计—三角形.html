@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Cendo | Home 3</title>
+        <title>挑战程序设计-三角形</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,6 +14,9 @@
 		<!-- Google Fonts
 		============================================ -->		
        <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+       
+       <!-- article CSS -->
+       <link rel="stylesheet" href="./css/article.css">
 	   
 		<!-- Bootstrap CSS
 		============================================ -->		
@@ -145,7 +148,7 @@
                             <div class="col-md-12 col-xs-12">
                                 <div class="logo l-three">
                                     <div class="logo-img">
-                                        <h3>机器学习实战(十)-连续型数值预测-回归之预测鲍鱼年龄</h3>
+                                        <h3>挑战程序设计-三角形</h3>
                                     </div>
                                     <div class="top-cart-wrapper wrap three">
                                         <div class="top-shop-contain">
@@ -216,7 +219,7 @@
                                 <div class="muti_menu three-menu">
                                     <nav>
                                             <ul>
-                                                <li><a class="fast active" href="./blog.html">主页 <!-- <i class="fa fa-angle-down"></i> --></a>
+                                                <li><a class="fast active" href="../new_blog/blog.html">主页 <!-- <i class="fa fa-angle-down"></i> --></a>
                                                     <!-- <div class="rayed">
                                                         <div class="tas menu-last2">
                                                             <a href="index-2.html">Home Version 2</a>
@@ -352,28 +355,59 @@
                 </div>
             </div>
         </header>
-        <div class="main_content" style="width: 1000px;margin:auto;font-size: 16px">
-        接下来我们将回归应用于真实数据，这里有一份来自 UCI 数据集合的数据，记录了鲍鱼<br>
-    (一种介壳类水生动物)的年龄。鲍鱼年龄可以根据鲍鱼壳的层数推算得到。<br>
-    通过设置不同的 k 值，将会得到不同的误差：<br>
-    <img src="./images/回归/预测鲍鱼年龄.png" alt=""><br>
-    执行结果<br>
-    <img src="./images/回归/不同k值下的错误率.png" alt=""><br>
-    从执行结果可以看出，使用较小的核可以得到较低的误差，那么为何不在所有的数据集上使用最小的核呢？<br>这是因为使用最小的核将造成过拟合，在测试集上误差最小的核对新数据不一定达到最好的效果，<br>
-    下面就来看看它们在新数据上分别表现如何。<br>
-    不同 k 值在新数据上的表现：<br>
-    <img src="./images/回归/不同k值在新数据上的表现.png" alt=""><br>
-    执行结果<br>
-    <img src="./images/回归/不同k值在新数据上的错误率.png" alt=""><br>
-    在标准线性回归下的错误率: <br>
-    <img src="./images/回归/标准线性回归预测鲍鱼年龄.png" alt=""><br>
-    执行结果：<br>
-    <img src="./images/回归/标准线性回归错误率.png" alt=""><br>
-    可以看出，k = 0.1 时在新数据上的表现并不好，k = 10 时在新数据上的表现最好，<br>但是在测试集上表现却最差。与标准线性回归有着类似的预测结果，这表明必须在<br>未知数据上比较预测结果才能选取到最佳的预测模型。但局部加权线性回归存在个问题，<br>那就是每次必须在整个数据集上进行运算，增加了计算量。<br>
-    <a href="D:/py_work/data/regression/abalone.txt">数据集下载</a><br>
-    <a href="D:/py_work/code/chapter_8_regression/predictAblAge.py">完整代码</a>
+        <div class="main_content" style="width: 1000px;margin:auto;font-size: 16px;line-height: 30px">
+            <p><b>一、问题描述</b></p>
+            <p>有 n 根棍子，每根棍子 i 的长度为 ai , 从中选出 3 根棍子组成周长尽肯能长的三角形</p>
+            <p>输入：棍子数量 n ,每根棍子的长度 ai </p>
+            <p>输出：最大周长，若无法组成三角形，则输出 0 </p>
+            <p><b>二、代码</b></p>
+            <code>
+            	<p>/*
+三角形</p>
+<p>输入：棍子数目 n , 每根棍子 i 的长度 ai</p>
+<p>问题描述：从中选取3根棍子组成周长尽可能长的三角形</p>
+<p>输出：三角形的最大周长，无法组成三角形则输出 0</p>
+<p>测试样例：</p>
+<p>5</p>
+<p>2 3 4 5 10</p>
+<p>12</p>
+<p>4</p>
+<p>4 5 10 20</p>
+<p>0
+*/</p>
+<pre><code>#include&lt;iostream&gt;
+using namespace std;
 
+int main(){
+    int n,a[100];
+    while(cin&gt;&gt;n){
+        int ans = 0;
+        for (int i = 0;i &lt; n;i++) {
+            cin&gt;&gt;a[i];
+        }
+    for( int i = 0;i &lt; n;i++) {
+        for(int j = i + 1;j &lt; n;j++) {
+            for(int k = j + 1;k &lt; n;k++) {
+                int len = a[i] + a[j] + a[k];
+                int ma = max(a[i],max(a[j],a[k]));
+                int rest = len - ma;
+                if(rest &gt; ma){
+                    ans = max(ans,len);
+                }
+            }
+        }
+    }
+    cout&lt;&lt;ans&lt;&lt;endl;
+    }
+    return 0;
+}
+</code></pre>
+            </code>
+
+          
         </div>
+
+        <!-- footer -->
         <footer class="footer-area">
             <div class="container" style="margin-left: 220px">
                 <div class="row">
