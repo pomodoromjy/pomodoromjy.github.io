@@ -148,7 +148,7 @@
                             <div class="col-md-12 col-xs-12">
                                 <div class="logo l-three">
                                     <div class="logo-img">
-                                        <h3>挑战程序设计-ANTS</h3>
+                                        <h3>挑战程序设计-难度增加的抽签题目</h3>
                                     </div>
                                     <div class="top-cart-wrapper wrap three">
                                         <div class="top-shop-contain">
@@ -357,55 +357,220 @@
         </header>
         <div class="main_content" style="width: 1000px;margin:auto;font-size: 16px;line-height: 30px">
             <p><b>一、问题描述</b></p>
-            <img src="../images/suanfa/ANTS.PNG">
+            <img src="../images/suanfa/抽签题目.PNG">
 
-            <p><b>二、分析</b></p>
-             <p>每只蚂蚁的方向有两种可能，若使用穷举法列举所有肯能，则为 2^n , 显然时间开销太大，是不可取的，因此考虑分析题目，排除一些不可能的情况，从而减小时间开销</p>
-            <p>最短时间：容易理解的是让每只蚂蚁朝离端点近的方向走时间是最短的，而这种情况下是不会出现蚂蚁相遇的情况的 </p>
-            <p>最长时间：首先考虑蚂蚁相遇时会发生什么，题目中说到相遇时各自方向爬回去，其实这与它们相遇时各自向前爬是等价的。也就是说，每只蚂蚁的运动是独立的。因此，最长时间也就是蚂蚁朝离端点远的方向走。 </p>
-
-            <p><b>三、代码</b></p>
-          <pre><code>#include&lt;iostream&gt;
+            <p><b>二、暴力求解法</b></p>
+             <p>最简单粗暴的方法就是用 4 重循环求解此题</p>
+             <p>代码如下</p>
+             <pre><code>#include&lt;iostream&gt;
 using namespace std;
 
-#define max_n 100000
+#define max_n 50
 
 int main()
 {
-    int L,n,a[max_n];
-    cout&lt;&lt;&quot;please enter L:&quot;&lt;&lt;endl;
-    cin&gt;&gt;L;
+    int n,m,a[max_n];
+    cout&lt;&lt;&quot;please enter m:&quot;&lt;&lt;endl;
+    cin&gt;&gt;m;
     cout&lt;&lt;&quot;please enter n:&quot;&lt;&lt;endl;
     while(cin&gt;&gt;n)
     {
-        int min_T = 0;
-        int max_T = 0;
+        bool f = false;
         for(int i = 0; i &lt; n; i++)
         {
             cin&gt;&gt;a[i];
         }
-        //计算最短时间
         for(int j = 0; j &lt; n; j++)
         {
-            min_T = max(min_T, min(a[j],L - a[j]));
+            for(int k = 0; k &lt; n; k++)
+            {
+                for(int z = 0; z &lt; n; z++)
+                {
+                    for(int d = 0; d &lt; n; d++)
+                    {
+                        if(m == a[j] + a[k] + a[z] + a[d])
+                        {
+                            f  = true;
+                        }
+                    }
+                }
+            }
         }
-
-        //计算最长时间
-        for(int k = 0; k &lt; n; k++)
+        if(f == 0)
         {
-            max_T = max(max_T, max(a[k],L - a[k]));
+            cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;
         }
+        else
+            cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;
 
-        cout&lt;&lt;&quot;min_T: &quot;&lt;&lt;min_T&lt;&lt;endl;
-        cout&lt;&lt;&quot;max_T: &quot;&lt;&lt;max_T&lt;&lt;endl;
     }
 
+}
+</code></pre>
+<p>上述方法时间复杂度为 O(n^4) , 当 n 值较大时，显然是不合适的。因此必须改进算法。</p>
+
+            <p><b>三、二分法求解</b></p>
+            <p>首先介绍一下二分法，为了在数组 a[n] 中查找是否包含 k , 二分法先将数组进行排序，然后选择元素 a[n/2] 与 k 进行比较，若 k 大于 a[n/2] ， 则说明要查找的元素在后半部分，否则在前半部分，重复此过程，直到找到 k 或者遍历完所有元素。该方法的时间复杂度为 O(logn) .</p>
+          	<p>分析方法一的循环部分，关于最内侧循环做的事就是判断 m == a[j] + a[k] + a[z] + a[d] ，将等式变换为 a[d] == m - a[j] + a[k] + a[z] , 此时我们就可以用二分法求解此题了。</p>
+          	<p>二分法求解代码</p>
+          	<pre><code>//二分法
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+
+#define max_n 1000
+
+
+bool binary_search(int x, int n, int a[max_n]);
+
+int main()
+{
+    int m,n,a[max_n];
+    cout&lt;&lt;&quot;please enter m:&quot;&lt;&lt;endl;
+    cin&gt;&gt;m;
+    cout&lt;&lt;&quot;please enter n:&quot;&lt;&lt;endl;
+    while(cin&gt;&gt;n)
+    {
+        bool f = false;
+        for(int i = 0; i &lt; n; i++)
+        {
+            cin&gt;&gt;a[i];
+        }
+        //对数组进行排序
+        sort(a,a+n);
+        for(int j = 0; j &lt; n; j++)
+        {
+            for(int k = 0; k &lt; n; k++)
+            {
+                for(int z = 0; z &lt; n; z++)
+                {
+
+                    if(binary_search((m - a[j] - a[k] -a[z]), n, a)) {
+                        f = true;
+                    }
+                }
+            }
+        }
+        if(f)
+        {
+            cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;
+        }
+        else
+        {
+            cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;
+        }
+    }
     return 0;
+}
+
+bool binary_search(int x, int n, int a[max_n])
+{
+    int l = 0, r = n;
+    while(r - l &gt;= 1)
+    {
+        int i = (l + r) / 2;
+        if(x == a[i])
+        {
+            return true;
+        }
+        else if(x &gt; a[i])
+        {
+            l = i + 1;
+        }
+        else
+        {
+            r = i;
+        }
+
+    }
+    return false;
+}
+</code></pre>
+	<p>该方法的时间复杂度为O(n^3logn) . 当 n 为 1000 时，这个时间复杂度依然达不到我们的要求。刚才的二分法只考虑了最内层的循环，那么是否可以考虑优化内侧的两层循环呢？ 也就是说考虑 a[k] + a[z] = m - a[i] - a[j] , 这时就不能直接使用二分法了，但我们只要把 a[k] + a[z] 看做一个数就可以再次使用二分法了。因此我们需要算出所有可能的 a[k] + a[z] 的值，并将其进行排序。 </p>
+	<p>优化后代码</p>
+	<pre><code>//二分法优化
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+
+#define max_n 1000
+
+
+bool binary_search(int x, int n, int a[max_n]);
+
+int main()
+{
+    int m,n,a[max_n];
+    cout&lt;&lt;&quot;please enter m:&quot;&lt;&lt;endl;
+    cin&gt;&gt;m;
+    cout&lt;&lt;&quot;please enter n:&quot;&lt;&lt;endl;
+    while(cin&gt;&gt;n)
+    {
+        int new_arr = n * n;
+        int b[new_arr];
+        bool f = false;
+        for(int i = 0; i &lt; n; i++)
+        {
+            cin&gt;&gt;a[i];
+        }
+        //计算 a[i] + a[j] 的所有可能值
+        for(int w = 0; w &lt; n; w++)
+        {
+            for(int v = 0; v &lt; n; v++)
+            {
+                b[w * n + v] = a[w] + a[v];
+            }
+        }
+        //对新数组进行排序
+        sort(b,b + new_arr);
+        for(int j = 0; j &lt; n; j++)
+        {
+            for(int k = 0; k&lt; n; k++)
+            {
+                if(binary_search((m - a[j] -a[k]), new_arr, b))
+                {
+                    f = true;
+                }
+            }
+        }
+        if(f)
+        {
+            cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;
+        }
+        else
+        {
+            cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;
+        }
+    }
+    return 0;
+}
+
+bool binary_search(int x, int n, int a[max_n])
+{
+    int l = 0, r = n;
+    while(r - l &gt;= 1)
+    {
+        int i = (l + r) / 2;
+        if(x == a[i])
+        {
+            return true;
+        }
+        else if(x &gt; a[i])
+        {
+            l = i + 1;
+        }
+        else
+        {
+            r = i;
+        }
+
+    }
+    return false;
 }
 </code></pre>
 
-            <p><b>四、测试样例</b></p>
-            <img src="../images/suanfa/ANT测试.PNG">
+            <p><b>五、测试样例</b></p>
+            <img src="../images/suanfa/抽签测试.PNG">
 
           
         </div>
